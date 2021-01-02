@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{!-- js --}}
+    {{#if js}}
+    <script src='/js/{{js}}' async defer></script>
+    {{/if}}
+    {{!-- css --}}
+    {{#if style}}
+    <link rel="stylesheet" href="./css/{{style}}">
+    {{/if}}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogging</title>
+</head>
+
+<body>
+    {{{body}}}
+</body>
+
+</html>
