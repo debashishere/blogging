@@ -23,6 +23,7 @@ router.get('/google/callback',
 //@route /auth/logout
 router.get('/logout', ensureAuth, (req, res) => {
     req.logOut();
+    res.clearCookie("user_session_id");
     res.redirect('/');
 })
 

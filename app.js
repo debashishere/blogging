@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 
 //Load Configuration
 dotenv.config({ path: './config/config.env' });
@@ -32,14 +34,23 @@ app.use(bodyParser.json());
 
 //session
 app.use(session({
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        // clear session from store
+        autoRemove: 'interval',
+        autoRemoveInterval: 2, // (In minutes after session expires). Defaut in minute
+        touchAfter: 24 * 3600 // pdate the session after (time period in seconds)
+    }),
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
-    resave: false
+    resave: false,
+    name: process.env.COOKIE_NAME,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 1000 * 60 * 5, // session will aslo expire 5 minutes
+    }
 }))
-
-
-
-
 
 
 
