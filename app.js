@@ -1,5 +1,7 @@
 const guest = require('./routes/guest');
+const auth = require('./routes/auth');
 const connectDB = require('./config/db');
+const profile = require('./routes/profile');
 
 const dotenv = require('dotenv')
 const express = require('express');
@@ -7,10 +9,13 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const passport = require('passport');
 
 //Load Configuration
 dotenv.config({ path: './config/config.env' });
 
+//passport config
+require('./config/passport')(passport)
 
 //connect db
 connectDB();
@@ -39,9 +44,14 @@ app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+//passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Routes
 app.use('/', guest);
-
+app.use('/profile', profile);
+app.use('/auth', auth);
 
 
 
