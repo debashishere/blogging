@@ -10,6 +10,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const passport = require('passport');
+const session = require('express-session');
 
 //Load Configuration
 dotenv.config({ path: './config/config.env' });
@@ -29,7 +30,12 @@ if (process.env.NODE_ENV === 'development') {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
+//session
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false
+}))
 
 
 

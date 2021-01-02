@@ -10,11 +10,10 @@ module.exports = function (passport) {
         async (accessToken, refreshToken, profile, done) => {
             try {
                 //all db relataed work with profile and token
-                // console.log(profile);
-                let user = await User.find({ googleId: profile.id })
-                if (user[0]) {
-                    console.log('user found');
-                    done(null, user[0]);
+                let user = await User.findOne({ googleId: profile.id })
+                console.log(user)
+                if (user) {
+                    done(null, user);
                 } else {
                     //user not found
                     // insert a new user
@@ -51,6 +50,9 @@ module.exports = function (passport) {
     })
 
     passport.deserializeUser(function (id, done) {
-        done(err, user);
+        User.findById(id, (err, user) => {
+            done(err, user);
+        })
+
     })
 }

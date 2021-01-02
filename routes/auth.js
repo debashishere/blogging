@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const passport = require('passport');
+const { ensureAuth } = require('../middleware/auth');
 
 //auth routes
 //@desc Auth with google
@@ -20,7 +21,7 @@ router.get('/google/callback',
 
 //@desc Logout User
 //@route /auth/logout
-router.get('/logout', (req, res) => {
+router.get('/logout', ensureAuth, (req, res) => {
     req.logOut();
     res.redirect('/');
 })

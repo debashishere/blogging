@@ -1,8 +1,9 @@
 const router = require('express').Router();
+const { ensureAuth } = require('../middleware/auth');
 
 //@desc protected profile
 //route /profile
-router.get('/', (req, res) => {
+router.get('/', ensureAuth, (req, res) => {
     res.render('profile', {
     })
 })
