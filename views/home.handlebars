@@ -1,3 +1,14 @@
 <p>U r Home</p>
 
 <a href="/auth/google">Login with google</a>
+
+{{#if articles}}
+{{#each articles}}
+<hr><br>
+<p>{{this.title}}</p>
+<p>{{this.status}}</p>
+<p>{{this.body }}</p>
+<p>{{user.image }}
+
+    {{/each}}
+    {{/if}}

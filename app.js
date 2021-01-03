@@ -1,4 +1,4 @@
-const guest = require('./routes/guest');
+const article = require('./routes/article');
 const auth = require('./routes/auth');
 const connectDB = require('./config/db');
 const profile = require('./routes/profile');
@@ -66,7 +66,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
-app.use('/', guest);
+app.use('/', article);
 app.use('/profile', profile);
 app.use('/auth', auth);
 

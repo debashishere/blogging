@@ -4,7 +4,6 @@ const { ensureAuth } = require('../middleware/auth');
 //@desc protected profile
 //route /profile
 router.get('/', ensureAuth, (req, res) => {
-    console.log('session', req.session)
     res.render('profile', {
     })
 })
