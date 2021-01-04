@@ -14,7 +14,8 @@ router.get("/", async (req, res) => {
             layout: 'main',
             js: 'home.js',
             style: 'home.css',
-            articles,
+            header_style: 'header.css',
+            articles
         })
     } catch (err) {
         console.log(err)
@@ -26,7 +27,8 @@ router.get("/", async (req, res) => {
 //@desc show create blog page
 //@route GET /new
 router.get('/new', ensureAuth, (req, res) => {
-    res.render('add_blog', {
+    res.render('add_article', {
+        style: 'add_article.css'
 
     })
 })

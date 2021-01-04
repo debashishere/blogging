@@ -2,9 +2,15 @@
 <html lang="en">
 
 <head>
-    {{!-- js --}}
-    {{#if js}}
-    <script src='/js/{{js}}' async defer></script>
+
+    {{!-- header's css file --}}
+    {{#if header_style }}
+    <link rel="stylesheet" href='/css/{{header_style}}'>
+    {{/if}}
+
+    {{!-- js --}} {{#if js}}
+    <script src='/js/{{js}}' async defer>
+    </script>
     {{/if}}
     {{!-- css --}}
     {{#if style}}
@@ -17,6 +23,7 @@
 </head>
 
 <body>
+
     {{{body}}}
 </body>
 
