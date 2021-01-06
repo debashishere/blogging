@@ -2,6 +2,10 @@ const router = require('express').Router();
 const { ensureAuth } = require('../middleware/auth');
 const Article = require('../model/Article');
 
+//controller fumctions
+const { renderCreateArticle, renderArticle } = require('../controller/render');
+const { createNewArticle } = require('../controller/services');
+
 //to store and retrive image in mongodb
 const fs = require('fs');
 const multer = require('multer');
@@ -28,71 +32,38 @@ const upload = multer({
 })
 
 
-//@desc show create blog page
+//@desc show create article page
 //@route GET /article/new
 router.get('/new', ensureAuth, (req, res) => {
-    res.render('articles/add_article', {
-        style: 'add_article.css'
-
-    })
+    renderCreateArticle(req, res);
 })
 
 //@desc process create blog
 //@route POST /article/new
 router.post('/new', upload.single('cover-image'), ensureAuth, async (req, res) => {
-    try {
-        // console.log(req.file);
-        const newArticle = new Article({
-            title: req.body.title,
-            cover_image: req.file.filename,
-            body: {
-                text: req.body.body,
-            },
-            status: req.body.status,
-            user: req.user._id,
-
+    const article = createNewArticle(req);
+    article
+        .then(isArticle => {
+            //check if article is created
+            if (isArticle) {
+                res.redirect('/profile');
+                // TODO: Alert created message
+            }
+            else {
+                //TODO: render error
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            //Handle Error
         })
 
-        newArticle
-            .save()
-            .then(data => {
-                // console.log('data', data)
-                if (data) {
-                    console.log('article created successfully', data); //TODO: alert created
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-
-        //redirect to profile
-        res.redirect('/profile')
-    }
-    catch (err) {
-        console.error(err);
-        // alet error while create the post
-        res.redirect('/profile');
-    }
 })
 
 //@desc show article with id
 //route /article/:id
-router.get('/:id', async (req, res) => {
-    try {
-        const article = await Article.findById(req.params.id, (err, data) => {
-            if (err) {
-                //handle error
-            }
-            // console.log('data', data);
-            res.render('articles/article', {
-                title: data.title
-            })
-        })
-    }
-    catch (err) {
-        console.log(err);
-    }
-
+router.get('/:id', (req, res) => {
+    renderArticle(req.params.id, res)
 })
 
 
