@@ -2,6 +2,8 @@ const article = require('./routes/article');
 const auth = require('./routes/auth');
 const connectDB = require('./config/db');
 const profile = require('./routes/profile');
+const dashboard = require('./routes/dashboard');
+const home = require('./routes/home');
 
 const dotenv = require('dotenv')
 const express = require('express');
@@ -13,6 +15,9 @@ const passport = require('passport');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+
+
+
 
 //Load Configuration
 dotenv.config({ path: './config/config.env' });
@@ -29,6 +34,8 @@ const app = express();
 if (process.env.NODE_ENV === 'development') {
     app.use(logger('dev'));
 }
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -38,7 +45,7 @@ app.use(session({
         mongooseConnection: mongoose.connection,
         // clear session from store
         autoRemove: 'interval',
-        autoRemoveInterval: 2, // (In minutes after session expires). Defaut in minute
+        autoRemoveInterval: 60, // (In minutes after session expires). Defaut in minute
         touchAfter: 24 * 3600 // pdate the session after (time period in seconds)
     }),
     secret: process.env.SESSION_SECRET,
@@ -66,9 +73,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
-app.use('/', article);
+app.use('/', home);
+app.use('/article', article);
 app.use('/profile', profile);
 app.use('/auth', auth);
+app.use('/dashboard', dashboard);
 
 
 

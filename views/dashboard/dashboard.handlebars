@@ -1,0 +1,12 @@
+<h3>Your Posts</h3>
+{{#if articles}}
+{{#each articles }}
+<a href="/article/{{_id}}"> {{this.title}}</a><br>
+{{!-- <p>{{this.body.text}}</p>
+<img src="./uploads/images/{{this.cover_image}}" style="height: 200px; width: 200px"> --}}
+{{/each}}
+
+{{else}}
+<p>You have not created any post yet</p>
+
+{{/if}}

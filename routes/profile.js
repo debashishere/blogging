@@ -4,7 +4,9 @@ const { ensureAuth } = require('../middleware/auth');
 //@desc protected profile
 //route /profile
 router.get('/', ensureAuth, (req, res) => {
-    res.render('profile', {
+
+    //show all post for the user
+    res.render('profile/profile', {
     })
 })
 

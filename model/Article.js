@@ -6,9 +6,14 @@ const ArticleSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    body: {
-        type: String,
-        require: true
+    cover_image: {
+        type: String
+    },
+    body:
+    {
+        text: {
+            type: String
+        }
     },
     status: {
         type: String,
