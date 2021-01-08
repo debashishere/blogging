@@ -1,7 +1,5 @@
 //MongoDb Services
-const { getAticlesByUser, getPublicArticles, getArticleByID } = require('./services');
-
-
+const { getAticlesByUser, getPublicArticles, getArticleById } = require('./services');
 
 
 //render views
@@ -16,6 +14,15 @@ module.exports = {
             header_style: 'header.css',
             articles
         })
+    },
+    renderAbout: (req, res) => {
+        res.render('about')
+    },
+    renderContact: (req, res) => {
+        res.render('contact')
+    },
+    renderPublicArticle: (req, res) => {
+        res.render('articles/public_article')
     },
     renderDashboard: (req, res) => {
         const articles = getAticlesByUser(req.user._id)
@@ -38,10 +45,10 @@ module.exports = {
     },
     //render a single article
     renderArticle: (id, res) => {
-        const result = getArticleByID(id);
+        const result = getArticleById(id);
         result
             .then((article) => {
-                res.render('articles/article', {
+                res.render('articles/private_article', {
                     title: article.title
                 })
             })
@@ -52,5 +59,17 @@ module.exports = {
     renderProfile: (res) => {
         res.render('profile/profile', {
         })
+    },
+    renderEditArticle: (id, res) => {
+        const result = getArticleById(id);
+        result
+            .then((article) => {
+                res.render('articles/edit_article', {
+                    article,
+                })
+            })
+            .catch(err => {
+                console.log('render error', err)
+            })
     }
 }

@@ -1,6 +1,7 @@
 {{>header}}
 <section class="body-container">
     <div class="body-content">
+        {{!-- left --}}
         <div class="body-left-container">
             <div class="sign-up-card">
                 <div class="card-content">
@@ -13,10 +14,12 @@
             <div class="quick-links">
                 <a href="">Home</a>
                 <a href="/new">Write</a>
-                <a href="">About</a>
-                <a href="">Contact</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
             </div>
         </div>
+
+        {{!-- post content --}}
         <div class="post-container">
             <div class="post-top">
                 <h2>Posts</h2>
@@ -29,6 +32,14 @@
                 </div>
             </div>
             <div class="post">
+                <div class="card" style="width: 100%;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
                 {{!-- single post --}}
                 {{!-- {{#if articles}}
                 {{#each articles}}
@@ -42,6 +53,7 @@
             </div>
         </div>
 
+        {{!-- right --}}
         <div class="body-right-container">
             <div class="body-right">
 

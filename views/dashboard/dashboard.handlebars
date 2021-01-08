@@ -1,7 +1,16 @@
 <h3>Your Posts</h3>
 {{#if articles}}
 {{#each articles }}
+<hr>
 <a href="/article/{{_id}}"> {{this.title}}</a><br>
+
+<div class="">
+    <a href="/article/edit/{{_id}}">Edit</a>
+
+    <form action="/article/{{_id}}?_method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+    </form>
+</div>
 {{!-- <p>{{this.body.text}}</p>
 <img src="./uploads/images/{{this.cover_image}}" style="height: 200px; width: 200px"> --}}
 {{/each}}

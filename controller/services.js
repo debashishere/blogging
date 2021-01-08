@@ -1,4 +1,5 @@
 const Article = require('../model/Article');
+const fs = require('fs');
 
 //databse services
 
@@ -36,9 +37,9 @@ module.exports = {
     },
 
     //get one article by id
-    getArticleByID: async (id) => {
+    getArticleById: async (id) => {
         try {
-            const article = await Article.findById(id).exec();
+            const article = await Article.findById(id).lean().exec();
             if (article) {
                 return article;
             } else {
@@ -54,16 +55,16 @@ module.exports = {
     //create a new article in db
     createNewArticle: async (req) => {
         try {
-            const newArticle = {
+            let newArticle = {
                 title: req.body.title,
-                cover_image: req.file.filename,
                 body: {
-                    text: req.body.body,
+                    text: req.body.text,
                 },
+                cover_image: req.file.filename,
                 status: req.body.status,
                 user: req.user._id,
             }
-            console.log('inserting')
+            //insert into db
             const article = await Article.create(newArticle);
             if (article._id) {
                 return true;
@@ -72,8 +73,34 @@ module.exports = {
             }
         }
         catch (err) {
+            console.log(err)
             //handle db error
             return false;
+        }
+    },
+
+    //delete a article by id
+    deleteArticle: async (id) => {
+        try {
+            const result = await Article.findByIdAndDelete(id).exec();
+            return result;
+        }
+        catch (err) {
+            return false;
+        }
+
+    },
+
+    //update a article by id
+    updateArticle: async (id, data) => {
+        try {
+            const article = await Article.findOneAndUpdate({ _id: id }, data, { new: true, runValidators: true });
+            return true;
+        }
+        catch (err) {
+            console.log(err);
+            return false;
+            // TODO: render error
         }
     }
 }

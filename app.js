@@ -15,7 +15,7 @@ const passport = require('passport');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
-
+const methodOverride = require('method-override');
 
 
 
@@ -55,18 +55,27 @@ app.use(session({
     cookie: {
         secure: false,
         httpOnly: true,
-        maxAge: 1000 * 60 * 5, // session will aslo expire 5 minutes
+        maxAge: 1000 * 60 * 60, // session will aslo expire 60 minutes
     }
 }))
 
 
 
 //VIEWS
-app.engine('handlebars', exphbs());
+//helpers
+const { select } = require('./helpers/hbs');
+app.engine('handlebars', exphbs({
+    helpers: {
+        select
+    }
+}));
 app.set('view engine', 'handlebars');
+
 //public
 app.use(express.static(path.join(__dirname, 'public')));
 
+//method override for DELETE
+app.use(methodOverride('_method'));
 
 //passport
 app.use(passport.initialize());
