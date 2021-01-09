@@ -3,13 +3,12 @@
     <div class="body-content">
         {{!-- left --}}
         <div class="body-left-container">
-            <div class="sign-up-card">
-                <div class="card-content">
-                    <h4>DEV Community is a community of 541,333 amazing developers</h4>
-                    <p></p>We're a place where coders share, stay up-to-date and grow their careers.</p>
-                    <a class="btn card-btn" href="/auth/google">Account</a>
-
+            <div class="sign-up-container">
+                <div class="sign-up-content">
+                    <h4><span>Let's Build</span> a community of amazing developers join us</h4>
+                    <p>We're a place where coders share, stay up-to-date and grow their careers.</p>
                 </div>
+                <a href="/auth/google" class="account-btn">Create new account</a>
             </div>
             <div class="quick-links">
                 <a href="">Home</a>
@@ -24,45 +23,148 @@
             <div class="post-top">
                 <h2>Posts</h2>
                 <div class="post-links">
-                    <a href="">Feed</a>
+                    <a href="" class="selected">Feed</a>
                     <a href="">Week</a>
                     <a href="">Month</a>
                     <a href="">Year</a>
                     <a href="">Infinity</a>
                 </div>
             </div>
-            <div class="post">
-                <div class="card" style="width: 100%;">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
+            <div class="post-content">
+                {{!-- single card --}}
+                <div class="card">
+                    <div class="row">
+                        <div class="imgBx">
+                            <img class="card-img" src="./images/image1.png" alt="Card image cap">
+                        </div>
+                        <hr>
+                        <div class="desc">
+                            <div class="user">
+                                <div class="user-img">
+                                    <img src="./images/thumb.jpg">
+                                </div>
+                                <div class="user-desc">
+                                    <a href="#" class="name"> user name</a>
+                                    <a href="#" class="date">Jan 7</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>40 "Free Forever" Tools for Developers</h3>
+                                <div class="card-footer">
+                                    <div class="f-link">
+                                        <div class="reaction-logo">
+                                            <p>LOGO</p>
+                                        </div>
+                                        <div class="reaction-count">
+                                            <p>223</p>
+                                        </div>
+                                        <div class="reaction-text">
+                                            <p>reactions</p>
+                                        </div>
+                                    </div>
+                                    <div class="f-link">
+                                        <div class="reaction-logo">
+                                            <p>LOGO</p>
+                                        </div>
+                                        <div class="reaction-count">
+                                            <p>4</p>
+                                        </div>
+                                        <div class="reaction-text">
+                                            <p>comments</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                {{!-- single post --}}
-                {{!-- {{#if articles}}
-                {{#each articles}}
-                <p>{{this.title}}</p>
-                <p>{{this.status}}</p>
-                <p>{{this.body }}</p>
-                <p>{{user.image }}
+                {{!-- END single card --}}
 
-                    {{/each}}
-                    {{/if}} --}}
+                {{!-- single card --}}
+                <div class="card">
+                    <div class="row">
+                        <div class="desc">
+                            <div class="user">
+                                <div class="user-img">
+                                    <img src="./images/thumb.jpg">
+                                </div>
+                                <div class="user-desc">
+                                    <a href="#" class="name"> user name</a>
+                                    <a href="#" class="date">Jan 7</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>40 "Free Forever" Tools for Developers</h3>
+                                <div class="card-footer">
+                                    <div class="f-link">
+                                        <div class="reaction-logo">
+                                            <p>LOGO</p>
+                                        </div>
+                                        <div class="reaction-count">
+                                            <p>223</p>
+                                        </div>
+                                        <div class="reaction-text">
+                                            <p>reactions</p>
+                                        </div>
+                                    </div>
+                                    <div class="f-link">
+                                        <div class="reaction-logo">
+                                            <p>LOGO</p>
+                                        </div>
+                                        <div class="reaction-count">
+                                            <p>4</p>
+                                        </div>
+                                        <div class="reaction-text">
+                                            <p>comments</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {{!-- END single card --}}
+
             </div>
         </div>
 
         {{!-- right --}}
         <div class="body-right-container">
             <div class="body-right">
+                <div class="resources-container">
+                    <div class="resources-card">
+                        <div class="row-right">
+                            <div class="img-right">
+                                <img src="./images/coding.png">
+                            </div>
+                            <div class="resouces-content">
+                                <p>More Contents</p>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
             </div>
         </div>
+    </div>
+    </div>
+
+
 
     </div>
 </section>
 
-<p>U r Home</p>
 
-<a href="/auth/google">Login with google</a>
+
+{{!-- single post --}}
+{{!-- {{#if articles}}
+{{#each articles}}
+<p>{{this.title}}</p>
+<p>{{this.status}}</p>
+<p>{{this.body }}</p>
+<p>{{user.image }}
+
+    {{/each}}
+    {{/if}} --}}

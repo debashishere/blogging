@@ -1,8 +1,126 @@
 .header-section
 {
+    position: fixed;
     display: flex;
     justify-content: space-between;
-    background-color: aqua;
+    align-items: center;
+    background-color: white;
     width: 100%;
-    padding: 1rem 3.5rem;
+    padding: 5px 3.5rem;
+    z-index: 10;
+}
+.header-section .nav-left
+{
+    display: flex;
+    align-items: center;
+}
+.header-section .nav-left .logo
+{
+    font-size: 2.5rem;
+}
+.header-section .nav-left .search
+{
+    margin-left: 15px;
+    height: 35px;
+    width: 380px;
+    border-radius: 5px;
+    border: 1px solid rgb(184, 184, 184);
+    background-color: rgb(244, 245, 247);
+    outline: none;
+    padding-left: 10px;
+}
+.header-section .nav-left .search:focus
+{
+    border: 1.5px solid rgb(103, 71, 161);
+}
+.header-section .nav-right
+{
+    display: flex;
+    align-items: center;
+}
+
+.header-section .nav-right .nav-right-link
+{
+    text-decoration: none;
+    display: block;
+    padding:10px ;
+    font-size: 0.89rem;
+    letter-spacing: 0.05rem;
+    text-align: center; 
+    color: white;
+    background-color: rgb(68, 75, 173);
+    border-radius: 5px;
+    font-weight: 550;
+}
+.header-section .nav-right .nav-right-link:hover
+{
+    background-color: rgb(42, 50, 167);
+}
+
+/* nav user card dropdown */
+.dropdown
+{
+    position: relative;
+}
+.dropdown-imgBx
+{
+    height: 33px;
+    width: 33px;
+    border-radius: 50%;
+    border: 1px solid rgb(143, 140, 140);
+    margin-left: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.dropdown-imgBx img
+{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.dropdown .dropdown-menu
+{
+    display: block;
+    width: 230px;
+    position: absolute;
+    top: 44px;
+    right: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+    box-shadow: 3px 3px 2px 0px rgba(0,0,0,0.7);
+    background: white;
+    list-style-type: none;
+    padding: 8px;
+    transform: scale(0);
+    transition: 0.3s ease-in-out ;
+    transition-delay: 0.2s;
+}
+.dropdown:hover .dropdown-menu 
+{
+    display: block;
+    transform: scale(1);
+}
+
+.dropdown .dropdown-menu li a
+{
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding:5px 8px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: black;
+    font-weight: 500;
+}
+.dropdown .dropdown-menu .bolder
+{
+    font-weight: 550;
+}
+.dropdown .dropdown-menu li a:hover
+{
+    background: rgb(233, 230, 230);
+    color: blue;
 }

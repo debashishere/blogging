@@ -1,12 +1,29 @@
 <header>
     <section class="header-section">
         <div class="nav-left">
-            <a href="">logo</a>
+            <a href="" class="logo"><i class="fas fa-pen-square"></i></a>
             <input class='search' placeholder="Search...">
         </div>
         <div class="nav-right">
-            <a href="/auth/google">Sign Up/Sign In</a>
-        </div>
+            {{!-- guest --}}
+            {{!-- <a href="/auth/google" class="nav-right-link">Sign Up/Sign In</a> --}}
 
+            <a href="" class="nav-right-link">Write a post</a>
+
+            <div class="dropdown">
+                <div class="dropdown-imgBx">
+                    <img src="./images/thumb.jpg">
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile" class="bolder">DEBASHIS ROY</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/article/new">Write a Post</a></li>
+                    <li><a href="/auth/logout">Sign Out</a></li>
+                </ul>
+            </div>
+
+
+
+        </div>
     </section>
 </header>
