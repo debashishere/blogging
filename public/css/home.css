@@ -234,6 +234,15 @@
     font-weight: 700;
     line-height: 1.9rem;
 }
+.card .row .card-content h3 a
+{
+    text-decoration: none;
+    color: black;
+}
+.card .row .card-content h3 a:hover
+{
+    color: rgb(68, 75, 173);
+}
 .card .row .card-content .card-footer
 {
     display: flex;

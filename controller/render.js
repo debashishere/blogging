@@ -36,6 +36,8 @@ module.exports = {
             .then(articleList => {
                 res.render('dashboard/dashboard', {
                     articles: articleList,
+                    style: "dashboard.css",
+                    header_style: "header.css"
                 });
             })
             .catch(err => {
