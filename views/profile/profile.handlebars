@@ -1,6 +1,60 @@
-<p>This is profile</p>
+<section class="hero-container">
+    {{>header}}
+    <div class="hero-content">
+        <div class="colored-section-container">
+            <div class="colored-section">
+                <div class="profile-container">
+                    <div class="profile-bio">
+                        <h2>DEBASHIS ROY</h2>
+                        <p>Joined on jan 4, 2021</p>
+                    </div>
+                </div>
+                <div class="profile-imgBx">
+                    <img src="./images/thumb.jpg">
+                </div>
+            </div>
 
-<a href="/">Home</a><br>
-<a href="/dashboard">Dashboard</a><br>
-<a href="/article/new">New Blog</a><br>
-<a href="/auth/logout">Logout</a>
+        </div>
+        <div class="bottom-section-container">
+            <div class="bottom-section-content">
+                <div class="sidebar-container">
+                    <div class="sidebar-card">
+                        <div class="card-group">
+                            <p><span><i class="far fa-newspaper"></i></span> 2 posts published</p>
+                        </div>
+                        <div class="card-group">
+                            <p><span><i class="far fa-comment-alt"></i></span> 0 comments written</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-container">
+
+                    {{!-- single post --}}
+                    <div class="post">
+                        {{!-- posts of the user --}}
+                        <div class="post-user">
+                            <div class="post-user-imgBx">
+                                <img src="./images/thumb.jpg">
+                            </div>
+                            <div class="post-user-desc">
+                                <h2>DEBASHIS ROY</h2>
+                                <p>Jan 9</p>
+                            </div>
+                        </div>
+                        <div class="post-desc">
+                            <a href="" class="post-title">Second Post</a>
+                            <div class="post-reaction">
+                                <a href=""><span class="reac-logo"><i class="far fa-heart"></i></span> <span
+                                        class="reac-count">0</span> reactions</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- End of single post --}}
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

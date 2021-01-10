@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Hind Siliguri', sans-serif;
+}
+.hero-container 
+{
+    width: 100%;
+}
+.hero-container .hero-content
+{
+    width: 100%;
+}
+.hero-container .hero-content .colored-section-container
+{
+    background:  #EEF0F1;
+    width: 100%;
+    height: 295px;
+}
+.hero-container .hero-content .colored-section
+{
+    width: 100%;
+    height: 170px;
+    background-color: #070C34;
+    position: relative;
+}
+.hero-container .hero-content .colored-section-container .colored-section .profile-imgBx
+{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 115px;
+    width: 115px;
+    border-radius: 50%;
+    background: rgb(180, 178, 178);
+    border: 10px solid #070C34;
+    overflow: hidden;
+}
+.hero-container .hero-content .colored-section-container .colored-section .profile-imgBx img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.hero-container .hero-content .colored-section-container .profile-container
+{
+    width: 75%;
+    position: absolute;
+    top: 120px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 55px;
+    padding-bottom: 15px;
+}
+.hero-container .hero-content .colored-section-container .profile-container .profile-bio
+{
+    padding: 10px;
+    text-align: center;
+}
+.hero-container .hero-content .colored-section-container .profile-container .profile-bio h2
+{
+    padding: 5px;
+    font-weight: 1000;
+}
+.hero-container .hero-content .colored-section-container .profile-container .profile-bio p
+{
+    padding: 6px;
+    font-size: 0.8rem;
+}
+
+.hero-container .hero-content .bottom-section-container
+{
+    width: 100%;
+    background: #EEF0F1;
+    min-height: 40vh;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content
+{
+    max-width: 75%;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content   .sidebar-container
+{
+    width: 25%;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content   .sidebar-container .sidebar-card
+{
+    width: 100%;
+    border-radius: 5px;
+    background: rgb(255, 255, 255);
+    padding: 10px;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content   .sidebar-container .sidebar-card .card-group
+{
+    padding: 5px;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content   .sidebar-container .sidebar-card .card-group p
+{
+    font-size: 0.92rem;
+    letter-spacing: 0.01rem;
+    color:rgb(114, 113, 113);
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content   .sidebar-container .sidebar-card .card-group p span
+{
+    padding-right: 7px;
+    font-size: 1rem;
+  
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container
+{
+    margin-left: 15px;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post
+{
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 15px;
+    background: #ffffff;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-user
+{
+    display: flex;
+    align-items: center;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-user   .post-user-imgBx
+{
+    height: 33px;
+    width: 33px;
+    border-radius: 50%;
+    margin-right: 6px;
+    border: 1 px solid gray;
+    position: relative;
+    overflow: hidden;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-user   .post-user-imgBx img
+{
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-user  .post-user-desc h2
+{
+    font-size: 0.86rem;
+    font-weight: 500;
+    color:rgb(66, 66, 66);
+    line-height: 1.2rem;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-user  .post-user-desc p
+{
+    font-size: 0.8rem;
+    color: rgb(114, 113, 113);;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc
+{
+    width: 100%;
+    padding-left: 40px;
+    padding-top: 15px;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc .post-title
+{
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    padding-bottom: 15px;
+    color: black;
+    font-weight: 600;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc .post-title:hover
+{
+    color:  rgb(42, 50, 167);
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc .post-reaction
+{
+    display: flex;
+    justify-content: start;
+    width: max-content;
+    padding: 3.5px 5px;
+    border-radius: 5px;
+    
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc .post-reaction:hover
+{
+    background: rgb(243, 239, 239);
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc .post-reaction a
+{
+    font-size: 0.8rem;
+    text-decoration: none;
+    padding: 3px;
+    color: rgb(114, 113, 113);
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc  .post-reaction a .reac-logo
+{
+    font-size: 1rem;
+    padding-right: 8px;
+}
+.hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc  .post-reaction a .reac-count
+{
+    padding-right: 3.5px;
+}

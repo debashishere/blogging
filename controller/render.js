@@ -21,6 +21,13 @@ module.exports = {
     renderContact: (req, res) => {
         res.render('contact')
     },
+    renderProfile: (res) => {
+        res.render('profile/profile', {
+            layout: 'main',
+            style: "profile.css",
+            header_style: 'header.css',
+        })
+    },
     renderPublicArticle: (req, res) => {
         res.render('articles/public_article')
     },
@@ -55,10 +62,6 @@ module.exports = {
             .catch(err => {
                 console.log('render error', err)
             })
-    },
-    renderProfile: (res) => {
-        res.render('profile/profile', {
-        })
     },
     renderEditArticle: (id, res) => {
         const result = getArticleById(id);
