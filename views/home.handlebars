@@ -1,8 +1,11 @@
 {{>header}}
 <section class="body-container">
     <div class="body-content">
+
         {{!-- left --}}
         <div class="body-left-container">
+            {{#unless loggedUser}}
+            {{!-- Guest user view --}}
             <div class="sign-up-container">
                 <div class="sign-up-content">
                     <h4><span>Let's Build</span> a community of amazing developers join us</h4>
@@ -10,9 +13,11 @@
                 </div>
                 <a href="/auth/google" class="account-btn">Create new account</a>
             </div>
+            {{/unless}}
+
             <div class="quick-links">
-                <a href="">Home</a>
-                <a href="/new">Write</a>
+                <a href="" class="selected">Home</a>
+                <a href="/article/new">Write</a>
                 <a href="/about">About</a>
                 <a href="/contact">Contact</a>
             </div>
@@ -31,100 +36,80 @@
                 </div>
             </div>
             <div class="post-content">
+
                 {{!-- single card --}}
+                {{#if articles}}
+                {{#each articles}}
                 <div class="card">
                     <div class="row">
+                        {{!-- if index is zero (first item) show cover image --}}
+                        {{#unless @index}}
                         <div class="imgBx">
-                            <img class="card-img" src="./images/image1.png" alt="Card image cap">
+                            <img class="card-img" src="/uploads/images/{{this.cover_image}}" alt="Card image cap">
                         </div>
-                        <hr>
+                        {{/unless}}
                         <div class="desc">
                             <div class="user">
                                 <div class="user-img">
-                                    <img src="./images/thumb.jpg">
+                                    <img src="{{this.user.image}}">
                                 </div>
                                 <div class="user-desc">
-                                    <a href="#" class="name"> user name</a>
-                                    <a href="#" class="date">Jan 7</a>
+                                    <a href="#" class="name">{{this.user.displayName}}</a>
+                                    <a href="#" class="date">{{getFormatedDate this.createdAt}} ({{getRelativeDate
+                                        this.createdAt}})</a>
                                 </div>
                             </div>
                             <div class="card-content">
-                                <h3><a href="">40 "Free Forever" Tools for Developers</a></h3>
+                                <h3><a href="/article/{{this._id}}">{{this.title}}</a></h3>
                                 <div class="card-footer">
-                                    <div class="f-link">
-                                        <div class="reaction-logo">
-                                            <p><i class="far fa-heart"></i></p>
+                                    <a href="/reaction">
+                                        <div class="f-link">
+
+                                            <div class="reaction-logo">
+                                                <p><i class="far fa-heart"></i></p>
+                                            </div>
+                                            <div class="reaction-count">
+                                                <p>{{this.reactions}}</p>
+                                            </div>
+                                            <div class="reaction-text">
+                                                <p>reactions</p>
+                                            </div>
+
                                         </div>
-                                        <div class="reaction-count">
-                                            <p>223</p>
+                                    </a>
+                                    <a href="/comments">
+                                        <div class="f-link">
+
+                                            <div class="reaction-logo">
+                                                <p><i class="far fa-comment-alt"></i></p>
+                                            </div>
+                                            <div class="reaction-count">
+                                                <div class="reaction-text">
+                                                    {{!-- check for comments --}}
+                                                    {{#if this.comments}}
+                                                    <p>{{this.comments.length}}</p>
+                                                    <div class="reaction-text">
+                                                        <p>comments</p>
+                                                    </div>
+                                                    {{!-- no comments --}}
+                                                    {{else}}
+
+                                                    <p>Add Comment</p>
+
+                                                </div>
+                                                {{/if}}
+                                            </div>
+
                                         </div>
-                                        <div class="reaction-text">
-                                            <p>reactions</p>
-                                        </div>
-                                    </div>
-                                    <div class="f-link">
-                                        <div class="reaction-logo">
-                                            <p><i class="far fa-comment-alt"></i></p>
-                                        </div>
-                                        <div class="reaction-count">
-                                            <p>4</p>
-                                        </div>
-                                        <div class="reaction-text">
-                                            <p>comments</p>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                {{!-- END single card --}}
-
-                {{!-- single card --}}
-                <div class="card">
-                    <div class="row">
-                        <div class="desc">
-                            <div class="user">
-                                <div class="user-img">
-                                    <img src="./images/thumb.jpg">
-                                </div>
-                                <div class="user-desc">
-                                    <a href="#" class="name"> user name</a>
-                                    <a href="#" class="date">Jan 7</a>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <h3><a href="">40 "Free Forever" Tools for Developers</a></h3>
-                                <div class="card-footer">
-                                    <div class="f-link">
-                                        <div class="reaction-logo">
-                                            <p><i class="far fa-heart"></i></p>
-                                        </div>
-                                        <div class="reaction-count">
-                                            <p>223</p>
-                                        </div>
-                                        <div class="reaction-text">
-                                            <p>reactions</p>
-                                        </div>
-                                    </div>
-                                    <div class="f-link">
-                                        <div class="reaction-logo">
-                                            <p><i class="far fa-comment-alt"></i></p>
-                                        </div>
-                                        <div class="reaction-count">
-                                            <p>4</p>
-                                        </div>
-                                        <div class="reaction-text">
-                                            <p>comments</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                {{/each}}
+                {{/if}}
                 {{!-- END single card --}}
 
             </div>

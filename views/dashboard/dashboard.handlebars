@@ -1,7 +1,6 @@
 {{!-- <h3>Your Posts</h3>
 {{#if articles}}
 {{#each articles }}
-<hr>
 <a href="/article/{{_id}}"> {{this.title}}</a><br>
 
 <div class="">
@@ -24,7 +23,7 @@
     </div>
     <div class="status-container">
         <div class="status-card">
-            <p class="count">0</p>
+            <p class="count">{{totalPosts}}</p>
             <p class="text">Total posts</p>
         </div>
         <div class="status-card">
@@ -42,18 +41,30 @@
         <div class="post-header">
             <h3>Posts</h3>
         </div>
+        {{#if articles}}
+        {{#each articles}}
         {{!-- single post --}}
         <div class="post">
             <div class="post-content">
-                <a href="">second post</a>
-                <p><span>Published: </span>Jan 9</p>
+                <a href="/article/{{this._id}}">{{this.title}}</a>
+                <p><span>Published: </span>{{getFormatedDate this.createdAt}}</p>
             </div>
             <div class="post-actions">
-                <a href=""><i class="far fa-edit"></i></a>
-                <a href=""><i class="far fa-trash-alt"></i></a>
+                <a href="/article/edit/{{this._id}}"><i class="far fa-edit"></i></a>
+                <form class="delete-btn" action="/article/{{_id}}?_method=DELETE" method="POST">
+                    <button type="submit"><i class="far fa-trash-alt"></i></button>
+                </form>
             </div>
+            {{!-- END of single post --}}
         </div>
-        {{!-- END of single post --}}
+        {{/each}}
+        {{else}}
+        <div class="message-container">
+            <p class="message">You haven't written any post yet.</p>
+        </div>
+
+        {{/if}}
+
 
     </div>
 </section>

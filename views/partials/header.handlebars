@@ -5,25 +5,25 @@
             <input class='search' placeholder="Search...">
         </div>
         <div class="nav-right">
-            {{!-- guest --}}
-            {{!-- <a href="/auth/google" class="nav-right-link">Sign Up/Sign In</a> --}}
-
-            <a href="" class="nav-right-link">Write a post</a>
-
+            {{!-- check if user is logged in --}}
+            {{#if loggedUser}}
+            {{!-- logged user view --}}
+            <a href="/article/new" class="nav-right-link">Write a post</a>
             <div class="dropdown">
                 <div class="dropdown-imgBx">
-                    <img src="./images/thumb.jpg">
+                    <img src="{{loggedUser.image}}">
                 </div>
                 <ul class="dropdown-menu">
-                    <li><a href="/profile" class="bolder">DEBASHIS ROY</a></li>
+                    <li><a href="/profile" class="bolder">{{loggedUser.displayName}}</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="/article/new">Write a Post</a></li>
                     <li><a href="/auth/logout">Sign Out</a></li>
                 </ul>
             </div>
-
-
-
+            {{else}}
+            {{!-- guest View--}}
+            <a href="/auth/google" class="nav-right-link">Sign Up/Sign In</a>
+            {{/if}}
         </div>
     </section>
 </header>

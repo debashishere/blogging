@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Hind Siliguri', sans-serif;
+}
+.hero-container
+{
+    background-color: #EEF0F1;
+    width: 100%;
+}
+.hero-container .main-container
+{
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 57px;
+    display: flex;
+    justify-content: space-between;
+}
+.hero-container .main-container .main-content
+{
+    width: 67%;
+    position: relative;
+    margin-top: 15px;
+    background-color: white;
+    min-height: 600px;
+}
+.hero-container .main-container .main-content .cover-imgBx
+{
+    width: 100%;
+    height: 300px;
+    position: relative;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+    background: rgb(211, 211, 164); 
+}
+.hero-container .main-container .main-content .cover-imgBx img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.hero-container .main-container .main-content .post-content
+{
+    width: 85%;
+    margin: 0 auto;
+}
+.hero-container .main-container .main-content .post-content  .post-title
+{
+    padding-top: 30px;
+    font-size: 1.4rem;
+    font-weight: 1200;
+}
+.hero-container .main-container .main-content .post-content .writer-block
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    position: relative;
+    padding: 15px 0;
+}
+.hero-container .main-container .main-content .post-content .writer-block .writer-imgBx
+{
+    position: relative;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+   
+}
+.hero-container .main-container .main-content .post-content .writer-block .writer-imgBx a img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero-container .main-container .main-content .post-content .writer-block .writer-desc
+{
+    display: flex;
+    padding-left: 7px;
+    font-size: 0.85rem;
+    color: gray;
+}
+.hero-container .main-container .main-content .post-content .writer-block .writer-desc .name
+{
+    text-decoration: none;
+    padding-right: 15px;
+    font-size: 1rem;
+    color: black;
+}
+
+/* left content */
+.hero-container .main-container .aside-left-content
+{
+    width: 40px;
+}
+.hero-container .main-container .aside-left-content .reac-container
+{
+    margin-top: 70px;
+    height: 35px;
+    width: 35px;
+    padding-top: 2.5px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+.hero-container .main-container .aside-left-content .reac-container:hover
+{
+    background-color: rgb(243, 219, 219);
+    color: tomato
+}
+
+/* right side content */
+.hero-container .main-container .aside-right-content
+{
+    width: 27%;
+
+}
+.hero-container .main-container .aside-right-content .creator-card
+{
+    background: white;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-top: 15px;
+    overflow: hidden; 
+    
+}
+.hero-container .main-container .aside-right-content .creator-card  .colored-bar
+{
+    width: 100%;
+    height: 30px;
+    background-color: black;
+    position: relative;
+}
+.hero-container .main-container .aside-right-content .creator-card  .colored-bar .creator-imgBx
+{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background-color: #3a81a5;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    overflow: hidden;
+}
+.hero-container .main-container .aside-right-content .creator-card  .colored-bar .creator-imgBx a img
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+}
+.hero-container .main-container .aside-right-content .creator-card  .creator-section
+{
+   /* background: yellow; */
+   padding: 8px;
+   width: 100%;
+}
+.hero-container .main-container .aside-right-content .creator-card .creator-section a
+{
+    text-decoration: none;
+    display: block;
+    color: black;
+    padding-left: 58px;
+}
+.hero-container .main-container .aside-right-content .creator-card .creator-section a h2
+{
+    font-size: 1.1rem;
+   
+} 

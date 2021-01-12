@@ -1,0 +1,57 @@
+{{!-- {{#if title}}
+<p>{{title}}</p>
+{{/if}} --}}
+
+
+<div class="hero-container">
+    {{>header}}
+    {{#if article}}
+    <div class="main-container">
+
+        {{!-- left side container --}}
+        <div class="aside-left-content">
+            <div class="reac-container">
+                <span><i class="far fa-heart"></i></span>
+            </div>
+        </div>
+
+        {{!-- main content --}}
+        <div class="main-content">
+            <div class="cover-imgBx">
+                <img src="/uploads/images/{{article.cover_image}}">
+            </div>
+            <div class="post-content">
+                <div class="post-title">
+                    <h1>{{article.title}}</h1>
+                </div>
+                <div class="writer-block">
+                    <div class="writer-imgBx">
+                        <a href=""> <img src="{{article.user.image}}"></a>
+                    </div>
+                    <div class="writer-desc">
+                        <a class="name" href="">{{article.user.displayName}}</a>
+                        <p>{{getFormatedDate article.createdAt}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- right side content --}}
+        <div class="aside-right-content">
+            <div class="creator-card">
+                <div class="colored-bar">
+                    <div class="creator-imgBx">
+                        <a href=""> <img src="{{article.user.image}}"></a>
+                    </div>
+                </div>
+                <div class="creator-section">
+                    <a href="">
+                        <h2>{{article.user.displayName}}</h2>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</div>

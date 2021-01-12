@@ -10,8 +10,7 @@ module.exports = function (passport) {
         async (accessToken, refreshToken, profile, done) => {
             try {
                 //all db relataed work with profile and token
-                let user = await User.findOne({ googleId: profile.id })
-                console.log(user)
+                let user = await User.findOne({ googleId: profile.id }).lean()
                 if (user) {
                     done(null, user);
                 } else {
@@ -20,14 +19,16 @@ module.exports = function (passport) {
                     const newUser = new User({
                         googleId: profile.id,
                         displayName: profile.displayName,
-                        firstName: profile.given_name,
-                        lastName: profile.family_name,
-                        image: profile.picture
+                        firstName: profile.name.givenName,
+                        lastName: profile.name.familyName,
+                        image: profile.photos[0].value
                     });
+                    // console.log('Profile', profile)
+                    // console.log('User', newUser)
                     newUser
                         .save()
                         .then(user => {
-                            console.log(user)
+                            // console.log('then user', user)
                             done(null, user)
                         })
                         .catch(err => {

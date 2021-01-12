@@ -26,7 +26,11 @@ const ArticleSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        deafult: Date.now
+        default: Date.now
+    },
+    reactions: {
+        type: Number,
+        default: 0
     },
     comments: [
         {
@@ -50,7 +54,7 @@ const ArticleSchema = new mongoose.Schema({
                         ref: 'users',
                         deafult: null
                     },
-                    body: {
+                    reply: {
                         type: String,
                         deafult: null
                     },

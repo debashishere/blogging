@@ -131,7 +131,7 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
+    /* align-items: center; */
 }
 .hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post
 {
@@ -223,4 +223,17 @@
 .hero-container .hero-content .bottom-section-container    .bottom-section-content .main-container .post .post-desc  .post-reaction a .reac-count
 {
     padding-right: 3.5px;
+}
+.message-container
+{
+    width: 100%;
+    background-color: white;
+    /* margin: 0 auto; */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9rem;
+    letter-spacing: 0.015rem;
+    font-weight: 600;
+    color: gray;
 }

@@ -63,10 +63,12 @@ app.use(session({
 
 //VIEWS
 //helpers
-const { select } = require('./helpers/hbs');
+const { select, getFormatedDate, getRelativeDate } = require('./helpers/hbs');
 app.engine('handlebars', exphbs({
     helpers: {
-        select
+        select,
+        getFormatedDate,
+        getRelativeDate,
     }
 }));
 app.set('view engine', 'handlebars');
@@ -80,6 +82,19 @@ app.use(methodOverride('_method'));
 //passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+//set global variables
+app.use(function (req, res, next) {
+    if (req.user) {
+        loggedUser = req.user.toObject();
+        res.locals.loggedUser = loggedUser;
+        next();
+    } else {
+        res.locals.loggedUser = null
+        next();
+    }
+
+})
 
 //Routes
 app.use('/', home);

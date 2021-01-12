@@ -4,7 +4,7 @@ const Article = require('../model/Article');
 const path = require('path');
 
 //controller fumctions
-const { renderCreateArticle, renderArticle, renderEditArticle, renderPublicArticle } = require('../controller/render');
+const { renderCreateArticle, renderArticle, renderEditArticle } = require('../controller/render');
 const { createNewArticle, deleteArticle, getArticleById, updateArticle } = require('../controller/services');
 
 //to store and retrive image in mongodb
@@ -31,15 +31,6 @@ const upload = multer({
         fieldsSize: 1024 * 1024 * 3 // max image size 3mb
     },
 });
-
-//********PUBLIC ROUTES************* */
-
-//@desc show public article page
-//@route GET /article
-router.get('/', (req, res) => {
-    renderPublicArticle(req, res);
-});
-
 
 //*******************SECURE ROUTES**************** */
 
@@ -71,11 +62,7 @@ router.post('/new', ensureAuth, upload.single('cover-image'), async (req, res) =
 
 });
 
-//@desc show article with id
-//route GET /article/:id
-router.get('/:id', ensureAuth, (req, res) => {
-    renderArticle(req.params.id, res)
-});
+
 
 //@desc delete article with id
 //route DELETE /article/:id
@@ -176,6 +163,15 @@ router.put('/edit/:id', ensureAuth, upload.single('cover-image'), (req, res) => 
             console.log('render error', err)
         })
 })
+
+//********PUBLIC ROUTES************* */
+
+//@desc show article with id
+// route GET / article /: id
+router.get('/:id', (req, res) => {
+    //TODO: validate req.params.id
+    renderArticle(req.params.id, res)
+});
 
 
 module.exports = router;

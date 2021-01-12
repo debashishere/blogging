@@ -100,15 +100,38 @@
     font-weight: 500;
     color: rgb(88, 88, 88);
 }
-.hero-container .post-container .post  .post-actions a
+.hero-container .post-container .post  .post-actions 
 {
-    font-size: 1rem;
+    display: flex;
+    align-items: center;
+   
     font-weight: 700;
+}
+.hero-container .post-container .post  .post-actions .delete-btn button
+{
+    outline: none;
+    border: none;
     color: red;
+    margin-right: 17px;
+    font-size: 1rem;
 }
 .hero-container .post-container .post  .post-actions a:not(:last-child)
 {
     /* display: block; */
     margin-right: 17px;
     color: rgb(19, 145, 19);
+    font-size: 1rem;
+}
+.message-container
+{
+    width: 100%;
+    background-color: white;
+    /* margin: 0 auto; */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9rem;
+    letter-spacing: 0.015rem;
+    font-weight: 600;
+    color: gray;
 }

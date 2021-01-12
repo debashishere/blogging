@@ -39,7 +39,7 @@ module.exports = {
     //get one article by id
     getArticleById: async (id) => {
         try {
-            const article = await Article.findById(id).lean().exec();
+            const article = await Article.findById(id).lean().populate('user').exec();
             if (article) {
                 return article;
             } else {
