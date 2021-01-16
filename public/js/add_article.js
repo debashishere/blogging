@@ -48,7 +48,7 @@ $(document).ready(function () {
                     /** Do anything you need after editor initialization */
 
                     //upload cover image once selected
-                    $("#cover-image").change(async function () {
+                    $("#cover-image-Input").change(async function () {
                         //ToDO: validate file
                         // craete Formdata object
                         const formData = new FormData();
@@ -64,7 +64,10 @@ $(document).ready(function () {
                         })
                             .then(res => {
                                 if (res.data.status === 1) {
-                                    console.log(res.data.path);
+                                    // show cover image
+                                    $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
+                                    $('#cover_image').attr('src', res.data.path);
+
                                 } else {
                                     //render error
                                 }
@@ -134,6 +137,12 @@ $(document).ready(function () {
     }
 
     initializeEditor();
+    $('#post_title').on('input', function () {
+        this.style.height = 'auto';
+
+        this.style.height =
+            (this.scrollHeight) + 'px';
+    });
 
 })
 

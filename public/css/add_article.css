@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:display=swap');
 
+/* editor js custom padding */
+.codex-editor__redactor {
+    padding-bottom: 30px !important;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +21,6 @@
 
 .hero-container .hero-content {
     width: 85%;
-
     margin: 0 auto;
 }
 
@@ -68,22 +72,110 @@
     margin: 0 auto;
 }
 
-.hero-container .hero-content .body-container .main {
-    width: 70%;
+.hero-container .hero-content .body-container .main-content {
+    width: 75%;
     background-color: rgb(255, 255, 255);
     min-height: 420px;
     border-radius: 5px;
+    border: 1px solid rgb(182, 171, 231);
+    padding: 10px 20px;
+    margin-right: 5px;
 }
 
-.hero-container .hero-content .body-container .main .editor-container {
+.hero-container .hero-content .body-container .main-content .post-content .editor-container {
     width: 100%;
     height: auto;
+    padding: 0 20px;
+}
+
+.hero-container .hero-content .body-container .main-content .cover-input-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-container .hero-content .body-container .main-content .cover-input-container label {
+    font-size: 1.1rem;
+    color: gray;
+    margin-right: 15px;
+}
+
+.hero-container .hero-content .body-container .main-content .cover-input-container input {
+    border: 1px solid rgb(236, 233, 233);
+    border-radius: 5px;
+}
+
+.hero-container .hero-content .body-container .main-content #cover-imageBx {
+    position: relative;
+    width: 50%;
+    height: 80px;
+    background-color: rgb(222, 232, 248);
+    margin: 8px auto;
+    border-radius: 5px;
+
+}
+
+.hero-container .hero-content .body-container .main-content #cover-imageBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.hero-container .hero-content .body-container .main-content .post-content {
+    width: 100%;
+    padding-top: 30px;
+}
+
+.hero-container .hero-content .body-container .main-content .post-content textarea {
+    width: 100%;
+    font-size: 2.5rem;
+    font-weight: 1000;
+    border: none;
+    outline: none;
 }
 
 .hero-container .hero-content .body-container .aside {
-    width: 27%;
-    background-color: rgb(168, 97, 97);
+    width: 25%;
+}
+
+.hero-container .hero-content .body-container .aside .info-card {
+    width: 100%;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.hero-container .hero-content .body-container .aside .title-info-card {
+    width: 100%;
+    /* background-color: rgb(169, 238, 200); */
     border-radius: 5px;
+    padding: 8px;
+}
+
+.hero-container .hero-content .body-container .aside .info-card h4 {
+    font-size: 1rem;
+    padding-bottom: 8px;
+}
+
+.hero-container .hero-content .body-container .aside .editor-info-card {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+}
+
+.hero-container .hero-content .body-container .aside .info-card ul {
+    padding-left: 25px;
+}
+
+.hero-container .hero-content .body-container .aside .info-card p {
+    font-size: 0.9rem;
+    line-height: 1.45rem;
+    color: gray;
 }
 
 .hero-container .hero-content .btn-container {
@@ -119,68 +211,3 @@
 .hero-container .hero-content .btn-container .create-article:hover {
     background-color: rgb(42, 50, 167);
 }
-
-
-
-
-
-
-
-
-
-/* 
-.hero-container .editor-container {
-    padding-top: 60px;
-    background-color: white;
-    width: 100%;
-    height: 350px;
-}
-
-.hero-container .editor-container #editorjs {
-    width: 100%;
-    height: 100px;
-    background: rgb(213, 243, 233);
-}
-
-.create-article {
-    margin-top: 350px;
-}
-
- */
-
-
-/* .container
-{
-    background: rgb(238,240,241);
-    height: 100vh;
-}
-.header
-{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 60px;
-}
-.header a
-{
-    text-decoration: none;
-}
-.logo
-{
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-.main
-{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-left: 120px;
-}
-.write-post
-{
-    width: 60%;
-    height: 200px;
-    background: white;
-} */

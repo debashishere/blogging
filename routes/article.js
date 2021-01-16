@@ -46,7 +46,7 @@ router.post('/new/cover', ensureAuth, coverUpload.single('cover_image'), (req, r
     const imageData = {
         user: req.user.id,
         filename: req.file.filename,
-        path: req.file.destination + '/' + req.file.filename
+        path: '/uploads/cover-images/' + req.file.filename
         // cover_image: req.file
     }
     coverImages.push(imageData)

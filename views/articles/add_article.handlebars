@@ -11,25 +11,59 @@
 
     <div class="hero-content">
         <div class="body-container">
-            <div class="main">
-
-                <div class="title-container">
-                    <input type="text" id="post_title" placeholder="Give your post a title...">
-                </div>
-                <div class="cover-image-container">
+            {{!-- main content --}}
+            <div class="main-content">
+                <div class="cover-input-container">
                     <label for="image">Upload a Cover Image</label>
-                    <input type="file" id="cover-image" name="cover-image">
+                    <input type="file" id="cover-image-Input" name="cover-image">
                 </div>
-                {{!-- editor js --}}
-                <div class="editor-container">
-                    <div id="editorjs">
+                <div id="cover-imageBx">
+                    <img src="/images/cover-thumbsvg.svg" id="cover_image" alt="Cover Image">
+                </div>
+                <div class="post-content">
+                    <textarea type="text" id="post_title" rows=1 placeholder="New post title here... "></textarea>
+                    {{!-- editor js --}}
+                    <div class="editor-container">
+                        <div id="editorjs">
 
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="aside">
-            </div>
+            {{!-- end of main content --}}
 
+            <div class="aside">
+                <div class="info-card">
+                    <div class="title-info-card">
+                        <h4>Writing a Great Post Title</h4>
+                        <ul>
+                            <li>
+                                <p>Think of your post title as a super short (but compelling!) description — like an
+                                    overview of
+                                    the actual post in one short sentence.</p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="editor-info-card">
+                        <h4>Editor Basics</h4>
+                        <ul>
+                            <li>
+                                <p>It is a block-styled editor.</p>
+                            </li>
+                            <li>
+                                <p>Click on + (plus) sign to use tools.</p>
+                            </li>
+                            <li>
+                                <p>Click on (::) four dot to customise, <br>to move up, down or delete block.</p>
+                            </li>
+                            <li>
+                                <p>Press enter to add new block.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="btn-container">
@@ -44,47 +78,3 @@
         </div>
     </div>
 </section>
-
-
-
-{{!-- <section class="main">
-    <div class="write-post">
-
-        <form action="/article/new" method="post" enctype="multipart/form-data">
-            <div class="">
-                <div class="">
-                    <label for="image">Upload a Cover Image</label>
-                    <input type="file" id="cover-image" name="cover-image">
-                </div>
-            </div>
-            <div class="">
-                <div class="">
-                    <label for="title"> Title</label>
-                    <input type="text" id="title" name="title">
-                </div>
-            </div>
-
-            <div class="">
-                <div class="">
-                    <select id="status" name="status">
-                        <label for="title"> Status</label>
-                        <option value="public" selected>Public</option>
-                        <option value="private">Private</option>
-                    </select>
-                </div>
-            </div>
-            <div class="">
-                <div class="">
-                    <h5>Tell Us Your Story</h5>
-                    <textarea id="text" name="text"></textarea>
-                </div>
-            </div>
-
-            <div class="">
-                <button>Submit</button>
-                <a herf="/profile">Cancel</a>
-            </div>
-        </form>
-    </div>
-
-</section> --}}
