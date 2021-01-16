@@ -1,3 +1,4 @@
+const path = require('path');
 //MongoDb Services
 const { getAticlesByUser, getPublicArticles, getArticleById } = require('./services');
 
@@ -89,10 +90,11 @@ module.exports = {
     renderCreateArticle: (req, res) => {
         res.render('articles/add_article', {
             style: 'add_article.css',
-            header_style: 'header.css',
-            js: 'add_article.js'
+            js: 'add_article.js',
+            editor: true,
 
         })
+
     },
     //render a single article by id
     renderArticle: (id, res) => {
@@ -100,9 +102,12 @@ module.exports = {
         result
             .then((article) => {
                 if (article) {
+                    console.log()
                     res.render('articles/article', {
                         style: "article.css",
+                        js: 'article.js',
                         header_style: "header.css",
+                        editor: true,
                         article
                     })
                 } else {

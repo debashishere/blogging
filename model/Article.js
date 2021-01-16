@@ -11,9 +11,7 @@ const ArticleSchema = new mongoose.Schema({
     },
     body:
     {
-        text: {
-            type: String
-        }
+        type: Object
     },
     status: {
         type: String,

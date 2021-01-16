@@ -60,6 +60,7 @@ app.use(session({
 }))
 
 
+global.__basedir = __dirname;
 
 //VIEWS
 //helpers
@@ -75,6 +76,7 @@ app.set('view engine', 'handlebars');
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static('public'));
 
 //method override for DELETE
 app.use(methodOverride('_method'));
@@ -95,6 +97,9 @@ app.use(function (req, res, next) {
     }
 
 })
+
+// post cover_images TODO: store this in redis
+global.coverImages = []
 
 //Routes
 app.use('/', home);

@@ -1,5 +1,5 @@
 const Article = require('../model/Article');
-const fs = require('fs');
+
 
 //databse services
 
@@ -53,17 +53,24 @@ module.exports = {
     },
 
     //create a new article in db
-    createNewArticle: async (req) => {
+    createNewArticle: async (req, res) => {
+
+        function matchUser(data) {
+
+            return data.user === req.user.id
+        }
+        // pull image with userid
+        const coverImageData = coverImages.filter(matchUser);
+        console.log('coverImageData', coverImageData)
         try {
             let newArticle = {
                 title: req.body.title,
-                body: {
-                    text: req.body.text,
-                },
-                cover_image: req.file.filename,
-                status: req.body.status,
+                cover_image: coverImageData[0].filename,
+                body: req.body.editorData,
+                status: req.body.status.toLowerCase(),
                 user: req.user._id,
             }
+            console.log('newArticle', newArticle)
             //insert into db
             const article = await Article.create(newArticle);
             if (article._id) {

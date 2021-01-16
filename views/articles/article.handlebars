@@ -18,7 +18,7 @@
         {{!-- main content --}}
         <div class="main-content">
             <div class="cover-imgBx">
-                <img src="/uploads/images/{{article.cover_image}}">
+                <img src="/uploads/cover-images/{{article.cover_image}}">
             </div>
             <div class="post-content">
                 <div class="post-title">
@@ -31,6 +31,12 @@
                     <div class="writer-desc">
                         <a class="name" href="">{{article.user.displayName}}</a>
                         <p>{{getFormatedDate article.createdAt}}</p>
+                    </div>
+                </div>
+                {{!-- editorjs start --}}
+                <div class="editor-content">
+                    <div id="editorjs">
+
                     </div>
                 </div>
             </div>

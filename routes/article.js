@@ -7,32 +7,15 @@ const path = require('path');
 const { renderCreateArticle, renderArticle, renderEditArticle } = require('../controller/render');
 const { createNewArticle, deleteArticle, getArticleById, updateArticle } = require('../controller/services');
 
-//to store and retrive image in mongodb
-const fs = require('fs');
-const multer = require('multer');
+//multor config functions
+const { upload, coverUpload } = require('../config/multer');
 
-//define storage for image
-const storage = multer.diskStorage({
-    //destinatoin for files
-    destination: function (req, file, callback) {
-        callback(null, './public/uploads/images')
-    },
 
-    //add back the extension
-    filename: function (req, file, callback) {
-        callback(null, Date.now() + file.originalname);
-    }
-});
-
-//upload parameters for multer
-const upload = multer({
-    storage: storage,
-    limits: {
-        fieldsSize: 1024 * 1024 * 3 // max image size 3mb
-    },
-});
 
 //*******************SECURE ROUTES**************** */
+// images 
+let articleImages = []
+// let coverImages = []
 
 //@desc show create article page
 //@route GET /article/new
@@ -40,28 +23,70 @@ router.get('/new', ensureAuth, (req, res) => {
     renderCreateArticle(req, res);
 });
 
+//@desc Upload image with editor js
+//@route POST /article/new/upload
+router.post('/new/upload', ensureAuth, upload.single('cover-image'), (req, res) => {
+    articleImages.push(req.file.filename)
+
+    //res for editor js
+    const resData = {
+        "success": 1,
+        "file": {
+            "url": `http://localhost:3000/uploads/images/${req.file.filename}`
+        }
+    }
+
+    res.send(resData)
+})
+
+//@desc Upload post's cover-image 
+//@route POST /article/new/cover
+router.post('/new/cover', ensureAuth, coverUpload.single('cover_image'), (req, res) => {
+    // upload image and push to cache storage,
+    const imageData = {
+        user: req.user.id,
+        filename: req.file.filename,
+        path: req.file.destination + '/' + req.file.filename
+        // cover_image: req.file
+    }
+    coverImages.push(imageData)
+    console.log('cover images', coverImages)
+    //set status 1 if everything fine
+    res.send({
+        status: 1,
+        path: imageData.path
+    })
+})
+
+
 //@desc process create blog
-//@route POST /article/new
-router.post('/new', ensureAuth, upload.single('cover-image'), async (req, res) => {
-    const article = createNewArticle(req);
+// @route POST /article/new
+router.post('/new', ensureAuth, (req, res) => {
+    console.log(req.body);
+
+    //craete article in db
+    const article = createNewArticle(req, res);
     article
         .then(isArticle => {
             //check if article is created
             if (isArticle) {
-                res.redirect('/dashboard');
                 // TODO: Alert created message
+
+                //send status 1 if everything is fine
+                res.send({ status: 1 })
             }
             else {
                 //TODO: render error
+                res.send({ status: 0 })
             }
         })
         .catch(err => {
             console.log(err);
             //Handle Error
+            res.send({ status: 0 })
         })
 
 });
-
 
 
 //@desc delete article with id
@@ -166,12 +191,38 @@ router.put('/edit/:id', ensureAuth, upload.single('cover-image'), (req, res) => 
 
 //********PUBLIC ROUTES************* */
 
+//@desc send article data for rendering post view
+//@route GET /article/data/:id
+router.get('/data/:id', ensureAuth, (req, res) => {
+    const result = getArticleById(req.params.id);
+    result
+        .then((article) => {
+            if (article) {
+                //article found
+                const data = {
+                    editorData: article.body,
+                    status: 1
+                }
+                res.send(data)
+            } else {
+                // no article foound with that id
+                // render error
+                const data = {
+                    status: 0
+                }
+                res.send(data)
+            }
+        })
+})
+
+
 //@desc show article with id
 // route GET / article /: id
 router.get('/:id', (req, res) => {
     //TODO: validate req.params.id
     renderArticle(req.params.id, res)
 });
+
 
 
 module.exports = router;

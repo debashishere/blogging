@@ -1,14 +1,52 @@
 <section class="hero-container">
-    {{!-- {{>header}} --}}
-    <div class="editor-container">
-        <div id="editorjs"></div>
-    </div>
+    <header class="header">
+        <div class="header-left">
+            <a href="/" class="logo"><i class="fas fa-pen-square"></i></a>
+            <p>Write a new post</p>
+        </div>
+        <div class="header-right">
+            <button class="close-Btn">X</button>
+        </div>
+    </header>
 
+    <div class="hero-content">
+        <div class="body-container">
+            <div class="main">
+
+                <div class="title-container">
+                    <input type="text" id="post_title" placeholder="Give your post a title...">
+                </div>
+                <div class="cover-image-container">
+                    <label for="image">Upload a Cover Image</label>
+                    <input type="file" id="cover-image" name="cover-image">
+                </div>
+                {{!-- editor js --}}
+                <div class="editor-container">
+                    <div id="editorjs">
+
+                    </div>
+                </div>
+            </div>
+            <div class="aside">
+            </div>
+
+        </div>
+
+        <div class="btn-container">
+            <div class="status">
+                <select id="status" name="status">
+                    <label for="title"> Status</label>
+                    <option value="public" selected>Public</option>
+                    <option value="private">Private</option>
+                </select>
+            </div>
+            <button class="create-article">Create</button>
+        </div>
+    </div>
 </section>
 
 
-{{!--
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2.6.0/dist/bundle.min.js" async defer></script> --}}
+
 {{!-- <section class="main">
     <div class="write-post">
 
