@@ -1,22 +1,26 @@
-const article = require('./routes/article');
-const auth = require('./routes/auth');
-const connectDB = require('./config/db');
-const profile = require('./routes/profile');
-const dashboard = require('./routes/dashboard');
-const home = require('./routes/home');
-
-const dotenv = require('dotenv')
+//core packages
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
+const methodOverride = require('method-override');
 const passport = require('passport');
 const session = require('express-session');
+//Database
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
-const methodOverride = require('method-override');
-
+const connectDB = require('./config/db');
+// routes
+const api = require('./routes/api');
+const upload = require('./routes/upload');
+const profile = require('./routes/profile');
+const dashboard = require('./routes/dashboard');
+const home = require('./routes/home');
+const article = require('./routes/article');
+const auth = require('./routes/auth');
+//dev
+const dotenv = require('dotenv')
+const logger = require('morgan');
 
 
 //Load Configuration
@@ -60,8 +64,6 @@ app.use(session({
 }))
 
 
-global.__basedir = __dirname;
-
 //VIEWS
 //helpers
 const { select, getFormatedDate, getRelativeDate } = require('./helpers/hbs');
@@ -99,10 +101,15 @@ app.use(function (req, res, next) {
 })
 
 // post cover_images TODO: store this in redis
+global.__basedir = __dirname;
 global.coverImages = []
+global.updatedCoverImages = []
+global.articleImages = []
 
 //Routes
 app.use('/', home);
+app.use('/api', api);
+app.use('/upload', upload);
 app.use('/article', article);
 app.use('/profile', profile);
 app.use('/auth', auth);

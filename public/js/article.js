@@ -6,24 +6,27 @@ $(document).ready(function () {
         const pageUrlParts = pageUrl.split('/');
         const postId = pageUrlParts[pageUrlParts.length - 1]
         return postId;
-    }
+    };
 
-    const postId = getPostId();
-    const url = `http://localhost:3000/article/data/${postId}`
+    //get data with post id
+    (async function () {
+        const postId = getPostId();
+        const url = `http://localhost:3000/api/data/${postId}`
 
-    axios.get(url)
-        .then(res => {
-            if (res.data.status === 1) {
-                //status is ok 
-                initializeEditor(res.data.editorData);
-            } else {
-                //status is not ok render error
-            }
+        await axios.get(url)
+            .then(res => {
+                if (res.data.status === 1) {
+                    //status is ok 
+                    initializeEditor(res.data.editorData);
+                } else {
+                    //status is not ok render error
+                }
 
-        })
-        .catch(err => {
-            console.log(err)
-        })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    })();
 
 
     // initialize editorjs with tools and read only mode

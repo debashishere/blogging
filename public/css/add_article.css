@@ -77,9 +77,28 @@
     background-color: rgb(255, 255, 255);
     min-height: 420px;
     border-radius: 5px;
-    border: 1px solid rgb(182, 171, 231);
+    border: 1px solid rgb(225, 220, 245);
     padding: 10px 20px;
     margin-right: 5px;
+    position: relative;
+}
+
+/* for edit block template */
+.hero-container .hero-content .body-container .main-content .page-flagBx {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: rgba(243, 227, 227, 0.5);
+    height: 25px;
+    width: 60px;
+    font-size: 0.80rem;
+    letter-spacing: 0.02rem;
+    color: rgb(233, 7, 7);
+    border: 1px solid rgb(202, 200, 200);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
 }
 
 .hero-container .hero-content .body-container .main-content .post-content .editor-container {
@@ -111,6 +130,7 @@
     width: 50%;
     height: 80px;
     background-color: rgb(222, 232, 248);
+    border: 1.2px solid rgb(218, 215, 215);
     margin: 8px auto;
     border-radius: 5px;
 

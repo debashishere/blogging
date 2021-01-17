@@ -8,8 +8,51 @@ $(document).ready(function () {
         return postId;
     };
 
+    //get data with post id
+    (async () => {
+        try {
+            const url = `http://localhost:3000/api/edit/data/${getPostId()}`
+
+            await axios.get(url)
+                .then(res => {
+                    console.log('edit data', res.data);
+                    if (res.data.req_status === 1) {
+                        //status is ok
+                        //initialize editor with data 
+                        initializeEditor(res.data.editorData);
+                        //initialize other fields
+                        initializeEdit(res.data.cover_image_path, res.data.title, res.data.status)
+                    } else {
+                        //status is not ok render error
+                        console.log("error")
+                    }
+
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        catch (error) {
+            console.log(error)
+        }
+    })();
+
+    // initialize field with post data
+    const initializeEdit = function (cover_image_path, title, status) {
+        console.log('status', status);
+        //set cover image
+        $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
+        console.log("cover img", cover_image_path)
+        $('#cover_image').attr('src', cover_image_path);
+
+        //set title
+        $('#post_title').val(title);
+        //set select value
+        $("#status").val(status);
+    };
+
     // initialize editorjs with required tools
-    const initializeEditor = async function () {
+    const initializeEditor = async function (postData) {
 
         var editor = new EditorJS({
             holder: 'editorjs',
@@ -36,6 +79,8 @@ $(document).ready(function () {
                     }
                 },
             },
+            //initialization data
+            data: postData
         });
 
         try {
@@ -44,7 +89,7 @@ $(document).ready(function () {
                     console.log('Editor.js is ready to work!')
                     /** Do anything you need after editor initialization */
 
-                    //upload cover image once selected
+                    //update cover image once selected
                     $("#cover-image-Input").change(async function () {
                         //ToDO: validate file
                         // craete Formdata object
@@ -52,8 +97,11 @@ $(document).ready(function () {
                         //append file 
                         formData.append("cover_image", this.files[0])
 
+                        //set edit flag treu
+                        formData.append("edit", true)
+
                         //send to backend
-                        const url = `http://localhost:3000/upload/new/cover/${getPostId()}`
+                        const url = `http://localhost:3000/upload/update/cover/${getPostId()}`
                         await axios.post(url, formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
@@ -61,7 +109,7 @@ $(document).ready(function () {
                         })
                             .then(res => {
                                 if (res.data.status === 1) {
-                                    // show cover image
+                                    // show updated cover image
                                     $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
                                     $('#cover_image').attr('src', res.data.path);
 
@@ -72,7 +120,6 @@ $(document).ready(function () {
                             .catch(err => {
                                 console.log(err);
                             })
-
                     });
 
                     // click event handler for CREATE button
@@ -94,7 +141,7 @@ $(document).ready(function () {
 
                                     console.log('data', data)
                                     // send data to backend
-                                    await axios.post('http://localhost:3000/api/new', data)
+                                    await axios.put(`http://localhost:3000/api/update/${getPostId()}`, data)
                                         .then(res => {
                                             console.log(res.data.status);
                                             //chcek status ( 1 -> post created)
@@ -125,25 +172,16 @@ $(document).ready(function () {
                             });
                     })
 
-
+                })
+                .catch(err => {
                 })
 
-        } catch (reason) {
+        }
+        catch (reason) {
             console.log(`Editor.js initialization failed because of ${reason}`)
         }
+
     }
 
-    initializeEditor();
-
-    //text area auto resize
-    $('#post_title').on('input', function () {
-        this.style.height = 'auto';
-
-        this.style.height =
-            (this.scrollHeight) + 'px';
-    });
 
 })
-
-
-
