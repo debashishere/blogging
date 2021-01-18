@@ -279,15 +279,4 @@
         border-radius: none;
     }
 
-    .footer-container .footer-content {
-        flex-direction: column;
-        justify-content: center;
-        /* align-items: center; */
-    }
-
-    .footer-container .footer-content .footer-links {
-        margin: 0;
-        padding-bottom: 10px;
-    }
-
 }

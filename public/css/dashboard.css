@@ -13,6 +13,11 @@
     min-height: 100vh;
 }
 
+.hero-wrapper {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
 .hero-container .hero-title {
     width: 20%;
     padding-top: 80px;
@@ -61,6 +66,7 @@
     padding-top: 30px;
     width: 55%;
     margin: 0 auto;
+    padding-bottom: 35px;
 }
 
 .hero-container .post-container .post-header {
@@ -139,4 +145,45 @@
     letter-spacing: 0.015rem;
     font-weight: 600;
     color: gray;
+}
+
+@media (max-width: 770px) {
+    .header-wrapper {
+        padding-left: 10px;
+        padding-right: 18px;
+    }
+
+    .hero-container .status-container {
+        width: 100%;
+    }
+
+    .hero-container .post-container .post-header {
+        display: none;
+    }
+
+    .hero-container .post-container {
+        padding-top: 15px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 540px) {
+    .hero-container .status-container {
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .hero-container .status-container .status-card:not(:last-child) {
+        margin-right: 0;
+    }
+
+    .hero-container .status-container .status-card {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 540px) {
+    .hero-container .status-container .status-card {
+        height: 95px;
+    }
 }

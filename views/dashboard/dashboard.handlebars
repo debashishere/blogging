@@ -1,52 +1,55 @@
 <section class="hero-container">
     {{>header}}
-    <div class="hero-title">
-        <h2>Dashboard</h2>
-    </div>
-    <div class="status-container">
-        <div class="status-card">
-            <p class="count">{{totalPosts}}</p>
-            <p class="text">Total posts</p>
-        </div>
-        <div class="status-card">
-            <p class="count">0</p>
-            <p class="text">Total post reactions</p>
-        </div>
-        <div class="status-card">
-            <p class="count">
-                < 500</p>
-                    <p class="text">Total post views</p>
-        </div>
-    </div>
-    <div class="post-container">
-        <div class="post-header">
-            <h3>Posts</h3>
-        </div>
-        {{#if articles}}
-        {{#each articles}}
-        {{!-- single post --}}
-        <div class="post">
-            <div class="post-content">
-                <a href="/article/{{this._id}}">{{this.title}}</a>
-                <p><span>Published: </span>{{getFormatedDate this.createdAt}}</p>
-                <p><span>Status: </span>{{this.status}}</p>
-            </div>
-            <div class="post-actions">
-                <a href="/article/edit/{{this._id}}"><i class="far fa-edit"></i></a>
-                <form class="delete-btn" action="/article/{{_id}}?_method=DELETE" method="POST">
-                    <button type="submit"><i class="far fa-trash-alt"></i></button>
-                </form>
-            </div>
-            {{!-- END of single post --}}
-        </div>
-        {{/each}}
-        {{else}}
-        <div class="message-container">
-            <p class="message">You haven't written any post yet.</p>
-        </div>
 
-        {{/if}}
+    <div class="hero-wrapper">
+        <div class="hero-title">
+            <h2>Dashboard</h2>
+        </div>
+        <div class="status-container">
+            <div class="status-card">
+                <p class="count">{{totalPosts}}</p>
+                <p class="text">Total posts</p>
+            </div>
+            <div class="status-card">
+                <p class="count">0</p>
+                <p class="text">Total post reactions</p>
+            </div>
+            <div class="status-card">
+                <p class="count">500</p>
+                <p class="text">Total post views</p>
+            </div>
+        </div>
+        <div class="post-container">
+            <div class="post-header">
+                <h3>Posts</h3>
+            </div>
+            {{#if articles}}
+            {{#each articles}}
+            {{!-- single post --}}
+            <div class="post">
+                <div class="post-content">
+                    <a href="/article/{{this._id}}">{{this.title}}</a>
+                    <p><span>Published: </span>{{getFormatedDate this.createdAt}}</p>
+                    <p><span>Status: </span>{{this.status}}</p>
+                </div>
+                <div class="post-actions">
+                    <a href="/article/edit/{{this._id}}"><i class="far fa-edit"></i></a>
+                    <form class="delete-btn" action="/article/{{_id}}?_method=DELETE" method="POST">
+                        <button type="submit"><i class="far fa-trash-alt"></i></button>
+                    </form>
+                </div>
+                {{!-- END of single post --}}
+            </div>
+            {{/each}}
+            {{else}}
+            <div class="message-container">
+                <p class="message">You haven't written any post yet.</p>
+            </div>
+
+            {{/if}}
+        </div>
     </div>
+
 
     {{>footer}}
 </section>

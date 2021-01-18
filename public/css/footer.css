@@ -86,6 +86,19 @@
     color: rgb(22, 14, 175);
 }
 
+@media (max-width: 770px) {
+    .footer-container .footer-content {
+        flex-direction: column;
+        justify-content: center;
+        /* align-items: center; */
+    }
+
+    .footer-container .footer-content .footer-links {
+        margin: 0;
+        padding-bottom: 10px;
+    }
+}
+
 @media (max-width: 470px) {
     .footer-container {
         padding: 60px 10px;
