@@ -1,137 +1,136 @@
 {{>header}}
 <section class="body-container">
     <div class="body-content">
-        {{!-- left --}}
-        <div class="body-left-container">
-            {{#unless loggedUser}}
-            {{!-- Guest user view --}}
-            <div class="sign-up-container">
-                <div class="sign-up-content">
-                    <h4><span>Let's Build</span> a community of amazing developers join us</h4>
-                    <p>We're a place where coders share, stay up-to-date and grow their careers.</p>
+        <div class="body-wrapper">
+            {{!-- left --}}
+            <div class="body-left-container">
+                {{#unless loggedUser}}
+                {{!-- Guest user view --}}
+                <div class="sign-up-container">
+                    <div class="sign-up-content">
+                        <h4><span>Let's Build</span> a community of amazing developers join us</h4>
+                        <p>We're a place where coders share, stay up-to-date and grow their careers.</p>
+                    </div>
+                    <a href="/auth/google" class="account-btn">Create new account</a>
                 </div>
-                <a href="/auth/google" class="account-btn">Create new account</a>
-            </div>
-            {{/unless}}
+                {{/unless}}
 
-            <div class="quick-links">
-                <a href="" class="selected">Home</a>
-                <a href="/article/new">Write</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-            </div>
-        </div>
-
-        {{!-- post content --}}
-        <div class="post-container">
-            <div class="post-top">
-                <h2>Posts</h2>
-                <div class="post-links">
-                    <a href="" class="selected">Feed</a>
-                    <a href="">Week</a>
-                    <a href="">Month</a>
-                    <a href="">Year</a>
-                    <a href="">Infinity</a>
+                <div class="quick-links">
+                    <a href="" class="selected">Home</a>
+                    <a href="/article/new">Write</a>
+                    <a href="/about">About</a>
+                    <a href="/contact">Contact</a>
                 </div>
             </div>
-            <div class="post-content">
 
-                {{!-- single card --}}
-                {{#if articles}}
-                {{#each articles}}
-                <div class="card">
-                    <div class="row">
-                        {{!-- if index is zero (first item) show cover image --}}
-                        {{#unless @index}}
-                        <div class="imgBx">
-                            <img class="card-img" src="/uploads/cover-images/{{this.cover_image}}" alt="Card image cap">
-                        </div>
-                        {{/unless}}
-                        <div class="desc">
-                            <div class="user">
-                                <div class="user-img">
-                                    <img src="{{this.user.image}}">
-                                </div>
-                                <div class="user-desc">
-                                    <a href="#" class="name">{{this.user.displayName}}</a>
-                                    <a href="#" class="date">{{getFormatedDate this.createdAt}} ({{getRelativeDate
-                                        this.createdAt}})</a>
-                                </div>
+            {{!-- post content --}}
+            <div class="post-container">
+                <div class="post-top">
+                    <h2>Posts</h2>
+                    <div class="post-links">
+                        <a href="" class="selected">Feed</a>
+                        <a href="">Week</a>
+                        <a href="">Month</a>
+                        <a href="">Year</a>
+                        <a href="">Infinity</a>
+                    </div>
+                </div>
+                <div class="post-content">
+
+                    {{!-- single card --}}
+                    {{#if articles}}
+                    {{#each articles}}
+                    <div class="card">
+                        <div class="row">
+                            {{!-- if index is zero (first item) show cover image --}}
+                            {{#unless @index}}
+                            <div class="imgBx">
+                                <img class="card-img" src="/uploads/cover-images/{{this.cover_image}}"
+                                    alt="Card image cap">
                             </div>
-                            <div class="card-content">
-                                <h3><a href="/article/{{this._id}}">{{this.title}}</a></h3>
-                                <div class="card-footer">
-                                    <a href="/reaction">
-                                        <div class="f-link">
+                            {{/unless}}
+                            <div class="desc">
+                                <div class="user">
+                                    <div class="user-img">
+                                        <img src="{{this.user.image}}">
+                                    </div>
+                                    <div class="user-desc">
+                                        <a href="#" class="name">{{this.user.displayName}}</a>
+                                        <a href="#" class="date">{{getFormatedDate this.createdAt}} ({{getRelativeDate
+                                            this.createdAt}})</a>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <h3><a href="/article/{{this._id}}">{{this.title}}</a></h3>
+                                    <div class="card-footer">
+                                        <a href="/reaction">
+                                            <div class="f-link">
 
-                                            <div class="reaction-logo">
-                                                <p><i class="far fa-heart"></i></p>
-                                            </div>
-                                            <div class="reaction-count">
-                                                <p>{{this.reactions}}</p>
-                                            </div>
-                                            <div class="reaction-text">
-                                                <p>reactions</p>
-                                            </div>
+                                                <div class="reaction-logo">
+                                                    <p><i class="far fa-heart"></i></p>
+                                                </div>
+                                                <div class="reaction-count">
+                                                    <p>{{this.reactions}}</p>
+                                                </div>
+                                                <div class="reaction-text">
+                                                    <p>reactions</p>
+                                                </div>
 
-                                        </div>
-                                    </a>
-                                    <a href="/comments">
-                                        <div class="f-link">
-
-                                            <div class="reaction-logo">
-                                                <p><i class="far fa-comment-alt"></i></p>
                                             </div>
-                                            <div class="reaction-count">
+                                        </a>
+                                        <a href="/comments">
+                                            <div class="f-link">
+
+                                                <div class="reaction-logo">
+                                                    <p><i class="far fa-comment-alt"></i></p>
+                                                </div>
                                                 <div class="reaction-text">
                                                     {{!-- check for comments --}}
                                                     {{#if this.comments}}
                                                     <p>{{this.comments.length}}</p>
-                                                    <div class="reaction-text">
-                                                        <p>comments</p>
-                                                    </div>
+                                                    <p>comments</p>
                                                     {{!-- no comments --}}
                                                     {{else}}
-
-                                                    <p>Add Comment</p>
+                                                    {{!-- <div class="reaction-text"> --}}
+                                                        <p>Add Comment</p>
+                                                        {{/if}}
+                                                    </div>
 
                                                 </div>
-                                                {{/if}}
-                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
 
-                                        </div>
-                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{/if}}
+                    {{!-- END single card --}}
+
+                </div>
+            </div>
+
+            {{!-- right --}}
+            <div class="body-right-container">
+                <div class="body-right">
+                    <div class="resources-container">
+                        <div class="resources-card">
+                            <div class="row-right">
+                                <div class="img-right">
+                                    <img src="./images/coding.png">
+                                </div>
+                                <div class="resouces-content">
+                                    <p>More Contents</p>
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
-                {{/each}}
-                {{/if}}
-                {{!-- END single card --}}
-
             </div>
         </div>
 
-        {{!-- right --}}
-        <div class="body-right-container">
-            <div class="body-right">
-                <div class="resources-container">
-                    <div class="resources-card">
-                        <div class="row-right">
-                            <div class="img-right">
-                                <img src="./images/coding.png">
-                            </div>
-                            <div class="resouces-content">
-                                <p>More Contents</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
     </div>
 

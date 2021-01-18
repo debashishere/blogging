@@ -1,45 +1,48 @@
 <header>
     <section class="header-section">
-        <div class="nav-left">
-            <div class="overlay"></div>
-            <div class="menuToggle"></div>
-            {{!-- side nav --}}
-            <div class="navigation">
-                <div class="title">
-                    <h3>Well Come</h3>
-                    <img class="close-btn" src="../images/close.png">
+        <div class="header-wrapper">
+            <div class="nav-left">
+                <div class="overlay"></div>
+                <div class="menuToggle"></div>
+                {{!-- side nav --}}
+                <div class="navigation">
+                    <div class="title">
+                        <h3>Well Come</h3>
+                        <img class="close-btn" src="../images/close.png">
+                    </div>
+                    <ul>
+                        <li><a href="/" class="selected">Home</a></li>
+                        <li><a href="/article/new">Write</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
                 </div>
-                <ul>
-                    <li><a href="/" class="selected">Home</a></li>
-                    <li><a href="/article/new">Write</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
 
-            <a href="/" class="logo"><i class="fas fa-pen-square"></i></a>
-            <input class='search' placeholder="Search...">
-        </div>
-        <div class="nav-right">
-            {{!-- check if user is logged in --}}
-            {{#if loggedUser}}
-            {{!-- logged user view --}}
-            <a href="/article/new" class="nav-right-link">Write a post</a>
-            <div class="dropdown">
-                <div class="dropdown-imgBx">
-                    <img src="{{loggedUser.image}}">
-                </div>
-                <ul class="dropdown-menu">
-                    <li><a href="/profile" class="bolder">{{loggedUser.displayName}}</a></li>
-                    <li><a href="/dashboard">Dashboard</a></li>
-                    <li><a href="/article/new">Write a Post</a></li>
-                    <li><a href="/auth/logout">Sign Out</a></li>
-                </ul>
+                <a href="/" class="logo"><i class="fas fa-pen-square"></i></a>
+                <input class='search' placeholder="Search...">
             </div>
-            {{else}}
-            {{!-- guest View--}}
-            <a href="/auth/google" class="nav-right-link">Sign Up/Sign In</a>
-            {{/if}}
+            <div class="nav-right">
+                {{!-- check if user is logged in --}}
+                {{#if loggedUser}}
+                {{!-- logged user view --}}
+                <a href="/article/new" class="nav-right-link">Write a post</a>
+                <div class="dropdown">
+                    <div class="dropdown-imgBx">
+                        <img src="{{loggedUser.image}}">
+                    </div>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile" class="bolder">{{loggedUser.displayName}}</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/article/new">Write a Post</a></li>
+                        <li><a href="/auth/logout">Sign Out</a></li>
+                    </ul>
+                </div>
+                {{else}}
+                {{!-- guest View--}}
+                <a href="/auth/google" class="nav-right-link">Sign Up/Sign In</a>
+                {{/if}}
+            </div>
         </div>
+
     </section>
 </header>
