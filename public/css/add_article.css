@@ -60,9 +60,17 @@
 }
 
 .hero-container .header .header-right .close-Btn {
-    border: none;
     font-size: 1.2rem;
-    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3px 6px;
+    border: 1px solid rgb(116, 113, 113);
+    border-radius: 5px;
+}
+
+.hero-container .header .header-right .close-Btn:hover {
+    background-color: rgb(245, 189, 189);
+    color: rgb(31, 28, 28);
 }
 
 .hero-container .hero-content .body-container {

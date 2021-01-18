@@ -143,6 +143,9 @@ $(document).ready(function () {
             (this.scrollHeight) + 'px';
     });
 
+    // close button event handler
+
+
 })
 
 

@@ -1,6 +1,6 @@
 const path = require('path');
 //MongoDb Services
-const { getAticlesByUser, getPublicArticles, getArticleById } = require('./services');
+const { getPublicAticlesByUser, getAticlesByUser, getPublicArticles, getArticleById } = require('./services');
 
 
 //render views
@@ -45,7 +45,7 @@ module.exports = {
         //check if user is set
         if (loggedUser) {
             //get user articles
-            const articles = getAticlesByUser(loggedUser._id)
+            const articles = getPublicAticlesByUser(loggedUser._id)
                 .then(articleList => {
 
                     // if no articles available
@@ -57,6 +57,7 @@ module.exports = {
                         layout: 'main',
                         style: "profile.css",
                         header_style: 'header.css',
+                        footer_style: 'footer.css',
                         loggedUser,
                         articleList,
                         totalPosts,
@@ -86,6 +87,7 @@ module.exports = {
                 res.render('dashboard/dashboard', {
                     style: "dashboard.css",
                     header_style: "header.css",
+                    footer_style: 'footer.css',
                     articles: articleList,
                     totalPosts,
                 });
@@ -117,6 +119,7 @@ module.exports = {
                         style: "article.css",
                         js: 'article.js',
                         header_style: "header.css",
+                        footer_style: 'footer.css',
                         editor: true,
                         article
                     })

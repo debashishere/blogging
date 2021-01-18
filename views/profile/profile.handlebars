@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="post-desc">
-                            <a href="" class="post-title">{{this.title}}</a>
+                            <a href="/article/{{this._id}}" class="post-title">{{this.title}}</a>
                             <div class="post-reaction">
                                 <a href=""><span class="reac-logo"><i class="far fa-heart"></i></span> <span
                                         class="reac-count">{{this.reactions}}</span> reactions</a>
@@ -68,6 +68,7 @@
             </div>
         </div>
     </div>
+    {{>footer}}
 </section>
 
 {{!-- if logged user is not exists --}}

@@ -19,6 +19,23 @@ module.exports = {
         }
     },
 
+    //get public articles by userid
+    getPublicAticlesByUser: async (userId) => {
+        try {
+            //fetch all post with userId
+            const articles = await Article.find({ user: userId, status: 'public' }).lean();
+            if (articles.length > 0) {
+                return articles;
+            }
+            else {
+                //error
+            }
+        }
+        catch (err) {
+
+        }
+    },
+
     //get articles by userid
     getAticlesByUser: async (userId) => {
         try {
