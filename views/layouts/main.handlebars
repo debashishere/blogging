@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    {{!-- js --}}
+    {{#if header_js}}
+    <script src='/js/{{header_js}}' async defer>
+    </script>
+    {{/if}}
 
     {{!-- header's css file --}}
     {{#if header_style }}

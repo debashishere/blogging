@@ -16,6 +16,7 @@ module.exports = {
                 res.render('home', {
                     layout: 'main',
                     js: 'home.js',
+                    header_js: "header.js",
                     style: 'home.css',
                     header_style: 'header.css',
                     articles,
