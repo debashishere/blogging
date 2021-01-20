@@ -372,6 +372,10 @@
 }
 
 @media (max-width: 767px) {
+    .post-container .post-top {
+        padding-left: 15px;
+    }
+
     .body-left-container {
         display: none;
     }
