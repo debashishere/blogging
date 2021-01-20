@@ -1,90 +1,99 @@
 <section class="hero-container">
-    <header class="header">
-        <div class="header-left">
-            <a href="/" class="logo"><i class="fas fa-pen-square"></i></a>
-            <p>Write a new post</p>
-        </div>
-        <div class="header-right">
-            <a href="/dashboard" class="close-Btn">X</a>
-        </div>
-    </header>
+    {{!-- <div class="hero-wrapper"> --}}
+        <header class="header">
+            {{!-- <div class="header-wrapper"> --}}
+                <div class="header-left">
+                    <a href="/" class="logo"><i class="fas fa-pen-square"></i></a>
+                    <p>Write a new post</p>
+                </div>
+                <div class="header-right">
+                    <a href="/dashboard" class="close-Btn">X</a>
+                </div>
+                {{!--
+            </div> --}}
+        </header>
 
-    <div class="hero-content">
-        <div class="body-container">
-            {{!-- main content --}}
-            <div class="main-content">
-                {{#if edit}}
-                <div class="page-flagBx">
-                    <h3>Edit</h3>
-                </div>
-                {{/if}}
-                <div class="cover-input-container">
-                    {{!-- show update cover image label --}}
-                    {{#if edit}}
-                    <label for="image">Update Cover Image</label>
-                    {{else}}
-                    <label for="image">Upload a Cover Image</label>
-                    {{/if}}
-                    <input type="file" id="cover-image-Input" name="cover-image">
-                </div>
-                <div id="cover-imageBx">
-                    <img src="/images/cover-thumbsvg.svg" id="cover_image" alt="Cover Image">
-                </div>
-                <div class="post-content">
-                    <textarea type="text" id="post_title" rows=1 placeholder="New post title here... "></textarea>
-                    {{!-- editor js --}}
-                    <div class="editor-container">
-                        <div id="editorjs">
+        <div class="hero-content">
+            <div class="body-container">
+                {{!-- main content --}}
+                <div class="main-content">
+                    <div class="main-content-scrll">
+                        {{#if edit}}
+                        <div class="page-flagBx">
+                            <h3>Edit</h3>
+                        </div>
+                        {{/if}}
+                        <div class="cover-input-container">
+                            {{!-- show update cover image label --}}
+                            {{#if edit}}
+                            <label for="image">Update Cover Image</label>
+                            {{else}}
+                            <label for="image">Upload a Cover Image</label>
+                            {{/if}}
+                            <input type="file" id="cover-image-Input" name="cover-image">
+                        </div>
+                        <div id="cover-imageBx">
+                            <img src="/images/cover-thumbsvg.svg" id="cover_image" alt="Cover Image">
+                        </div>
+                        <div class="post-content">
+                            <textarea type="text" id="post_title" rows=1
+                                placeholder="New post title here... "></textarea>
+                            {{!-- editor js --}}
+                            <div class="editor-container">
+                                <div id="editorjs">
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{!-- end of main content --}}
+
+                <div class="aside">
+                    <div class="info-card">
+                        <div class="title-info-card">
+                            <h4>Writing a Great Post Title</h4>
+                            <ul>
+                                <li>
+                                    <p>Think of your post title as a super short (but compelling!) description — like an
+                                        overview of
+                                        the actual post in one short sentence.</p>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="editor-info-card">
+                            <h4>Editor Basics</h4>
+                            <ul>
+                                <li>
+                                    <p>It is a block-styled editor.</p>
+                                </li>
+                                <li>
+                                    <p>Click on + (plus) sign to use tools.</p>
+                                </li>
+                                <li>
+                                    <p>Click on (::) four dot to customise, <br>to move up, down or delete block.</p>
+                                </li>
+                                <li>
+                                    <p>Press enter to add new block.</p>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            {{!-- end of main content --}}
 
-            <div class="aside">
-                <div class="info-card">
-                    <div class="title-info-card">
-                        <h4>Writing a Great Post Title</h4>
-                        <ul>
-                            <li>
-                                <p>Think of your post title as a super short (but compelling!) description — like an
-                                    overview of
-                                    the actual post in one short sentence.</p>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="editor-info-card">
-                        <h4>Editor Basics</h4>
-                        <ul>
-                            <li>
-                                <p>It is a block-styled editor.</p>
-                            </li>
-                            <li>
-                                <p>Click on + (plus) sign to use tools.</p>
-                            </li>
-                            <li>
-                                <p>Click on (::) four dot to customise, <br>to move up, down or delete block.</p>
-                            </li>
-                            <li>
-                                <p>Press enter to add new block.</p>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="btn-container">
+                <div class="status">
+                    <select id="status" name="status">
+                        <label for="title"> Status</label>
+                        <option value="public" selected>Public</option>
+                        <option value="private">Private</option>
+                    </select>
                 </div>
+                <button class="create-article">Create</button>
             </div>
         </div>
-
-        <div class="btn-container">
-            <div class="status">
-                <select id="status" name="status">
-                    <label for="title"> Status</label>
-                    <option value="public" selected>Public</option>
-                    <option value="private">Private</option>
-                </select>
-            </div>
-            <button class="create-article">Create</button>
-        </div>
-    </div>
+        {{!--
+    </div> --}}
 </section>
