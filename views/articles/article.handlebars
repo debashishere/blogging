@@ -1,10 +1,6 @@
-{{!-- {{#if title}}
-<p>{{title}}</p>
-{{/if}} --}}
-
-
 <div class="hero-container">
     {{>header}}
+
     {{#if article}}
     <div class="main-container">
         <div class="fixed-wrapper">
@@ -31,59 +27,188 @@
             </div>
         </div>
         <div class="main-wrapper">
-
-            {{!-- left side container --}}
-            {{!-- <div class="aside-left-content">
-                <div class="reac-container">
-                    <span><i class="far fa-heart"></i></span>
-                </div>
-            </div> --}}
-
-            {{!-- main content --}}
             <div class="main-content">
-                <div class="cover-imgBx">
-                    <img src="/uploads/cover-images/{{article.cover_image}}">
-                </div>
-                <div class="post-content">
-                    <div class="post-title">
-                        <h1>{{article.title}}</h1>
-                    </div>
-                    <div class="writer-block">
-                        <div class="writer-imgBx">
-                            <a href=""> <img src="{{article.user.image}}"></a>
-                        </div>
-                        <div class="writer-desc">
-                            <a class="name" href="">{{article.user.displayName}}</a>
-                            <p>{{getFormatedDate article.createdAt}}</p>
-                        </div>
-                    </div>
-                    {{!-- editorjs start --}}
-                    <div class="editor-content">
-                        <div id="editorjs">
 
+                {{!-- Post --}}
+                <div class="post-wrapper">
+                    {{!-- cover image --}}
+                    <div class="cover-imgBx">
+                        <img src="/uploads/cover-images/{{article.cover_image}}">
+                    </div>
+
+                    {{!-- post content --}}
+                    <div class="post-content">
+                        <div class="post-title">
+                            <h1>{{article.title}}</h1>
                         </div>
+                        <div class="writer-block">
+                            <div class="writer-imgBx">
+                                <a href=""> <img src="{{article.user.image}}"></a>
+                            </div>
+                            <div class="writer-desc">
+                                <a class="name" href="">{{article.user.displayName}}</a>
+                                <p>{{getFormatedDate article.createdAt}}</p>
+                            </div>
+                        </div>
+                        {{!-- editorjs start --}}
+                        <div class="editor-content">
+                            <div id="editorjs">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- discussion --}}
+                <div class="dis_container">
+                    <div class="dis_head">
+                        <h3>Discussion</h3>
+                        {{!-- <a class="post_btn" href="">Subscribe</a> --}}
+                    </div>
+                    <div class="dis_input">
+                        <div class="user_imgBx">
+                            <img src="/images/thumb.jpg" alt="user-image">
+                        </div>
+                        <div class="dis_text">
+                            <textarea class="dis_textarea" placeholder="Add to the discussion"></textarea>
+                            <div class="dis_btn_container">
+                                <a href=" " class="submit_btn">Submit</a>
+                                {{!-- <a href=" " class="dismis_btn">Dismis</a> --}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="dis_content">
+                        {{!-- single comment start --}}
+                        <div class="dis_card">
+
+                            <div class="dis_wrapper">
+                                <div class="writer_imgBx">
+                                    <img src="/images/thumb.jpg" alt="user-image">
+                                </div>
+                                <div class="writer_content">
+                                    <div class="writer_head">
+                                        <div class="writer_title">
+                                            <h6>DEBASHIS ROY </h6>
+                                            <div class="seperator">
+                                                <p><i class="fas fa-circle"></i></p>
+                                            </div>
+                                            <p class="date"> </p><span> Jan 20</span>
+                                        </div>
+                                        <div class="action">
+                                            <p>...</p>
+                                        </div>
+                                    </div>
+                                    <p class="comment">Some discussions here</p>
+                                </div>
+                            </div>
+                            {{!-- <div class="comment_btn_container">
+                                <a href=" " class="submit_btn">Submit</a>
+                                <a href=" " class="dismis_btn">Dismis</a>
+
+                            </div> --}}
+                        </div>
+                    </div>
+                    <div class="reac_container">
+                        <div class="reac_wrapper">
+                            {{!-- like and comment --}}
+                            <div class="reac_link">
+                                <a href="">
+                                    <div class="reac_content">
+                                        <div class="reac_logo">
+                                            <p><i class="far fa-heart"></i></i></p>
+                                        </div>
+                                        <div class="reac_text">
+                                            <p>Like</p>
+                                        </div>
+
+                                    </div>
+                                </a>
+                                <a href="">
+                                    <div class="reac_content">
+
+                                        <div class="reac_logo">
+                                            <p><i class="far fa-comment-alt"></i></p>
+                                        </div>
+                                        <div class="reac_text">
+                                            <p>Replay</p>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </div>
+                            {{!-- reply --}}
+                            <div class="reac_reply_input">
+                                <textarea class="reac_reply_textarea" placeholder="Reply..."></textarea>
+                                <div class="reac_btn_container">
+                                    <a href=" " class="submit_btn">Submit</a>
+                                    <a href=" " class="dismis_btn">Dismis</a>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-- single comment end --}}
+
+                        {{!-- single replay start --}}
+                        <div class="reply_wrapper">
+                            <div class="reply_card">
+                                <div class="reply_writer_imgBx">
+                                    <a href="">
+                                        <img src="/images/thumb.jpg" alt="reply_user-image">
+                                    </a>
+                                </div>
+                                <div class="reply_writer_content">
+                                    <div class="reply_writer_head">
+                                        <div class="reply_writer_title">
+                                            <a href="">
+                                                <h6>DEBASHIS ROY </h6>
+                                            </a>
+                                            <div class="reply_seperator">
+                                                <p><i class="fas fa-circle"></i></p>
+                                            </div>
+                                            <p class="reply_date"> </p><span> Jan 20</span>
+                                        </div>
+                                        <div class="reply_action">
+                                            <p>...</p>
+                                        </div>
+                                    </div>
+                                    <p class="reply_comment">Some Reply here</p>
+                                </div>
+                            </div>
+                            <div class="reply_reac_container">
+                                <a href="">
+                                    <div class="reply_reac_content">
+                                        <div class="reply_reac_logo">
+                                            <p><i class="far fa-heart"></i></i></p>
+                                        </div>
+                                        <div class="reply_reac_text">
+                                            <p>Like</p>
+                                        </div>
+
+                                    </div>
+                                </a>
+                                <a href="">
+                                    <div class="reply_reac_content">
+
+                                        <div class="reply_reac_logo">
+                                            <p><i class="far fa-comment-alt"></i></p>
+                                        </div>
+                                        <div class="reply_reac_text">
+                                            <p>Replay</p>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{!-- single reply end --}}
                     </div>
                 </div>
             </div>
 
-            {{!-- right side content --}}
-            {{!-- <div class="aside-right-content">
-                <div class="creator-card">
-                    <div class="colored-bar">
-                        <div class="creator-imgBx">
-                            <a href=""> <img src="{{article.user.image}}"></a>
-                        </div>
-                    </div>
-                    <div class="creator-section">
-                        <a href="">
-                            <h2>{{article.user.displayName}}</h2>
-                        </a>
-                    </div>
-
-                </div>
-            </div> --}}
         </div>
     </div>
-    {{/if}}
-    {{>footer}}
+</div>
+{{/if}}
+
+{{>footer}}
 </div>

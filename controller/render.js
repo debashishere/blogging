@@ -121,6 +121,7 @@ module.exports = {
                         js: 'article.js',
                         header_style: "header.css",
                         footer_style: 'footer.css',
+                        sheet_01: 'article_discussion.css',
                         editor: true,
                         article
                     })

@@ -1,0 +1,457 @@
+.dis_container {
+    width: 85%;
+    margin: 0 auto;
+    padding: 25px 0;
+    /* background: yellow; */
+    height: 20pxrgb(22, 22, 19)
+}
+
+.dis_container .dis_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+}
+
+.dis_container .dis_head h3 {
+    font-size: 1.3rem;
+    letter-spacing: 0.015rem;
+    font-weight: 1200;
+}
+
+/* .dis_container .dis_head .post_btn {
+    text-decoration: none;
+    color: black;
+    background-color: aqua;
+    border-radius: 5px;
+    padding: 4px 10px;
+    display: block;
+    letter-spacing: 0.025rem;
+    font-size: 1.1rem;
+} */
+
+.dis_container .dis_input {
+    width: 100%;
+    padding-top: 17px;
+    display: flex;
+    background-color: #fff;
+    justify-content: start;
+    align-items: start;
+}
+
+.dis_container .dis_input .dis_text {
+    width: calc(100% - 42px);
+    max-width: calc(100% - 42px);
+}
+
+.dis_container .dis_input .dis_text .dis_textarea {
+    width: 100%;
+    font-size: 0.86rem;
+    letter-spacing: 0.012rem;
+    border-radius: 5px;
+    padding: 13px 8px;
+    background-color: #F9FAFA;
+    outline: none;
+    border: 1px solid #d7d9d9;
+    height: 65px;
+}
+
+.dis_container .dis_input .dis_text .dis_textarea:focus {
+    outline: none;
+    border: 0.5px solid #323EBE;
+}
+
+.dis_container .dis_input .dis_text .dis_btn_container {
+    width: 100%;
+    margin-top: 9px;
+}
+
+.dis_container .dis_input .dis_text .dis_btn_container .submit_btn {
+    text-decoration: none;
+    background: #414dce;
+    border-radius: 5px;
+    padding: 8px 14px;
+    margin-right: 5px;
+    display: inline-block;
+    font-size: 0.95rem;
+    letter-spacing: 0.015rem;
+    font-weight: 550;
+    color: white;
+}
+
+.dis_container .dis_input .dis_text .dis_btn_container .submit_btn:hover {
+    background: #323EBE;
+}
+
+.dis_container .dis_input .user_imgBx {
+    position: relative;
+    height: 33px;
+    width: 33px;
+    margin-right: 8px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: antiquewhite;
+}
+
+.dis_container .dis_input .user_imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dis_container .dis_content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+}
+
+
+
+.dis_container .dis_content .dis_card {
+    width: 100%;
+    height: 100%;
+}
+
+.dis_container .dis_content .dis_card .dis_wrapper {
+    width: 100%;
+    margin-top: 27px;
+    /* padding: 22px 18px; */
+    padding-left: 3px;
+    display: flex;
+}
+
+.dis_container .dis_content .dis_card .dis_wrapper .writer_imgBx {
+    position: relative;
+    height: 31.5px;
+    width: 31.5px;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-right: 7px;
+    overflow: hidden;
+}
+
+.dis_container .dis_content .dis_card .dis_wrapper .writer_imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.dis_container .dis_content .dis_card .dis_wrapper .writer_content {
+    width: 94.5%;
+    border: 1px solid #d7d9d9;
+    border-radius: 5px;
+    padding: 18px 13px;
+    /* background: yellow; */
+}
+
+.dis_container .dis_content .dis_card .dis_wrapper .writer_content .comment {
+    padding-top: 21px;
+    font-size: 0.96rem;
+    color: rgb(105, 105, 112);
+}
+
+.dis_container .dis_content .dis_card .dis_wrapper .writer_content .writer_head {
+    width: 100%;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+/* .dis_container .dis_content .dis_card .writer_content .writer_head .action {
+    font-weight: 600;
+} */
+
+.dis_container .dis_content .dis_card .dis_wrapper .writer_content .writer_head .writer_title {
+    display: flex;
+    align-items: center;
+    text-align-last: center;
+}
+
+.dis_container .dis_content .dis_card .dis_wrapper .writer_content .writer_head .action {
+    position: relative;
+}
+
+.dis_container .dis_content .dis_card .writer_content .writer_head .writer_title h6 .seperator {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: gray;
+}
+
+.dis_container .dis_content .dis_card .writer_content .writer_head .action p {
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.01rem;
+    cursor: pointer;
+    color: rgb(167, 166, 166);
+}
+
+.dis_container .dis_content .dis_card .writer_content .writer_head .writer_title h6 {
+    font-size: 0.95rem;
+    color: rgb(105, 105, 112);
+    letter-spacing: 0.012rem;
+}
+
+.dis_container .dis_content .dis_card .writer_content .writer_head .writer_title .seperator {
+    width: 23px;
+    height: 20px;
+    position: relative;
+}
+
+.dis_container .dis_content .dis_card .writer_content .writer_head .writer_title .seperator p {
+    position: absolute;
+    top: 8px;
+    left: 11px;
+    font-size: 4.3px;
+    color: gray;
+}
+
+.dis_container .dis_content .dis_card .writer_content .writer_head .writer_title {
+    font-size: 0.84rem;
+    color: gray;
+}
+
+.dis_container .reac_container {
+    width: 100%;
+
+}
+
+.dis_container .reac_container .reac_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_link {
+    width: 100%;
+    /* background: yellow; */
+    display: flex;
+    padding: 9px 10px 9px 54px;
+    align-items: center;
+}
+
+.dis_container .reac_container .reac_wrapper a {
+    text-decoration: none;
+    display: block;
+    color: rgb(117, 117, 117);
+}
+
+.dis_container .reac_container .reac_wrapper a .reac_content {
+    display: flex;
+}
+
+.dis_container .reac_container .reac_wrapper a .reac_content .reac_logo {
+    color: black;
+    padding-right: 7.5px;
+    font-size: 1rem;
+}
+
+.dis_container .reac_container .reac_wrapper a .reac_content .reac_text {
+    padding-right: 23px;
+    font-size: 0.84rem;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_reply_input {
+    width: 100%;
+    /* background-color: yellow; */
+    padding-left: 42px;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_reply_input .reac_reply_textarea {
+    width: 100%;
+    height: 60px;
+    border-radius: 5px;
+    padding: 13px 8px;
+    font-size: 0.86rem;
+    outline: none;
+    border: 1px solid #d7d9d9;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_reply_input .reac_reply_textarea:focus {
+    border: 0.5px solid #323EBE;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_reply_input .reac_btn_container {
+    width: 100%;
+    margin-top: 9px;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_reply_input .reac_btn_container .submit_btn {
+    text-decoration: none;
+    background: #414dce;
+    border-radius: 5px;
+    padding: 8px 14px;
+    margin-right: 5px;
+    display: inline-block;
+    font-size: 0.95rem;
+    letter-spacing: 0.015rem;
+    font-weight: 550;
+    color: white;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_reply_input .reac_btn_container .submit_btn:hover {
+    background: #323EBE;
+
+}
+
+.dis_container .reac_container .reac_wrapper .reac_reply_input .reac_btn_container .dismis_btn {
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 8px 14px;
+    margin-right: 5px;
+    display: inline-block;
+    font-size: 0.95rem;
+    letter-spacing: 0.015rem;
+    font-weight: lighter;
+    color: black;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_reply_input .reac_btn_container .dismis_btn:hover {
+    background-color: #d7d9d9;
+}
+
+
+
+/* reply section style */
+.reply_wrapper {
+    width: 100%;
+}
+
+.reply_wrapper .reply_card {
+    width: 100%;
+    margin-top: 25px;
+    padding-left: 27px;
+    display: flex;
+}
+
+.reply_wrapper .reply_card .reply_writer_imgBx {
+    position: relative;
+    height: 23px;
+    width: 23px;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-right: 7px;
+    overflow: hidden;
+}
+
+.reply_wrapper .reply_card .reply_writer_imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.reply_wrapper .reply_card .reply_writer_content {
+    width: 100%;
+    border: 1px solid #d7d9d9;
+    border-radius: 5px;
+    padding: 18px 13px;
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_comment {
+    padding-top: 21px;
+    font-size: 0.96rem;
+    color: rgb(105, 105, 112);
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head {
+    width: 100%;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_writer_title {
+    display: flex;
+    align-items: center;
+    text-align-last: center;
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_action {
+    position: relative;
+
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_action p {
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.01rem;
+    cursor: pointer;
+    color: rgb(167, 166, 166);
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_writer_title {
+    font-size: 0.84rem;
+    color: gray;
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_writer_title .reply_seperator {
+    width: 23px;
+    height: 20px;
+    position: relative;
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_writer_title .reply_seperator p {
+    position: absolute;
+    top: 8px;
+    left: 11px;
+    font-size: 4.3px;
+    color: gray;
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_writer_title a {
+    text-decoration: none;
+}
+
+.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_writer_title h6 {
+    font-size: 0.95rem;
+    color: rgb(105, 105, 112);
+    letter-spacing: 0.012rem;
+}
+
+.reply_wrapper .reply_reac_container {
+    width: 100%;
+    display: flex;
+    padding: 9px 10px 9px 69px;
+    align-items: center;
+}
+
+.reply_wrapper .reply_reac_container a {
+    text-decoration: none;
+    display: block;
+    color: rgb(117, 117, 117);
+}
+
+.reply_wrapper .reply_reac_container a .reply_reac_content {
+    display: flex;
+}
+
+.reply_wrapper .reply_reac_container a .reply_reac_content .reply_reac_logo {
+    color: black;
+    padding-right: 7.5px;
+    font-size: .95rem;
+}
+
+.reply_wrapper .reply_reac_container a .reply_reac_content .reply_reac_text {
+    padding-right: 23px;
+    font-size: 0.84rem;
+}
+
+/* reply section style End */
