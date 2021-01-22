@@ -94,7 +94,7 @@ $(document).ready(function () {
 
                                     console.log('data', data)
                                     // send data to backend
-                                    await axios.post('http://localhost:3000/api/new', data)
+                                    await axios.post('http://localhost:3000/api/article/new', data)
                                         .then(res => {
                                             console.log(res.data.status);
                                             //chcek status ( 1 -> post created)

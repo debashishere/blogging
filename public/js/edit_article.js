@@ -11,7 +11,7 @@ $(document).ready(function () {
     //get data with post id
     (async () => {
         try {
-            const url = `http://localhost:3000/api/edit/data/${getPostId()}`
+            const url = `http://localhost:3000/api/article/edit/data/${getPostId()}`
 
             await axios.get(url)
                 .then(res => {
@@ -141,7 +141,7 @@ $(document).ready(function () {
 
                                     console.log('data', data)
                                     // send data to backend
-                                    await axios.put(`http://localhost:3000/api/update/${getPostId()}`, data)
+                                    await axios.put(`http://localhost:3000/api/article/update/${getPostId()}`, data)
                                         .then(res => {
                                             console.log(res.data.status);
                                             //chcek status ( 1 -> post created)

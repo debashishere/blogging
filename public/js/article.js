@@ -11,7 +11,7 @@ $(document).ready(function () {
     //get data with post id
     (async function () {
         const postId = getPostId();
-        const url = `http://localhost:3000/api/data/${postId}`
+        const url = `http://localhost:3000/api/article/data/${postId}`
 
         await axios.get(url)
             .then(res => {
