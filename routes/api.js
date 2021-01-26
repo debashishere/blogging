@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const article_api = require('./api/article_api');
-const comment_api = require('./api/comment_api');
+const article_api = require('./article_api');
+const comment_api = require('./comment_api');
 
 
 //@desc article api route

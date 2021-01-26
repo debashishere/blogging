@@ -1,6 +1,6 @@
 const path = require('path');
 //MongoDb Services
-const { getPublicAticlesByUser, getAticlesByUser, getPublicArticles, getArticleById } = require('./services');
+const { getPublicAticlesByUser, getAticlesByUser, getPublicArticles, getArticleById, getCommentDb } = require('./services');
 
 
 //render views
@@ -110,20 +110,24 @@ module.exports = {
     },
 
     //@desc render a single article view
-    renderArticle: (id, res) => {
+    renderArticle: async (id, res) => {
+        const loggedUser = res.locals.loggedUser;
+        const comments = await getCommentDb(id);
         const result = getArticleById(id);
         result
             .then((article) => {
                 if (article) {
-                    console.log()
                     res.render('articles/article', {
                         style: "article.css",
                         js: 'article.js',
+                        comment_js: "comment.js",
                         header_style: "header.css",
                         footer_style: 'footer.css',
                         sheet_01: 'article_discussion.css',
                         editor: true,
-                        article
+                        article,
+                        comments,
+                        user: loggedUser
                     })
                 } else {
                     // no article foound with that id
@@ -144,5 +148,17 @@ module.exports = {
             editor: true,
             edit: true,
         })
+    },
+
+    //@desc render edit comment view
+    renderEditComment: (comment, res) => {
+        res.render('articles/edit_comment', {
+            style: "edit_comment.css",
+            header_style: "header.css",
+            header_js: 'header.js',
+            footer_style: 'footer.css',
+            js: "edit_comment.js",
+            comment,
+        });
     }
 }

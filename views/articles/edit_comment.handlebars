@@ -1,0 +1,25 @@
+<div class="hero_container">
+    {{>header}}
+    <div class="main_container">
+        <div class="main_content">
+            <div class="edit_card">
+                <h3>Editting comment</h3>
+                <div class="card">
+                    <div class="creator_imgBx">
+                        <img src="/images/thumb.jpg">
+                    </div>
+                    <div class="input_container">
+                        <textarea class="edit_input" type="text"
+                            placeholder="Edited Comment Here...">{{comment.text}}</textarea>
+                        <div class="btn_container">
+                            <button class="submit_btn">Submit</button>
+                            <a href="" class="cancel_btn">Cancel</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{>footer}}
+</div>

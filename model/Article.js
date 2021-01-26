@@ -32,7 +32,7 @@ const ArticleSchema = new mongoose.Schema({
     },
     comments: [
         {
-            user: {
+            creator: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'users',
                 deafult: null,
@@ -41,27 +41,14 @@ const ArticleSchema = new mongoose.Schema({
                 type: String,
                 default: null,
             },
+            reactions: {
+                type: Number,
+                default: 0
+            },
             createdAt: {
                 type: Date,
                 default: null,
             },
-            replies: [
-                {
-                    user: {
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: 'users',
-                        deafult: null
-                    },
-                    reply: {
-                        type: String,
-                        deafult: null
-                    },
-                    createdAt: {
-                        type: Date,
-                        deafult: null,
-                    }
-                }
-            ]
         }
     ]
 })

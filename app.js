@@ -18,6 +18,7 @@ const dashboard = require('./routes/dashboard');
 const home = require('./routes/home');
 const article = require('./routes/article');
 const auth = require('./routes/auth');
+const comments = require('./routes/comment');
 //dev
 const dotenv = require('dotenv')
 const logger = require('morgan');
@@ -109,6 +110,7 @@ global.articleImages = []
 //Routes
 app.use('/', home);
 app.use('/api', api);
+app.use('/comments', comments)
 app.use('/upload', upload);
 app.use('/article', article);
 app.use('/profile', profile);

@@ -22,7 +22,6 @@
                             <h2>{{article.user.displayName}}</h2>
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -67,148 +66,120 @@
                     </div>
                     <div class="dis_input">
                         <div class="user_imgBx">
-                            <img src="/images/thumb.jpg" alt="user-image">
+                            <img src={{user.image}} alt="user-image">
                         </div>
                         <div class="dis_text">
                             <textarea class="dis_textarea" placeholder="Add to the discussion"></textarea>
                             <div class="dis_btn_container">
                                 <a href=" " class="submit_btn">Submit</a>
-                                {{!-- <a href=" " class="dismis_btn">Dismis</a> --}}
                             </div>
                         </div>
-
                     </div>
-                    <div class="dis_content">
+                    <div class="dis_card_wrapper">
+
+                        {{#if comments}}
+                        {{#each comments}}
                         {{!-- single comment start --}}
-                        <div class="dis_card">
-
-                            <div class="dis_wrapper">
-                                <div class="writer_imgBx">
-                                    <img src="/images/thumb.jpg" alt="user-image">
-                                </div>
-                                <div class="writer_content">
-                                    <div class="writer_head">
-                                        <div class="writer_title">
-                                            <h6>DEBASHIS ROY </h6>
-                                            <div class="seperator">
-                                                <p><i class="fas fa-circle"></i></p>
+                        <div class="dis_content">
+                            <div class="dis_card">
+                                <div class="dis_wrapper">
+                                    <div class="writer_imgBx">
+                                        <img src="{{this.creator.image}}" alt="user-image">
+                                    </div>
+                                    <div class="writer_content">
+                                        <div class="writer_head">
+                                            <div class="writer_title">
+                                                <h6>{{this.creator.displayName}} </h6>
+                                                <div class="seperator">
+                                                    <p><i class="fas fa-circle"></i></p>
+                                                </div>
+                                                <p class="date"> </p><span>{{getFormatedDate
+                                                    this.comment.createdAt}}</span>
                                             </div>
-                                            <p class="date"> </p><span> Jan 20</span>
+                                            <div class="action_container">
+                                                <div class="action">
+                                                    <span>...</span>
+                                                    <div class="action_options">
+                                                        <a class="comment_edit_btn"
+                                                            href="/comments/edit/{{../article._id}}/{{this.comment._id}}">Edit</a>
+                                                        <form action="/api/comments/{{this.comment._id}}?_method=DELETE"
+                                                            method="POST">
+                                                            <button type="submit">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="action">
-                                            <p>...</p>
-                                        </div>
+                                        <p class="comment">{{this.comment.text}}</p>
                                     </div>
-                                    <p class="comment">Some discussions here</p>
                                 </div>
                             </div>
-                            {{!-- <div class="comment_btn_container">
-                                <a href=" " class="submit_btn">Submit</a>
-                                <a href=" " class="dismis_btn">Dismis</a>
-
-                            </div> --}}
-                        </div>
-                    </div>
-                    <div class="reac_container">
-                        <div class="reac_wrapper">
-                            {{!-- like and comment --}}
-                            <div class="reac_link">
-                                <a href="">
-                                    <div class="reac_content">
-                                        <div class="reac_logo">
-                                            <p><i class="far fa-heart"></i></i></p>
-                                        </div>
-                                        <div class="reac_text">
-                                            <p>Like</p>
-                                        </div>
-
+                            <div class="reac_container">
+                                <div class=" reac_wrapper" data-comment_id={{this.comment._id}}>
+                                    <div class="reac_link">
+                                        <a href="" class="like"><span><i class="far fa-heart"></i></span>Like</a>
+                                        <a class="reply" href="">
+                                            <span> <i class="far fa-comment-alt"></i>
+                                            </span>Reply</a>
                                     </div>
-                                </a>
-                                <a href="">
-                                    <div class="reac_content">
+                                    {{!-- single comment end --}}
 
-                                        <div class="reac_logo">
-                                            <p><i class="far fa-comment-alt"></i></p>
+                                    {{!-- single reply start --}}
+                                    {{#if this.replies}}
+                                    {{#each this.replies}}
+                                    <div class="reply_wrapper">
+                                        <div class="reply_card">
+                                            <div class="reply_writer_imgBx">
+                                                <a href="">
+                                                    <img src="{{this.creator.image}}" alt="reply_user-image">
+                                                </a>
+                                            </div>
+                                            <div class="reply_writer_content">
+                                                <div class="reply_writer_head">
+                                                    <div class="reply_writer_title">
+                                                        <a href="">
+                                                            <h6>{{this.creator.displayName}}</h6>
+                                                        </a>
+                                                        <div class="reply_seperator">
+                                                            <p><i class="fas fa-circle"></i></p>
+                                                        </div>
+                                                        <p class="reply_date"> </p><span>{{getFormatedDate
+                                                            this.createdAt}}</span>
+                                                    </div>
+                                                    <div class="reply_action">
+                                                        <p>...</p>
+                                                    </div>
+                                                </div>
+                                                <p class="reply_comment">{{this.text}}</p>
+                                            </div>
                                         </div>
-                                        <div class="reac_text">
-                                            <p>Replay</p>
-                                        </div>
-
-                                    </div>
-                                </a>
-                            </div>
-                            {{!-- reply --}}
-                            <div class="reac_reply_input">
-                                <textarea class="reac_reply_textarea" placeholder="Reply..."></textarea>
-                                <div class="reac_btn_container">
-                                    <a href=" " class="submit_btn">Submit</a>
-                                    <a href=" " class="dismis_btn">Dismis</a>
-                                </div>
-                            </div>
-                        </div>
-                        {{!-- single comment end --}}
-
-                        {{!-- single replay start --}}
-                        <div class="reply_wrapper">
-                            <div class="reply_card">
-                                <div class="reply_writer_imgBx">
-                                    <a href="">
-                                        <img src="/images/thumb.jpg" alt="reply_user-image">
-                                    </a>
-                                </div>
-                                <div class="reply_writer_content">
-                                    <div class="reply_writer_head">
-                                        <div class="reply_writer_title">
-                                            <a href="">
-                                                <h6>DEBASHIS ROY </h6>
+                                        <div class="reply_reac_container">
+                                            <a href="" class="reply_like" data-replyId="{{this.id}}">
+                                                <span><i class="far fa-heart"></i></span>Like</a>
                                             </a>
-                                            <div class="reply_seperator">
-                                                <p><i class="fas fa-circle"></i></p>
-                                            </div>
-                                            <p class="reply_date"> </p><span> Jan 20</span>
-                                        </div>
-                                        <div class="reply_action">
-                                            <p>...</p>
                                         </div>
                                     </div>
-                                    <p class="reply_comment">Some Reply here</p>
+                                    {{/each}}
+                                    {{/if}}
+                                    {{!-- single reply end --}}
+
                                 </div>
                             </div>
-                            <div class="reply_reac_container">
-                                <a href="">
-                                    <div class="reply_reac_content">
-                                        <div class="reply_reac_logo">
-                                            <p><i class="far fa-heart"></i></i></p>
-                                        </div>
-                                        <div class="reply_reac_text">
-                                            <p>Like</p>
-                                        </div>
-
-                                    </div>
-                                </a>
-                                <a href="">
-                                    <div class="reply_reac_content">
-
-                                        <div class="reply_reac_logo">
-                                            <p><i class="far fa-comment-alt"></i></p>
-                                        </div>
-                                        <div class="reply_reac_text">
-                                            <p>Replay</p>
-                                        </div>
-
-                                    </div>
-                                </a>
-                            </div>
                         </div>
-                        {{!-- single reply end --}}
+                        {{/each}}
+                        {{/if}}
                     </div>
+
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 {{/if}}
 
 {{>footer}}
+{{!-- moment js --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" async defer
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous"></script>
 </div>

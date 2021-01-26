@@ -1,13 +1,13 @@
 const router = require('express').Router();
 
-const { ensureAuth } = require('../../middleware/auth');
-const { processCreateArticleCache, processUpdateArticleCache } = require('../../controller/process/cache');
-const { processCreateArticleDb, processUpdateArticleDb, processGetArticleDataDb } = require('../../controller/process/database');
-const { getArticleById } = require('../../controller/services');
+const { ensureAuth } = require('../middleware/auth');
+const { processCreateArticleCache, processUpdateArticleCache } = require('../controller/process/cache');
+const { processCreateArticleDb, processUpdateArticleDb, processGetArticleDataDb } = require('../controller/process/database');
+const { getArticleById } = require('../controller/services');
 
 
 //@desc process create blog
-// @route POST /api/new
+// @route POST /api/article/new
 router.post('/new', ensureAuth, (req, res) => {
     //get a newarticle object
     const newArticle = processCreateArticleCache(req.user, req.body);
@@ -22,7 +22,7 @@ router.post('/new', ensureAuth, (req, res) => {
 
 
 //@desc Update post
-//@route PUT /api/upadte/:id
+//@route PUT /api/article/upadte/:id
 router.put('/update/:id', ensureAuth, (req, res) => {
 
     const updatedArticle = processUpdateArticleCache(req.user, req.body)
@@ -37,7 +37,7 @@ router.put('/update/:id', ensureAuth, (req, res) => {
 })
 
 //@desc send article data for rendering post view
-//@route GET /api/data/:id
+//@route GET /api/article/data/:id
 router.get('/data/:id', ensureAuth, (req, res) => {
     const result = getArticleById(req.params.id);
     result
@@ -61,7 +61,7 @@ router.get('/data/:id', ensureAuth, (req, res) => {
 })
 
 //@desc send article data for edit post view
-//@route GET /api/edit/data/:id
+//@route GET /api/article/edit/data/:id
 router.get('/edit/data/:id', (req, res) => {
     processGetArticleDataDb(req.params.id)
         .then(data => {

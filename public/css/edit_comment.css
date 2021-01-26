@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hero_container {
+    width: 100%;
+}
+
+.hero_container .main_container {
+    padding-top: 57px;
+}
+
+.hero_container .main_container .main_content {
+    width: 100%;
+    background-color: #EEF0F1;
+    padding: 9px 0;
+}
+
+.hero_container .main_container .main_content .edit_card {
+    width: 880px;
+    margin: 9px auto;
+    min-height: 306px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #D7D9D9;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 35px 55px;
+}
+
+.hero_container .main_container .main_content .edit_card h3 {
+    font-size: 1.9rem;
+    letter-spacing: 0.015rem;
+    font-weight: 1200;
+    cursor: default;
+}
+
+.hero_container .main_container .main_content .edit_card .card {
+    width: 100%;
+    padding-top: 23px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero_container .main_container .main_content .edit_card .card .creator_imgBx {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 8px;
+    position: relative;
+    overflow: hidden;
+    background-color: gray;
+}
+
+.hero_container .main_container .main_content .edit_card .card .creator_imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero_container .main_container .main_content .edit_card .card .input_container {
+    width: calc(100% - 38px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.hero_container .main_container .main_content .edit_card .card .input_container .edit_input {
+    width: 100%;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid #B5BDC4;
+    background: #F9FAFA;
+    outline: none;
+    padding: 6px;
+    font-size: 1.1rem;
+    text-align: start;
+}
+
+.hero_container .main_container .main_content .edit_card .card .input_container .edit_input:focus {
+    border: 1px solid blue;
+    background-color: white;
+}
+
+.hero_container .main_container .main_content .edit_card .card .input_container .btn_container {
+    width: 100%;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.hero_container .main_container .main_content .edit_card .card .input_container .btn_container .submit_btn {
+    border-radius: 5px;
+    background-color: rgb(68, 75, 173);
+    border: none;
+    color: rgb(243, 240, 240);
+    padding: 10px 16px;
+    letter-spacing: 0.018rem;
+    font-weight: bold;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.hero_container .main_container .main_content .edit_card .card .input_container .btn_container .submit_btn:hover {
+    background-color: rgb(42, 50, 167);
+}
+
+.hero_container .main_container .main_content .edit_card .card .input_container .btn_container a {
+    border-radius: 5px;
+    text-decoration: none;
+    color: rgb(99, 98, 98);
+    padding: 8px 14px;
+    letter-spacing: 0.018rem;
+    font-weight: bold;
+    margin-right: 6px
+}
+
+.hero_container .main_container .main_content .edit_card .card .input_container .btn_container a:hover {
+    background-color: #eef1f1;
+}
+
+@media (max-width: 900px) {
+    .hero_container .main_container .main_content {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .hero_container .main_container .main_content .edit_card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 780px) {
+    .hero_container .main_container .main_content .edit_card {
+        padding: 28px 18px;
+    }
+}
+
+@media (max-width: 630px) {
+    .hero_container .main_container .main_content .edit_card {
+        padding: 18px 10px;
+    }
+}

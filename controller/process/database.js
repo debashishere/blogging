@@ -1,4 +1,4 @@
-const { createNewArticle, getArticleById, updateArticle, deleteArticle } = require('../services');
+const { createNewArticle, getArticleById, updateArticle, deleteArticle, deleteArticleComment } = require('../services');
 const fs = require('fs');
 
 module.exports = {
@@ -115,8 +115,9 @@ module.exports = {
     processDeleteArticleDb: async function (articleId) {
         try {
             const isDeleted = await deleteArticle(articleId);
-            console.log('isDeleted', isDeleted);
             if (isDeleted) {
+                //delete all comments 
+                await deleteArticleComment(articleId);
                 return true;
             } else {
                 return false;
@@ -127,4 +128,6 @@ module.exports = {
             return false;
         }
     },
+
+    //*******************************COMMENT AND REPLY*************************/
 }
