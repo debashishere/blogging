@@ -1,21 +1,21 @@
-
-window.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function () {
     console.log("header")
-    const navigation = document.querySelector('.navigation');
-    const overlay = document.querySelector('.overlay');
-    const menuToggle = document.querySelector('.menuToggle');
-    const closeBtn = document.querySelector('.close-btn');
+    const navigation = $('.navigation');
+    const overlay = $('.overlay');
 
-    menuToggle.onclick = function () {
-        navigation.classList.add('active');
-        overlay.classList.add('active');
-    }
+    $('.menuToggle').on("click", function () {
+        navigation.addClass('active');
+        overlay.addClass('active');
+    })
 
-    closeBtn.onclick = function () {
-        navigation.classList.remove('active');
-        overlay.classList.remove('active');
-    }
+    $('.close-btn').on("click", function () {
+        navigation.removeClass('active');
+        overlay.removeClass('active');
+    })
 })
+
+
+
 
 
 

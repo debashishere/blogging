@@ -1,57 +1,11 @@
 const router = require('express').Router();
-const moment = require('moment');
+const { ensureAuth } = require('../middleware/auth');
 
-const { createNewCommentDb, getCommentDb, deleteComment, updateCommentDb } = require('../controller/services');
-
-//@desc get all comments of a article by id
-//@route GET api/comments/:id 
-router.get('/:id', async (req, res) => {
-    try {
-        const comments = await getCommentDb(req.params.id)
-        // console.log('cmt', comments)
-        // Arrange data 
-        // let resData = []
-        // comments.forEach(element => {
-        //     let obj = {
-        //         comment: {
-        //             _id: element._id,
-        //             text: element.text,
-        //             createdAt: element.createdAt
-        //         },
-        //         creator: {
-        //             displayName: element.creator.displayName,
-        //             image: element.creator.image
-        //         },
-        //         reactions: element.reactions,
-        //         replies: []
-        //     }
-        //     element.replies.forEach(item => {
-        //         const reply = {
-        //             id: item._id,
-        //             text: item.text,
-        //             createdAt: item.createdAt,
-        //             creator: {
-        //                 displayName: item.creator.displayName,
-        //                 image: item.creator.image
-        //             }
-
-        //         }
-        //         obj.replies.push(reply)
-        //     })
-        //     resData.push(obj);
-        // })
-        console.log('API CALLED ')
-        res.send(comments)
-    }
-    catch (error) {
-        console.log(error);
-        return false;
-    }
-})
+const { createNewCommentDb, deleteComment, updateCommentDb } = require('../controller/services');
 
 //@desc post a single comment
 //@route POST api/comments/:id
-router.post('/:id', async (req, res) => {
+router.post('/:id', ensureAuth, async (req, res) => {
     try {
         const user = res.locals.loggedUser
         const id = req.params.id
@@ -62,10 +16,7 @@ router.post('/:id', async (req, res) => {
             text: req.body.comment,
             createdAt: Date.now(),
         }
-
-
         const newComment = await createNewCommentDb(comments);
-
         if (newComment) {
             res.send({
                 comment: newComment,
@@ -86,7 +37,7 @@ router.post('/:id', async (req, res) => {
 
 //@desc edit a single comment
 //@route PUT api/comments/:articleId/:commentId
-router.put('/:articleId/:commentId', async (req, res) => {
+router.put('/:articleId/:commentId', ensureAuth, async (req, res) => {
     try {
         const articleId = req.params.articleId;
         const commnetId = req.params.commentId;
@@ -108,7 +59,7 @@ router.put('/:articleId/:commentId', async (req, res) => {
 
 //@desc delte a single comment
 //@route Delete api/comments/:id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuth, async (req, res) => {
     try {
         const id = req.params.id
         const result = await deleteComment(id)

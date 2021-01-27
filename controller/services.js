@@ -157,6 +157,7 @@ module.exports = {
                             createdAt: element.createdAt
                         },
                         creator: {
+                            _id: element.creator._id,
                             displayName: element.creator.displayName,
                             image: element.creator.image
                         },
@@ -209,8 +210,6 @@ module.exports = {
         }
     },
 
-
-
     //@desc update single comment by id 
     updateCommentDb: async function (commentId, data) {
         try {
@@ -220,7 +219,6 @@ module.exports = {
             } else {
                 return false;
             }
-
         }
         catch (err) {
             console.log(err);
@@ -238,7 +236,6 @@ module.exports = {
         catch (err) {
             return false;
         }
-
     },
 
     //@desc DELETE all comment by article id
@@ -254,7 +251,6 @@ module.exports = {
             console.log(err)
             return falsee;
         }
-
     },
 
     //******************************REPLY*********************/
@@ -277,31 +273,11 @@ module.exports = {
                     break;
                 }
             }
-
-            // console.log('new reply', createdReply)
             return createdReply;
         }
         catch (err) {
             console.log(err)
         }
-
-
-        // article id , article comments id
-        //create reply in db
-        // user
-        // reply
-
-
-        //return 
-        // reply id
-        //commentid
-        // reply text
-        // creator displayName
-        // creator image
     }
-
-
-
-
 
 }

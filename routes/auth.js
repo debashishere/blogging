@@ -27,6 +27,15 @@ router.get('/logout', ensureAuth, (req, res) => {
     res.redirect('/');
 })
 
+//@desc check if user is authenticated
+//@route /auth/authenticated
+router.get('/authenticated', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.send(true)
+    } else {
+        res.send(false);
+    }
+})
 
 
 

@@ -66,7 +66,11 @@
                     </div>
                     <div class="dis_input">
                         <div class="user_imgBx">
+                            {{#if user}}
                             <img src={{user.image}} alt="user-image">
+                            {{else}}
+                            <img src='/images/thumb.png' alt="user-image">
+                            {{/if}}
                         </div>
                         <div class="dis_text">
                             <textarea class="dis_textarea" placeholder="Add to the discussion"></textarea>
@@ -96,6 +100,9 @@
                                                 <p class="date"> </p><span>{{getFormatedDate
                                                     this.comment.createdAt}}</span>
                                             </div>
+
+                                            {{!-- show manage option if user is creator --}}
+                                            {{#isCreator this.creator._id ../user._id}}
                                             <div class="action_container">
                                                 <div class="action">
                                                     <span>...</span>
@@ -109,6 +116,8 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            {{/isCreator}}
+
                                         </div>
                                         <p class="comment">{{this.comment.text}}</p>
                                     </div>
@@ -146,9 +155,9 @@
                                                         <p class="reply_date"> </p><span>{{getFormatedDate
                                                             this.createdAt}}</span>
                                                     </div>
-                                                    <div class="reply_action">
+                                                    {{!-- <div class="reply_action">
                                                         <p>...</p>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <p class="reply_comment">{{this.text}}</p>
                                             </div>
@@ -173,8 +182,22 @@
                 </div>
             </div>
         </div>
+        <div class="login_modal">
+            <div class="close_container">
+                <span class="close_btn"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="modal_content">
+                <h3>Login to continue</h3>
+                <p>We're a place where coders share, stay up-to-date and grow their careers.</p>
+                <a href="/auth/google">Sign Up/Log In</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="login_overlay">
     </div>
 </div>
+
 {{/if}}
 
 {{>footer}}

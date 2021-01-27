@@ -67,12 +67,13 @@ app.use(session({
 
 //VIEWS
 //helpers
-const { select, getFormatedDate, getRelativeDate } = require('./helpers/hbs');
+const { select, getFormatedDate, getRelativeDate, isCreator } = require('./helpers/hbs');
 app.engine('handlebars', exphbs({
     helpers: {
         select,
         getFormatedDate,
         getRelativeDate,
+        isCreator
     }
 }));
 app.set('view engine', 'handlebars');

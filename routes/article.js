@@ -11,7 +11,7 @@ const { processDeleteArticleDb } = require('../controller/process/database');
 //*******************SECURE ROUTES**************** */
 
 //reply route
-router.use('/reply', replyRoute)
+router.use('/reply', ensureAuth, replyRoute)
 
 //@desc show create article page
 //@route GET /article/new

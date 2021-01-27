@@ -36,9 +36,25 @@ router.put('/update/:id', ensureAuth, (req, res) => {
         })
 })
 
+
+
+//@desc send article data for edit post view
+//@route GET /api/article/edit/data/:id
+router.get('/edit/data/:id', ensureAuth, (req, res) => {
+    processGetArticleDataDb(req.params.id)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(data => {
+            res.send(data);
+        })
+})
+
+//****************PUBLIC ROUTES**********************/
+
 //@desc send article data for rendering post view
 //@route GET /api/article/data/:id
-router.get('/data/:id', ensureAuth, (req, res) => {
+router.get('/data/:id', (req, res) => {
     const result = getArticleById(req.params.id);
     result
         .then((article) => {
@@ -59,20 +75,6 @@ router.get('/data/:id', ensureAuth, (req, res) => {
             }
         })
 })
-
-//@desc send article data for edit post view
-//@route GET /api/article/edit/data/:id
-router.get('/edit/data/:id', (req, res) => {
-    processGetArticleDataDb(req.params.id)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(data => {
-            res.send(data);
-        })
-})
-
-
 
 
 

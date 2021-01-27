@@ -8,26 +8,55 @@ $(document).ready(function () {
         return postId;
     };
 
+    //popup modal
+    const activePopup = function () {
+        $('.login_modal').addClass('active');
+        $('.login_overlay').addClass('active');
+    }
+
+    const closePopup = function (event) {
+        event.preventDefault();
+        $('.login_modal').removeClass('active');
+        $('.login_overlay').removeClass('active');
+    }
+
+    $('.close_btn').on("click", closePopup)
 
     //*******************************COMMENT***************************/
+
+    //return true if authenticated
+    const checkAuthenticated = async function () {
+        const url = `http://localhost:3000/auth/authenticated`
+        const status = await axios.get(url)
+        return status.data;
+    }
 
     //create a single comment in db
     const createComment = async function (event) {
         event.preventDefault();
+        try {
+            const isAuthenticated = await checkAuthenticated();
 
-        const data = getCommentData();
-        const url = `http://localhost:3000/api/comments/${getPostId()}`
-        await axios.post(url, data)
-            .then(res => {
-                if (res.data) {
-                    console.log('res data', res.data)
-                    addComment(res.data.comment, res.data.creator)
-                } else {
-                    // alert error while commenting
-                }
-
-            })
+            if (isAuthenticated) {
+                const data = getCommentData();
+                const url = `http://localhost:3000/api/comments/${getPostId()}`
+                await axios.post(url, data)
+                    .then(res => {
+                        if (res.data) {
+                            console.log('res data', res.data)
+                            addComment(res.data.comment, res.data.creator)
+                        } else {
+                            // alert error while commenting
+                        }
+                    })
+            } else {
+                activePopup()
+            }
+        } catch (err) {
+            activePopup()
+        }
     }
+
 
     //get comment data from dom
     const getCommentData = function () {
@@ -38,9 +67,6 @@ $(document).ready(function () {
         }
         return data;
     }
-
-
-
 
     //get new comment Element 
     const getNewCommentElement = function (comment, creator) {
@@ -105,24 +131,48 @@ $(document).ready(function () {
     }
 
     // manage comment options comment card
-    const toggleCommentManage = function (event) {
-        target = $(event.target).parent();
-        options = target.find('.action_options')
-        console.log('option', options)
+    const toggleCommentManage = async function (event) {
+        try {
+            const isAuthenticated = await checkAuthenticated();
+            if (isAuthenticated) {
+                target = $(event.target).parent();
+                options = target.find('.action_options')
+                console.log('option', options)
 
-        target.toggleClass('active');
-        options.toggleClass('active')
+                target.toggleClass('active');
+                options.toggleClass('active')
+            } else {
+                activePopup()
+            }
+        }
+        catch (err) {
+            activePopup()
+        }
     }
 
-    // 
+    // add reaction to a comment
+    const addReactComment = async function (event) {
+        event.preventDefault();
+        try {
+            const isAuthenticated = await checkAuthenticated();
+            if (isAuthenticated) {
+                console.log('like comment')
+            } else {
+                activePopup()
+            }
+        }
+        catch (err) {
+            activePopup()
+        }
+    }
 
     //event listeners
+    //create a new comment 
+    $('.submit_btn').click(createComment);
+
     //manage Comment btn event listeners
     $('.dis_card_wrapper').delegate('div.action', "click", toggleCommentManage);
-    $('.dis_card_wrapper').delegate('a.like', "click", function (event) {
-        event.preventDefault();
-        console.log('like comment')
-    });
+    $('.dis_card_wrapper').delegate('a.like', "click", addReactComment);
 
 
     //***********************************Reply********************************/
@@ -147,44 +197,55 @@ $(document).ready(function () {
 
 
     // add new reply input textarea element
-    const addReplyInput = function (event) {
+    const addReplyInput = async function (event) {
         event.preventDefault();
-        const reac_link = $(event.target).parent().closest('div');
+        try {
+            const isAuthenticated = await checkAuthenticated();
 
-        const children = $('.dis_card_wrapper').find('.reac_reply_input').length
+            if (isAuthenticated) {
+                const reac_link = $(event.target).parent().closest('div');
+                const children = $('.dis_card_wrapper').find('.reac_reply_input').length
 
-        //check if reply input not added
-        if (!children) {
-            const inputTextArea = getReplyInputElement();
-            $(inputTextArea).insertAfter(reac_link);
+                //check if reply input not added
+                if (!children) {
+                    const inputTextArea = getReplyInputElement();
+                    $(inputTextArea).insertAfter(reac_link);
 
-            //add event listener to dismiss btn and submit btn
-            $('.dismis_btn').click(removeReplayInput);
+                    //add event listener to dismiss btn and submit btn
+                    $('.dismis_btn').click(removeReplayInput);
 
-            // replay submit btn event listner
-            $('.reply_submit_btn').click(function (event) {
-                event.preventDefault();
-                getReplyData(event, reac_link);
-            })
+                    // replay submit btn event listner
+                    $('.reply_submit_btn').click(function (event) {
+                        event.preventDefault();
+                        getReplyData(event, reac_link);
+                    })
+                }
+
+            } else {
+                activePopup()
+            }
         }
-
-
-
-        //get replay data
-        const getReplyData = function (event, refElement) {
-
-            //get comment id 
-            const reac_btn_container = $(event.target).parent()
-            const reac_reply_input = reac_btn_container.parent().closest('div');
-            const reac_wrapper = reac_reply_input.parent().closest('div');
-            const comment_id = reac_wrapper.data().comment_id
-
-            //get input element
-            const input = reac_reply_input.children()[0]
-            // createReply
-            createReply(input, comment_id, refElement)
+        catch (err) {
+            activePopup()
         }
     }
+
+
+    //get replay data
+    const getReplyData = function (event, refElement) {
+
+        //get comment id 
+        const reac_btn_container = $(event.target).parent()
+        const reac_reply_input = reac_btn_container.parent().closest('div');
+        const reac_wrapper = reac_reply_input.parent().closest('div');
+        const comment_id = reac_wrapper.data().comment_id
+
+        //get input element
+        const input = reac_reply_input.children()[0]
+        // createReply
+        createReply(input, comment_id, refElement)
+    }
+
 
     //get new Reply element
     const getMewReplyElement = function (reply, creator,) {
@@ -211,9 +272,6 @@ $(document).ready(function () {
                             <p><i class="fas fa-circle"></i></p>
                         </div>
                         <p class="reply_date"> </p><span>${replyCreatedAt}</span>
-                    </div>
-                    <div class="reply_action">
-                        <p>...</p>
                     </div>
                 </div>
                 <p class="reply_comment">${replyText}</p>
@@ -269,14 +327,24 @@ $(document).ready(function () {
 
     }
 
+    //react to a reply
+    const addReactReply = async function (event) {
+        event.preventDefault();
+        try {
+            const isAuthenticated = await checkAuthenticated();
+            if (isAuthenticated) {
+                console.log('like reply')
+            } else {
+                activePopup()
+            }
+        }
+        catch (err) {
+            activePopup()
+        }
+    }
+
     //event listeners
     // create a new reply
     $('.dis_card_wrapper').delegate('a.reply', "click", addReplyInput);
-    $('.dis_card_wrapper').delegate('a.reply_like', "click", function (event) {
-        event.preventDefault();
-        console.log('like reply')
-    });
-
-    //create a new comment 
-    $('.submit_btn').click(createComment);
+    $('.dis_card_wrapper').delegate('a.reply_like', "click", addReactReply);
 })

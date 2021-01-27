@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { ensureAuth } = require('../middleware/auth');
 const { createNewReplyDb } = require('../controller/services');
 
 //@desc get reply by comment id and article id
@@ -10,7 +11,7 @@ router.get('/:articleId/:commentId', (req, res) => {
 
 //@desc create a replay by comment id and article id
 //@route POST /article/reply/:articleId/:commentId
-router.post('/:articleId/:commentId', async (req, res) => {
+router.post('/:articleId/:commentId', ensureAuth, async (req, res) => {
     try {
         const articleId = req.params.articleId;
         const commentId = req.params.commentId;
@@ -53,11 +54,11 @@ router.post('/:articleId/:commentId', async (req, res) => {
 
 
 //update a replay by comment id and article id
-// router.put()
+
 
 
 // delete a reply by comment id and article id
-// router.delete()
+
 
 
 module.exports = router;

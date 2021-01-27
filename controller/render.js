@@ -59,6 +59,7 @@ module.exports = {
                         style: "profile.css",
                         header_style: 'header.css',
                         footer_style: 'footer.css',
+                        header_js: "header.js",
                         loggedUser,
                         articleList,
                         totalPosts,
@@ -88,6 +89,7 @@ module.exports = {
                 res.render('dashboard/dashboard', {
                     style: "dashboard.css",
                     header_style: "header.css",
+                    header_js: "header.js",
                     footer_style: 'footer.css',
                     articles: articleList,
                     totalPosts,
@@ -111,7 +113,7 @@ module.exports = {
 
     //@desc render a single article view
     renderArticle: async (id, res) => {
-        const loggedUser = res.locals.loggedUser;
+        const loggedUser = res.locals.loggedUser || null;
         const comments = await getCommentDb(id);
         const result = getArticleById(id);
         result
@@ -158,6 +160,7 @@ module.exports = {
             header_js: 'header.js',
             footer_style: 'footer.css',
             js: "edit_comment.js",
+            user: res.locals.loggedUser,
             comment,
         });
     }

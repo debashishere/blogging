@@ -442,7 +442,7 @@
     text-align-last: center;
 }
 
-.reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_action {
+/* .reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_action {
     position: relative;
 
 }
@@ -456,7 +456,7 @@
     letter-spacing: 0.01rem;
     cursor: pointer;
     color: rgb(167, 166, 166);
-}
+} */
 
 .reply_wrapper .reply_card .reply_writer_content .reply_writer_head .reply_writer_title {
     font-size: 0.84rem;

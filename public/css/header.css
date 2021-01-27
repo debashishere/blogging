@@ -249,3 +249,9 @@
         background: rgb(215, 215, 216);
     }
 }
+
+@media (max-width: 330px) {
+    .navigation.active {
+        width: 90%;
+    }
+}
