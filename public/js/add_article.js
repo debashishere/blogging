@@ -104,7 +104,7 @@ $(document).ready(function () {
                                             //chcek status ( 1 -> post created)
                                             if (res.data.status === 1) {
 
-                                                const redirectUrl = baseUrl + `dashboard`
+                                                const redirectUrl = baseUrl + `/dashboard`
                                                 //redirect to dashbord
                                                 window.location.href = redirectUrl;
                                             } else {
