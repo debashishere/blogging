@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    //api base url
+    const baseUrl = `https://agile-lake-43990.herokuapp.com`
+
     // get post id from url 
     const getPostId = function () {
         const pageUrl = $(location).attr("href");
@@ -11,8 +14,7 @@ $(document).ready(function () {
     //get data with post id
     (async function () {
         const postId = getPostId();
-        const url = `http://localhost:3000/api/article/data/${postId}`
-
+        const url = baseUrl + `/api/article/data/${postId}`
         await axios.get(url)
             .then(res => {
                 if (res.data.status === 1) {

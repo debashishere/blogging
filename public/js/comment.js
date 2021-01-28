@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    //api base url
+    const baseUrl = `https://agile-lake-43990.herokuapp.com`
+
     //get id from url
     const getPostId = function () {
         const pageUrl = $(location).attr("href");
@@ -26,7 +29,7 @@ $(document).ready(function () {
 
     //return true if authenticated
     const checkAuthenticated = async function () {
-        const url = `http://localhost:3000/auth/authenticated`
+        const url = baseUrl + `/auth/authenticated`
         const status = await axios.get(url)
         return status.data;
     }
@@ -39,7 +42,7 @@ $(document).ready(function () {
 
             if (isAuthenticated) {
                 const data = getCommentData();
-                const url = `http://localhost:3000/api/comments/${getPostId()}`
+                const url = baseUrl + `/api/comments/${getPostId()}`
                 await axios.post(url, data)
                     .then(res => {
                         if (res.data) {
@@ -312,7 +315,7 @@ $(document).ready(function () {
                 replyText: inputText
             }
 
-            const url = `http://localhost:3000/article/reply/${postId}/${comment_id}`
+            const url = baseUrl + `/article/reply/${postId}/${comment_id}`
             await axios.post(url, data)
                 .then(res => {
                     addReply(res.data.reply, res.data.creator, refElement)
