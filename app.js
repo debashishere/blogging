@@ -21,7 +21,7 @@ const auth = require('./routes/auth');
 const comments = require('./routes/comment');
 //dev
 const dotenv = require('dotenv')
-const logger = require('morgan');
+
 
 
 //Load Configuration
@@ -36,9 +36,6 @@ connectDB();
 const app = express();
 
 //MIDDLEWARE
-if (process.env.NODE_ENV === 'development') {
-    app.use(logger('dev'));
-}
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
