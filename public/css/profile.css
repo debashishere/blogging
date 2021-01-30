@@ -204,9 +204,8 @@
     display: flex;
     justify-content: start;
     width: max-content;
-    padding: 3.5px 5px;
     border-radius: 5px;
-
+    margin-top: 5px;
 }
 
 .hero-container .hero-content .bottom-section-container .bottom-section-content .main-container .post .post-desc .post-reaction:hover {
@@ -216,7 +215,7 @@
 .hero-container .hero-content .bottom-section-container .bottom-section-content .main-container .post .post-desc .post-reaction a {
     font-size: 0.8rem;
     text-decoration: none;
-    padding: 3px;
+    padding: 5px 10px;
     color: rgb(114, 113, 113);
 }
 

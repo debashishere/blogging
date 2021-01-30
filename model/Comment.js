@@ -17,10 +17,11 @@ const CommentSchema = new mongoose.Schema({
         require: true
 
     },
-    reactions: {
+    reactionCount: {
         type: Number,
-        default: 0
+        default: 0,
     },
+    reactionIds: [],
     createdAt: {
         type: Date,
         default: Date.now
@@ -40,10 +41,11 @@ const CommentSchema = new mongoose.Schema({
                 type: Date,
                 deafult: null,
             },
-            reactions: {
+            reactionCount: {
                 type: Number,
-                default: 0
+                default: 0,
             },
+            reactionIds: [],
         }
     ]
 })

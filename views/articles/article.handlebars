@@ -126,7 +126,16 @@
                             <div class="reac_container">
                                 <div class=" reac_wrapper" data-comment_id={{this.comment._id}}>
                                     <div class="reac_link">
-                                        <a href="" class="like"><span><i class="far fa-heart"></i></span>Like</a>
+
+                                        {{!-- check for reaction --}}
+                                        {{#if this.isReacted}}
+                                        <a href="" class="like active"><span><i class="fas fa-heart"></i></span><span
+                                                class="count">{{this.reactionCount}}</span>Like</a>
+                                        {{else}}
+                                        <a href="" class="like"><span><i class="fas fa-heart"></i></i></span><span
+                                                class="count">{{this.reactionCount}}</span>Like</a>
+                                        {{/if}}
+
                                         <a class="reply" href="">
                                             <span> <i class="far fa-comment-alt"></i>
                                             </span>Reply</a>
@@ -163,8 +172,11 @@
                                             </div>
                                         </div>
                                         <div class="reply_reac_container">
-                                            <a href="" class="reply_like" data-replyId="{{this.id}}">
-                                                <span><i class="far fa-heart"></i></span>Like</a>
+                                            <a href="" class="reply_like" data-comment_id={{../this.comment._id}}
+                                                data-reply_id="{{this.id}}">
+                                                <span><i class="fas fa-heart"></i></span>
+                                                <span class="count">33</span>
+                                                Like</a>
                                             </a>
                                         </div>
                                     </div>

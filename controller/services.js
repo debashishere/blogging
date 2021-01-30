@@ -1,3 +1,4 @@
+
 const Article = require('../model/Article');
 const Comment = require('../model/Comment');
 
@@ -135,7 +136,7 @@ module.exports = {
     },
 
     //@desc get all comments by article id
-    getCommentDb: async function (id) {
+    getCommentDb: async function (id, user) {
         try {
             const comments = await Comment.find({ article: id })
                 .lean()
@@ -161,9 +162,20 @@ module.exports = {
                             displayName: element.creator.displayName,
                             image: element.creator.image
                         },
-                        reactions: element.reactions,
+                        reactionCount: element.reactionCount,
+                        isReacted: false,
                         replies: []
                     }
+
+                    //check user is reacted the comment
+                    if (user) {
+                        element.reactionIds.forEach(id => {
+                            if (id == user._id) {
+                                obj.isReacted = true;
+                            }
+                        })
+                    }
+
                     element.replies.forEach(item => {
                         const reply = {
                             id: item._id,
@@ -253,10 +265,43 @@ module.exports = {
         }
     },
 
+    //@desc increment or decrement comment like by 1
+    manageCommentLikeDb: async function (userId, commentId) {
+        try {
+            let found = false;
+            const result = await Comment.find({ _id: commentId }).exec();
+            const foundComment = result[0];
+            //check if user liked the comment
+            if (foundComment._id.equals(commentId)) {
+                foundComment.reactionIds.forEach(async (id) => {
+                    if (id == userId) {
+                        found = true;
+                    }
+                })
+            }
+
+            if (!found) {
+                //increment reaction count
+                const comment = await Comment.findOneAndUpdate({ _id: commentId }, { $inc: { 'reactionCount': '1' }, $addToSet: { reactionIds: userId } }).exec();
+                return comment.id ? comment.reactionCount : false;
+            } else {
+
+                //decrement reaction count
+                const comment = await Comment.findOneAndUpdate({ _id: commentId }, { $inc: { 'reactionCount': '-1' }, $pull: { reactionIds: userId } }).exec();
+                return comment.id ? comment.reactionCount : false;
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+            return false;
+        }
+    },
+
     //******************************REPLY*********************/
 
     //@desc create single reply in db
-    createNewReplyDb: async function (reply, commentId, creator) {
+    createNewReplyDb: async (reply, commentId, creator) => {
         try {
             const result = await Comment.findOneAndUpdate({ _id: commentId }, { $push: { replies: reply } }, { new: true, runValidators: true })
                 .populate({
@@ -277,6 +322,51 @@ module.exports = {
         }
         catch (err) {
             console.log(err)
+        }
+    },
+
+    //@desc increment reactions by 1
+    manageReplyLikeDb: async (userId, commentId, replyId) => {
+        try {
+            let found = false;
+            const result = await Comment.find({ _id: commentId }).exec();
+            const foundComment = result[0];
+            console.log('found comment', foundComment);
+
+            //check if user liked the reply
+            if (foundComment._id.equals(commentId)) {
+                if (foundComment.replies.length != 0) {
+                    foundComment.replies.forEach(reply => {
+                        if (reply.reactionIds.length != 0) {
+                            reply.reactionIds.forEach(async (id) => {
+                                console.log('reply ids ', id)
+                                if (id == userId) {
+                                    found = true;
+                                }
+                            })
+                        }
+                    })
+                }
+
+
+
+
+            }
+
+            if (!found) {
+                //increment reaction count
+                const comment = await Comment.findOneAndUpdate({ _id: commentId, 'replies._id': replyId }, { $inc: { 'replies.$.reactionCount': '1' }, $addToSet: { 'replies.$.reactionIds': userId } }).exec();
+                return comment.id ? comment.reactionCount : false;
+            } else {
+                //decrement reaction count
+                const comment = await Comment.findOneAndUpdate({ _id: commentId, 'replies._id': replyId }, { $inc: { 'replies.$.reactionCount': '-1' }, $pull: { 'replies.$.reactionIds': userId } }).exec();
+                return comment.id ? comment.reactionCount : false;
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+            return false;
         }
     }
 

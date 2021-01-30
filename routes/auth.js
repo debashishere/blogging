@@ -31,7 +31,8 @@ router.get('/logout', ensureAuth, (req, res) => {
 //@route /auth/authenticated
 router.get('/authenticated', (req, res) => {
     if (req.isAuthenticated()) {
-        res.send(true)
+        const userId = req.user._id
+        res.send(userId)
     } else {
         res.send(false);
     }

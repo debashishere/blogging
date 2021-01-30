@@ -1,16 +1,28 @@
 const router = require('express').Router();
 const { ensureAuth } = require('../middleware/auth');
-const { createNewReplyDb } = require('../controller/services');
+const { createNewReplyDb, manageReplyLikeDb } = require('../controller/services');
 
-//@desc get reply by comment id and article id
-router.get('/:articleId/:commentId', (req, res) => {
-    res.send("replys")
+
+//@desc like a replay by comment id and article id
+//@route POST api/reply/like/:commentId/:replyId
+router.post('/like/:commentId/:replyId', async (req, res) => {
+    try {
+        const commentId = req.params.commentId;
+        const replyId = req.params.replyId;
+        const userId = req.body.userId;
+        const reactionCount = await manageReplyLikeDb(userId, commentId, replyId);
+        res.send({ reactionCount: reactionCount })
+    }
+    catch (err) {
+        console.log(err);
+        res.send(false)
+    }
 })
 
 
 
 //@desc create a replay by comment id and article id
-//@route POST /article/reply/:articleId/:commentId
+//@route POST /comments/reply/:articleId/:commentId
 router.post('/:articleId/:commentId', ensureAuth, async (req, res) => {
     try {
         const articleId = req.params.articleId;
@@ -58,6 +70,7 @@ router.post('/:articleId/:commentId', ensureAuth, async (req, res) => {
 
 
 // delete a reply by comment id and article id
+
 
 
 

@@ -36,10 +36,7 @@ connectDB();
 const app = express();
 
 //MIDDLEWARE
-if (process.env.NODE_ENV === 'development') {
-    app.use(logger('dev'));
-}
-
+app.use(logger('tiny'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

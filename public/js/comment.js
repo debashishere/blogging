@@ -1,5 +1,21 @@
 $(document).ready(function () {
 
+    let isAuthenticated = false;
+    let userId = null;
+    const baseUrl = 'http://localhost:3000'
+
+    //return true if authenticated
+    const checkAuthenticated = async function () {
+        const url = `http://localhost:3000/auth/authenticated`
+        const status = await axios.get(url)
+        if (status.data) {
+            userId = status.data;
+            isAuthenticated = true;
+        }
+
+    }
+    checkAuthenticated();
+
     //get id from url
     const getPostId = function () {
         const pageUrl = $(location).attr("href");
@@ -24,19 +40,12 @@ $(document).ready(function () {
 
     //*******************************COMMENT***************************/
 
-    //return true if authenticated
-    const checkAuthenticated = async function () {
-        const url = `http://localhost:3000/auth/authenticated`
-        const status = await axios.get(url)
-        return status.data;
-    }
+
 
     //create a single comment in db
     const createComment = async function (event) {
         event.preventDefault();
         try {
-            const isAuthenticated = await checkAuthenticated();
-
             if (isAuthenticated) {
                 const data = getCommentData();
                 const url = `http://localhost:3000/api/comments/${getPostId()}`
@@ -49,14 +58,15 @@ $(document).ready(function () {
                             // alert error while commenting
                         }
                     })
-            } else {
+            }
+            else {
                 activePopup()
             }
-        } catch (err) {
+        }
+        catch (err) {
             activePopup()
         }
     }
-
 
     //get comment data from dom
     const getCommentData = function () {
@@ -113,7 +123,8 @@ $(document).ready(function () {
         <div class="reac_container">
             <div class="reac_wrapper" data-comment_id=${comment_id}>
                 <div class="reac_link">
-                    <a href="" class="like"><span><i class="far fa-heart"></i></span>Like</a>
+                    <a href="" class="like"><span><i class="fas fa-heart"></i></span><span
+                    class="count"></span>Like</a>
                     <a  class="reply" href=""><span ><i class="far fa-comment-alt"></i></span>Reply</a>
                 </div>
                
@@ -131,16 +142,88 @@ $(document).ready(function () {
     }
 
     // manage comment options comment card
-    const toggleCommentManage = async function (event) {
-        try {
-            const isAuthenticated = await checkAuthenticated();
-            if (isAuthenticated) {
-                target = $(event.target).parent();
-                options = target.find('.action_options')
-                console.log('option', options)
+    const toggleCommentManage = function (event) {
+        if (isAuthenticated) {
+            target = $(event.target).parent();
+            options = target.find('.action_options')
+            console.log('option', options)
 
-                target.toggleClass('active');
-                options.toggleClass('active')
+            target.toggleClass('active');
+            options.toggleClass('active')
+        } else {
+            activePopup()
+        }
+    }
+
+    //get commentId
+    const getCommentId = function (event) {
+
+        console.log(event.target)
+        const reac_link = $(event.target).closest('div');
+        const reac_wrapper = reac_link.parent().closest('div');
+        const commentId = reac_wrapper.data().comment_id
+        return commentId;
+    }
+
+    //get reaction html element
+    const getReacElement = function (event) {
+        const target = event.target
+        const tag = target.tagName;
+        let reacElement;
+
+        if (tag == 'A') {
+            reacElement = $(event.target)
+        } else {
+            reacElement = $(event.target).closest('a');
+        }
+
+        console.log('reacElement', reacElement)
+        return reacElement;
+    }
+
+    //manage comment like count
+    const manageCommentCount = function (reacElement) {
+        const isLiked = reacElement.hasClass('active')
+        let Newcount;
+
+        const getCount = function () {
+            let count = $(reacElement).find("span.count").text();
+            if (count === '') {
+                count = 0;
+            }
+            return parseInt(count);
+        }
+        //check if already liked
+        if (isLiked) {
+            //decrement
+            Newcount = getCount() - 1;
+        } else {
+            //increment
+            Newcount = getCount() + 1;
+        }
+        //set new count
+        $(reacElement).find("span.count").text(Newcount);
+    }
+
+    // add or removereaction to a comment
+    const toggleCommentReac = async function (event) {
+        try {
+            event.preventDefault();
+            // chek if already liked ( active class present)
+            if (isAuthenticated) {
+                const commentId = getCommentId(event);
+                const reacElement = getReacElement(event);
+                const data = {
+                    userId: userId,
+                }
+                const url = baseUrl + `/api/comments/like/${commentId}`
+                const status = await axios.post(url, data);  //like dislike in both case return true
+                if (status.data) {
+                    manageCommentCount(reacElement);
+                    reacElement.toggleClass('active');
+                } else {
+                    // show error while reacting
+                }
             } else {
                 activePopup()
             }
@@ -150,29 +233,14 @@ $(document).ready(function () {
         }
     }
 
-    // add reaction to a comment
-    const addReactComment = async function (event) {
-        event.preventDefault();
-        try {
-            const isAuthenticated = await checkAuthenticated();
-            if (isAuthenticated) {
-                console.log('like comment')
-            } else {
-                activePopup()
-            }
-        }
-        catch (err) {
-            activePopup()
-        }
-    }
 
-    //event listeners
+    //event listenersy 
     //create a new comment 
     $('.submit_btn').click(createComment);
 
     //manage Comment btn event listeners
     $('.dis_card_wrapper').delegate('div.action', "click", toggleCommentManage);
-    $('.dis_card_wrapper').delegate('a.like', "click", addReactComment);
+    $('.dis_card_wrapper').delegate('a.like', "click", toggleCommentReac);
 
 
     //***********************************Reply********************************/
@@ -197,35 +265,28 @@ $(document).ready(function () {
 
 
     // add new reply input textarea element
-    const addReplyInput = async function (event) {
+    const addReplyInput = function (event) {
         event.preventDefault();
-        try {
-            const isAuthenticated = await checkAuthenticated();
+        if (isAuthenticated) {
+            const reac_link = $(event.target).parent().closest('div');
+            const children = $('.dis_card_wrapper').find('.reac_reply_input').length
 
-            if (isAuthenticated) {
-                const reac_link = $(event.target).parent().closest('div');
-                const children = $('.dis_card_wrapper').find('.reac_reply_input').length
+            //check if reply input not added
+            if (!children) {
+                const inputTextArea = getReplyInputElement();
+                $(inputTextArea).insertAfter(reac_link);
 
-                //check if reply input not added
-                if (!children) {
-                    const inputTextArea = getReplyInputElement();
-                    $(inputTextArea).insertAfter(reac_link);
+                //add event listener to dismiss btn and submit btn
+                $('.dismis_btn').click(removeReplayInput);
 
-                    //add event listener to dismiss btn and submit btn
-                    $('.dismis_btn').click(removeReplayInput);
-
-                    // replay submit btn event listner
-                    $('.reply_submit_btn').click(function (event) {
-                        event.preventDefault();
-                        getReplyData(event, reac_link);
-                    })
-                }
-
-            } else {
-                activePopup()
+                // replay submit btn event listner
+                $('.reply_submit_btn').click(function (event) {
+                    event.preventDefault();
+                    getReplyData(event, reac_link);
+                })
             }
-        }
-        catch (err) {
+
+        } else {
             activePopup()
         }
     }
@@ -248,7 +309,7 @@ $(document).ready(function () {
 
 
     //get new Reply element
-    const getMewReplyElement = function (reply, creator,) {
+    const getNewReplyElement = function (reply, creator, commentId) {
         const creatorName = creator.displayName;
         const creatorImage = creator.image;
         const replyText = reply.text;
@@ -278,16 +339,11 @@ $(document).ready(function () {
             </div>
         </div>
         <div class="reply_reac_container">
-            <a href="" data-replyId="{{this.id}}">
-                <div class="reply_reac_content">
-                    <div class="reply_reac_logo">
-                        <p><i class="far fa-heart"></i></i></p>
-                    </div>
-                    <div class="reply_reac_text" data-replyId =${replyId}>
-                        <p>Like</p>
-                    </div>
-
-                </div>
+            <a href="" class="reply_like" data-comment_id="${commentId}"
+             data-reply_id="${replyId}">
+                    <span><i class="fas fa-heart"></i></span>
+                    <span class="count">33</span>
+                    Like
             </a>
         </div>
         </div>`
@@ -295,8 +351,8 @@ $(document).ready(function () {
     }
 
     //add reply element to DOM
-    const addReply = function (reply, creator, refElement) {
-        const newReplyElement = getMewReplyElement(reply, creator);
+    const addReply = function (reply, creator, refElement, commentId) {
+        const newReplyElement = getNewReplyElement(reply, creator, commentId);
         //remove reply input
         $('.reac_reply_input').remove()
         //add new reply 
@@ -304,7 +360,7 @@ $(document).ready(function () {
     }
 
     //create a new reply in db
-    const createReply = async function (input, comment_id, refElement) {
+    const createReply = async function (input, commentId, refElement) {
         try {
             const inputText = $(input).val()
             const postId = getPostId()
@@ -312,10 +368,10 @@ $(document).ready(function () {
                 replyText: inputText
             }
 
-            const url = `http://localhost:3000/article/reply/${postId}/${comment_id}`
+            const url = `http://localhost:3000/api/reply/${postId}/${commentId}`
             await axios.post(url, data)
                 .then(res => {
-                    addReply(res.data.reply, res.data.creator, refElement)
+                    addReply(res.data.reply, res.data.creator, refElement, commentId)
                 })
                 .catch(err => {
                     console.log(err)
@@ -327,24 +383,54 @@ $(document).ready(function () {
 
     }
 
+    //get commentId and replyId
+    const getIds = function (event) {
+        let commentId;
+        let replyId;
+        const target = $(event.target)
+        const tag = event.target.tagName;
+        if (tag === 'A') {
+            commentId = target.data().comment_id
+            replyId = target.data().reply_id
+        } else {
+            commentId = target.parent().data().comment_id
+            replyId = target.parent().data().reply_id
+        }
+        return { commentId, replyId }
+    }
+
     //react to a reply
-    const addReactReply = async function (event) {
-        event.preventDefault();
+
+    const toggleReplyReac = async function (event) {
         try {
-            const isAuthenticated = await checkAuthenticated();
+            event.preventDefault();
             if (isAuthenticated) {
-                console.log('like reply')
+                const { commentId, replyId } = getIds(event);
+                const data = {
+                    userId: userId,
+                }
+                const url = baseUrl + `/api/reply/like/${commentId}/${replyId}`
+                const result = await axios.post(url, data);
+                if (result.data) {
+                    const reacElement = getReacElement(event);
+                    manageCommentCount(reacElement);
+                    reacElement.toggleClass('active');
+                } else {
+                    //show error
+                }
+
+
             } else {
                 activePopup()
             }
-        }
-        catch (err) {
-            activePopup()
+        } catch (err) {
+
         }
     }
+
 
     //event listeners
     // create a new reply
     $('.dis_card_wrapper').delegate('a.reply', "click", addReplyInput);
-    $('.dis_card_wrapper').delegate('a.reply_like', "click", addReactReply);
+    $('.dis_card_wrapper').delegate('a.reply_like', "click", toggleReplyReac);
 })

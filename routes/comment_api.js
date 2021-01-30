@@ -1,7 +1,8 @@
 const router = require('express').Router();
+
 const { ensureAuth } = require('../middleware/auth');
 
-const { createNewCommentDb, deleteComment, updateCommentDb } = require('../controller/services');
+const { createNewCommentDb, deleteComment, updateCommentDb, manageCommentLikeDb } = require('../controller/services');
 
 //@desc post a single comment
 //@route POST api/comments/:id
@@ -57,7 +58,7 @@ router.put('/:articleId/:commentId', ensureAuth, async (req, res) => {
     }
 })
 
-//@desc delte a single comment
+//@desc delete a single comment
 //@route Delete api/comments/:id
 router.delete('/:id', ensureAuth, async (req, res) => {
     try {
@@ -75,6 +76,22 @@ router.delete('/:id', ensureAuth, async (req, res) => {
     }
 
 
+})
+
+
+//@desc like or dislike a single comment
+//@route POST api/comments/like/:commentId
+router.post('/like/:commentId', async (req, res) => {
+    try {
+        const commentId = req.params.commentId
+        const userId = req.body.userId
+        const reactionCount = await manageCommentLikeDb(userId, commentId);
+        res.send({ reactionCount: reactionCount })
+    }
+    catch (err) {
+        console.log(err);
+        res.send(false)
+    }
 })
 
 module.exports = router;

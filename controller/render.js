@@ -114,7 +114,7 @@ module.exports = {
     //@desc render a single article view
     renderArticle: async (id, res) => {
         const loggedUser = res.locals.loggedUser || null;
-        const comments = await getCommentDb(id);
+        const comments = await getCommentDb(id, loggedUser);
         const result = getArticleById(id);
         result
             .then((article) => {

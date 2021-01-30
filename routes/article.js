@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { ensureAuth } = require('../middleware/auth');
-const replyRoute = require('./reply_api');
+
 
 //controller fumctions
 const { renderCreateArticle, renderArticle, renderEditArticle } = require('../controller/render');
@@ -9,9 +9,6 @@ const { renderCreateArticle, renderArticle, renderEditArticle } = require('../co
 const { processDeleteArticleDb } = require('../controller/process/database');
 
 //*******************SECURE ROUTES**************** */
-
-//reply route
-router.use('/reply', ensureAuth, replyRoute)
 
 //@desc show create article page
 //@route GET /article/new

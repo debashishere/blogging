@@ -105,7 +105,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .dis_container .dis_content {
@@ -218,6 +218,7 @@
     background-color: #e7a79c;
     border-radius: 5px;
     border: none;
+    outline: none;
 }
 
 .dis_container .dis_content .dis_card .dis_wrapper .writer_content .writer_head .action_container .action_options form button:hover {
@@ -233,6 +234,7 @@
     background-color: rgb(148, 235, 180);
     margin-bottom: 6px;
     border-radius: 5px;
+    color: rgb(12, 11, 11);
 }
 
 .dis_container .dis_content .dis_card .dis_wrapper .writer_content .writer_head .action_container .action_options a:hover:first-child {
@@ -296,26 +298,45 @@
     /* background: yellow; */
     display: flex;
     color: rgb(117, 117, 117);
-    padding: 9px 10px 9px 54px;
+    padding: 5px 10px 9px 54px;
     align-items: center;
 }
 
 .dis_container .reac_container .reac_wrapper .reac_link a {
-    padding-right: 23px;
+    text-decoration: none;
+    /* padding-right: 23px; */
+    padding: 4px 8px;
+    border-radius: 5px;
+    margin-right: 3px;
     font-size: 0.84rem;
+    display: block;
+    color: rgb(12, 12, 12);
+}
+
+.dis_container .reac_container .reac_wrapper .reac_link a .count {
+    font-size: 0.84rem;
+}
+
+.dis_container .reac_container .reac_wrapper .reac_link a:hover {
+    background-color: rgb(235, 235, 235);
 }
 
 .dis_container .reac_container .reac_wrapper .reac_link a span {
     color: black;
     padding-right: 7.5px;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
+.dis_container .reac_container .reac_wrapper .reac_link a span i {
+    color: #747475;
+}
 
-.dis_container .reac_container .reac_wrapper a {
-    text-decoration: none;
-    display: block;
-    color: rgb(117, 117, 117);
+.dis_container .reac_container .reac_wrapper .reac_link .like.active {
+    background-color: rgb(243, 219, 219);
+}
+
+.dis_container .reac_container .reac_wrapper .reac_link .like.active i {
+    color: tomato;
 }
 
 .dis_container .reac_container .reac_wrapper a .reac_content {
@@ -490,17 +511,43 @@
 .reply_wrapper .reply_reac_container {
     width: 100%;
     display: flex;
-    padding: 9px 10px 9px 69px;
+    padding: 5px 10px 9px 69px;
     align-items: center;
 }
 
-.reply_wrapper .reply_reac_container a {
+.reply_wrapper .reply_reac_container .reply_like {
     text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 5px;
     display: block;
+    color: rgb(10, 10, 10);
     font-size: 0.84rem;
+}
+
+.reply_wrapper .reply_reac_container .reply_like.active {
+    background-color: rgb(243, 219, 219);
+}
+
+.reply_wrapper .reply_reac_container .reply_like.active i {
+    color: tomato;
+}
+
+.reply_wrapper .reply_reac_container a:hover {
+    background-color: rgb(235, 235, 235);
 }
 
 .reply_wrapper .reply_reac_container a span {
     color: black;
     padding-right: 5px;
+    font-size: 0.9rem;
+}
+
+.reply_wrapper .reply_reac_container a span i {
+    color: #747475;
+}
+
+.reply_wrapper .reply_reac_container a .count {
+
+    font-size: 0.84rem;
+
 }
