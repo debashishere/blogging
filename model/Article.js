@@ -26,10 +26,11 @@ const ArticleSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    reactions: {
+    reactionCount: {
         type: Number,
         default: 0
     },
+    reactionIds: [],
     comments: [
         {
             creator: {

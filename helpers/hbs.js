@@ -23,11 +23,11 @@ module.exports = {
         return fromNow;
     },
     isCreator: function (creatorId, userId, options) {
-        console.log('called', creatorId, userId)
         if (creatorId.equals(userId)) {
             return options.fn(this);
         } else {
             return options.inverse(this);
         }
-    }
+    },
+
 }

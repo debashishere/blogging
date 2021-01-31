@@ -140,20 +140,40 @@
 }
 
 .hero-container .main-container .aside-left-content .reac-container {
-    margin-top: 70px;
-    height: 35px;
+    margin-top: 98px;
     width: 35px;
-    padding-top: 2.5px;
     border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.hero-container .main-container .aside-left-content .reac-container .logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.3rem;
+    border-radius: 50%;
+    height: 33px;
+    width: 33px;
+    cursor: pointer;
+    padding-top: 2.5px;
 }
 
-.hero-container .main-container .aside-left-content .reac-container:hover {
+.hero-container .main-container .aside-left-content .reac-container .logo:hover {
     background-color: rgb(243, 219, 219);
     color: tomato
+}
+
+.hero-container .main-container .aside-left-content .reac-container .logo.active {
+    background-color: rgb(243, 219, 219);
+    color: tomato;
+}
+
+.hero-container .main-container .aside-left-content .reac-container .reac_count {
+    padding-top: 8px;
+    font-size: 0.95rem;
 }
 
 /* right side content */

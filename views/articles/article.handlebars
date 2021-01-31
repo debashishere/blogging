@@ -6,7 +6,12 @@
         <div class="fixed-wrapper">
             <div class="aside-left-content">
                 <div class="reac-container">
-                    <span><i class="fas fa-heart"></i></span>
+                    {{#if article.isReacted}}
+                    <span class="logo active"><i class="fas fa-heart"></i></span>
+                    {{else}}
+                    <span class="logo"><i class="fas fa-heart"></i></span>
+                    {{/if}}
+                    <span class="reac_count">{{article.reactionCount}}</span>
                 </div>
             </div>
             {{!-- right side content --}}
@@ -130,7 +135,9 @@
                                         {{!-- check for reaction --}}
                                         {{#if this.isReacted}}
                                         <a href="" class="like active"><span><i class="fas fa-heart"></i></span><span
-                                                class="count">{{this.reactionCount}}</span>Like</a>
+                                                class="count">
+                                                {{this.reactionCount}}
+                                            </span>Like</a>
                                         {{else}}
                                         <a href="" class="like"><span><i class="fas fa-heart"></i></i></span><span
                                                 class="count">{{this.reactionCount}}</span>Like</a>
@@ -172,12 +179,21 @@
                                             </div>
                                         </div>
                                         <div class="reply_reac_container">
+                                            {{#if this.isReacted}}
+                                            <a href="" class="reply_like active" data-comment_id={{../this.comment._id}}
+                                                data-reply_id="{{this.id}}">
+                                                <span><i class="fas fa-heart"></i></span>
+                                                <span class="count">{{this.reactionCount}}</span>
+                                                Like
+                                            </a>
+                                            {{else}}
                                             <a href="" class="reply_like" data-comment_id={{../this.comment._id}}
                                                 data-reply_id="{{this.id}}">
                                                 <span><i class="fas fa-heart"></i></span>
-                                                <span class="count">33</span>
-                                                Like</a>
+                                                <span class="count">{{this.reactionCount}}</span>
+                                                Like
                                             </a>
+                                            {{/if}}
                                         </div>
                                     </div>
                                     {{/each}}

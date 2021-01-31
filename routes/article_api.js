@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { ensureAuth } = require('../middleware/auth');
 const { processCreateArticleCache, processUpdateArticleCache } = require('../controller/process/cache');
 const { processCreateArticleDb, processUpdateArticleDb, processGetArticleDataDb } = require('../controller/process/database');
-const { getArticleById } = require('../controller/services');
+const { getArticleById, manageArticleLike } = require('../controller/services');
 
 
 //@desc process create blog
@@ -76,6 +76,20 @@ router.get('/data/:id', (req, res) => {
         })
 })
 
+
+//@desc Reac to a post
+//@route POST /api/article/like/:postId/:userId
+router.post('/like/:postId/:userId', ensureAuth, async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.params.userId;
+        const reactionCount = await manageArticleLike(userId, postId);
+        res.send({ reactionCount: reactionCount });
+    }
+    catch (errr) {
+        res.send(false);
+    }
+})
 
 
 module.exports = router;

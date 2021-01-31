@@ -10,8 +10,10 @@ router.post('/like/:commentId/:replyId', async (req, res) => {
         const commentId = req.params.commentId;
         const replyId = req.params.replyId;
         const userId = req.body.userId;
-        const reactionCount = await manageReplyLikeDb(userId, commentId, replyId);
-        res.send({ reactionCount: reactionCount })
+        const replies = await manageReplyLikeDb(userId, commentId, replyId);
+        const count = getReacCount(replyId, replies);
+        console.log('count', count)
+        res.send({ reactionCount: count })
     }
     catch (err) {
         console.log(err);
@@ -71,7 +73,16 @@ router.post('/:articleId/:commentId', ensureAuth, async (req, res) => {
 
 // delete a reply by comment id and article id
 
-
+//get react6ion count of reacted reply
+const getReacCount = function (replyId, replies) {
+    let count;
+    replies.forEach(reply => {
+        if (replyId == reply._id) {
+            count = reply.reactionCount;
+        }
+    })
+    return count;
+}
 
 
 module.exports = router;

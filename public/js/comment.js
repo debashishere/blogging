@@ -1,20 +1,22 @@
 $(document).ready(function () {
 
     let isAuthenticated = false;
-    let userId = null;
-    const baseUrl = 'http://localhost:3000'
-
-    //return true if authenticated
-    const checkAuthenticated = async function () {
-        const url = `http://localhost:3000/auth/authenticated`
-        const status = await axios.get(url)
-        if (status.data) {
-            userId = status.data;
-            isAuthenticated = true;
+    let user_id = null;
+    (async function () {
+        try {
+            await checkAuthenticated()
+                .then(userId => {
+                    if (userId) {
+                        isAuthenticated = true;
+                        console.log('user inside', userId)
+                        user_id = userId;
+                    }
+                })
         }
-
-    }
-    checkAuthenticated();
+        catch (err) {
+            // auth rerror
+        }
+    })();
 
     //get id from url
     const getPostId = function () {
@@ -45,25 +47,29 @@ $(document).ready(function () {
     //create a single comment in db
     const createComment = async function (event) {
         event.preventDefault();
-        try {
-            if (isAuthenticated) {
+        if (isAuthenticated) {
+            try {
                 const data = getCommentData();
-                const url = `http://localhost:3000/api/comments/${getPostId()}`
-                await axios.post(url, data)
-                    .then(res => {
-                        if (res.data) {
-                            console.log('res data', res.data)
-                            addComment(res.data.comment, res.data.creator)
-                        } else {
-                            // alert error while commenting
-                        }
-                    })
+                //check for empty comment
+                if (!data) {
+                    return;
+                }
+                const postId = getPostId();
+                const resData = await postComment(postId, data);
+                if (resData) {
+                    const comment = resData.comment
+                    const creator = resData.creator
+                    addComment(comment, creator)
+                } else {
+                    // alert error while commenting
+                }
             }
-            else {
-                activePopup()
+            catch (err) {
+                //
+                console.log(err)
             }
         }
-        catch (err) {
+        else {
             activePopup()
         }
     }
@@ -71,11 +77,15 @@ $(document).ready(function () {
     //get comment data from dom
     const getCommentData = function () {
         const inputText = $('.dis_textarea').val();
-        $('.dis_textarea').val('');
-        const data = {
-            comment: inputText
+        let data = {}
+        if (inputText != '') {
+            $('.dis_textarea').val('');
+            data = {
+                comment: inputText
+            }
+            return data;
         }
-        return data;
+        return false;
     }
 
     //get new comment Element 
@@ -146,7 +156,6 @@ $(document).ready(function () {
         if (isAuthenticated) {
             target = $(event.target).parent();
             options = target.find('.action_options')
-            console.log('option', options)
 
             target.toggleClass('active');
             options.toggleClass('active')
@@ -157,8 +166,6 @@ $(document).ready(function () {
 
     //get commentId
     const getCommentId = function (event) {
-
-        console.log(event.target)
         const reac_link = $(event.target).closest('div');
         const reac_wrapper = reac_link.parent().closest('div');
         const commentId = reac_wrapper.data().comment_id
@@ -177,58 +184,50 @@ $(document).ready(function () {
             reacElement = $(event.target).closest('a');
         }
 
-        console.log('reacElement', reacElement)
         return reacElement;
     }
 
     //manage comment like count
-    const manageCommentCount = function (reacElement) {
-        const isLiked = reacElement.hasClass('active')
-        let Newcount;
-
-        const getCount = function () {
-            let count = $(reacElement).find("span.count").text();
-            if (count === '') {
-                count = 0;
-            }
-            return parseInt(count);
-        }
-        //check if already liked
-        if (isLiked) {
-            //decrement
-            Newcount = getCount() - 1;
-        } else {
-            //increment
-            Newcount = getCount() + 1;
-        }
+    const manageCount = function (count, reacElement) {
         //set new count
-        $(reacElement).find("span.count").text(Newcount);
+        $(reacElement).find("span.count").text(count);
     }
 
-    // add or removereaction to a comment
-    const toggleCommentReac = async function (event) {
-        try {
-            event.preventDefault();
-            // chek if already liked ( active class present)
-            if (isAuthenticated) {
+    // add or remove reaction to a comment
+    const toggleCommentReact = async function (event) {
+        event.preventDefault();
+        // chek if already liked ( active class present)
+        if (isAuthenticated) {
+            try {
                 const commentId = getCommentId(event);
-                const reacElement = getReacElement(event);
-                const data = {
-                    userId: userId,
-                }
-                const url = baseUrl + `/api/comments/like/${commentId}`
-                const status = await axios.post(url, data);  //like dislike in both case return true
-                if (status.data) {
-                    manageCommentCount(reacElement);
-                    reacElement.toggleClass('active');
+                let data;
+                console.log('user', user_id)
+                if (user_id) {
+                    data = {
+                        userId: user_id,
+                    }
                 } else {
-                    // show error while reacting
+                    return;
                 }
-            } else {
+                await postCommentReact(commentId, data)
+                    .then(res => {
+                        //like dislike in both case return true
+                        if (res) {
+                            const count = res.reactionCount;
+                            const reacElement = getReacElement(event);
+                            manageCount(count, reacElement);
+                            reacElement.toggleClass('active');
+                        } else {
+                            // show error while reacting
+                        }
+
+                    })
+            }
+            catch (err) {
                 activePopup()
             }
         }
-        catch (err) {
+        else {
             activePopup()
         }
     }
@@ -240,7 +239,7 @@ $(document).ready(function () {
 
     //manage Comment btn event listeners
     $('.dis_card_wrapper').delegate('div.action', "click", toggleCommentManage);
-    $('.dis_card_wrapper').delegate('a.like', "click", toggleCommentReac);
+    $('.dis_card_wrapper').delegate('a.like', "click", toggleCommentReact);
 
 
     //***********************************Reply********************************/
@@ -276,13 +275,19 @@ $(document).ready(function () {
                 const inputTextArea = getReplyInputElement();
                 $(inputTextArea).insertAfter(reac_link);
 
+                //event listeners
                 //add event listener to dismiss btn and submit btn
                 $('.dismis_btn').click(removeReplayInput);
-
                 // replay submit btn event listner
                 $('.reply_submit_btn').click(function (event) {
                     event.preventDefault();
-                    getReplyData(event, reac_link);
+                    const [inputText, comment_id] = getReplyData(event, reac_link);
+                    if (inputText != '') {
+                        createReply(inputText, comment_id, reac_link)
+                    } else {
+                        // alert "please insert reply"
+                    }
+                    return;
                 })
             }
 
@@ -293,20 +298,52 @@ $(document).ready(function () {
 
 
     //get replay data
-    const getReplyData = function (event, refElement) {
-
+    const getReplyData = function (event) {
         //get comment id 
         const reac_btn_container = $(event.target).parent()
         const reac_reply_input = reac_btn_container.parent().closest('div');
         const reac_wrapper = reac_reply_input.parent().closest('div');
         const comment_id = reac_wrapper.data().comment_id
-
         //get input element
         const input = reac_reply_input.children()[0]
-        // createReply
-        createReply(input, comment_id, refElement)
+        const inputText = $(input).val()
+
+        return [inputText, comment_id]
     }
 
+    //create a new reply in db
+    const createReply = async function (inputText, commentId, refElement) {
+        try {
+            const postId = getPostId()
+            const data = {
+                replyText: inputText
+            }
+            await postReply(postId, commentId, data)
+                .then(data => {
+                    if (data) {
+                        addReply(data.reply, data.creator, refElement, commentId)
+                    } else {
+                        //error
+                    }
+                })
+                .catch(err => {
+                    //error
+                })
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+    }
+
+    //add reply element to DOM
+    const addReply = function (reply, creator, refElement, commentId) {
+        const newReplyElement = getNewReplyElement(reply, creator, commentId);
+        //remove reply input
+        $('.reac_reply_input').remove()
+        //add new reply 
+        $(newReplyElement).insertAfter(refElement)
+    }
 
     //get new Reply element
     const getNewReplyElement = function (reply, creator, commentId) {
@@ -350,39 +387,6 @@ $(document).ready(function () {
         return html;
     }
 
-    //add reply element to DOM
-    const addReply = function (reply, creator, refElement, commentId) {
-        const newReplyElement = getNewReplyElement(reply, creator, commentId);
-        //remove reply input
-        $('.reac_reply_input').remove()
-        //add new reply 
-        $(newReplyElement).insertAfter(refElement)
-    }
-
-    //create a new reply in db
-    const createReply = async function (input, commentId, refElement) {
-        try {
-            const inputText = $(input).val()
-            const postId = getPostId()
-            const data = {
-                replyText: inputText
-            }
-
-            const url = `http://localhost:3000/api/reply/${postId}/${commentId}`
-            await axios.post(url, data)
-                .then(res => {
-                    addReply(res.data.reply, res.data.creator, refElement, commentId)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-        catch (err) {
-            console.log(err);
-        }
-
-    }
-
     //get commentId and replyId
     const getIds = function (event) {
         let commentId;
@@ -401,30 +405,37 @@ $(document).ready(function () {
 
     //react to a reply
 
-    const toggleReplyReac = async function (event) {
-        try {
-            event.preventDefault();
-            if (isAuthenticated) {
+    const toggleReplyReact = async function (event) {
+        event.preventDefault();
+        if (isAuthenticated) {
+            try {
                 const { commentId, replyId } = getIds(event);
-                const data = {
-                    userId: userId,
-                }
-                const url = baseUrl + `/api/reply/like/${commentId}/${replyId}`
-                const result = await axios.post(url, data);
-                if (result.data) {
-                    const reacElement = getReacElement(event);
-                    manageCommentCount(reacElement);
-                    reacElement.toggleClass('active');
+                let data;
+                if (user_id) {
+                    data = {
+                        userId: user_id,
+                    }
                 } else {
-                    //show error
+                    return;
                 }
+                await postReplyReact(commentId, replyId, data)
+                    .then(res => {
+                        if (res) {
+                            const count = res.reactionCount;
+                            const reacElement = getReacElement(event);
+                            manageCount(count, reacElement);
+                            reacElement.toggleClass('active');
+                        } else {
+                            // show error while reacting
+                        }
+                    })
 
+            } catch (err) {
 
-            } else {
-                activePopup()
             }
-        } catch (err) {
-
+        }
+        else {
+            activePopup()
         }
     }
 
@@ -432,5 +443,5 @@ $(document).ready(function () {
     //event listeners
     // create a new reply
     $('.dis_card_wrapper').delegate('a.reply', "click", addReplyInput);
-    $('.dis_card_wrapper').delegate('a.reply_like', "click", toggleReplyReac);
+    $('.dis_card_wrapper').delegate('a.reply_like', "click", toggleReplyReact);
 })

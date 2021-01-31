@@ -1,6 +1,6 @@
 const path = require('path');
 //MongoDb Services
-const { getPublicAticlesByUser, getAticlesByUser, getPublicArticles, getArticleById, getCommentDb } = require('./services');
+const { getPublicAticlesByUser, getAticlesByUser, getPublicArticles, getArticleById } = require('./services');
 
 
 //render views
@@ -112,34 +112,21 @@ module.exports = {
     },
 
     //@desc render a single article view
-    renderArticle: async (id, res) => {
-        const loggedUser = res.locals.loggedUser || null;
-        const comments = await getCommentDb(id, loggedUser);
-        const result = getArticleById(id);
-        result
-            .then((article) => {
-                if (article) {
-                    res.render('articles/article', {
-                        style: "article.css",
-                        js: 'article.js',
-                        comment_js: "comment.js",
-                        header_style: "header.css",
-                        footer_style: 'footer.css',
-                        sheet_01: 'article_discussion.css',
-                        editor: true,
-                        article,
-                        comments,
-                        user: loggedUser
-                    })
-                } else {
-                    // no article foound with that id
-                    // render error
-                }
+    renderArticle: (loggedUser, article, comments, res) => {
+        res.render('articles/article', {
+            style: "article.css",
+            api_js: "api_transactions.js",
+            js: 'article.js',
+            comment_js: "comment.js",
+            header_style: "header.css",
+            footer_style: 'footer.css',
+            sheet_01: 'article_discussion.css',
+            editor: true,
+            article,
+            comments,
+            user: loggedUser
+        })
 
-            })
-            .catch(err => {
-                console.log('render error', err)
-            })
     },
 
     //@desc render edit article view

@@ -23,35 +23,27 @@
     <link rel="stylesheet" href='/css/{{sheet_01}}'>
     {{/if}}
 
-
-
-    {{!-- fontawesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
-
-    {{#if editor}}
-    {{!-- editor js --}}
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.19.1/dist/editor.min.js"></script>
-    {{!-- editor js HEADER --}}
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2.6.0/dist/bundle.min.js"></script>
-    {{!-- editorjs image from link --}}
-    {{!--
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@1.4.0/dist/bundle.min.js"></script> --}}
-    {{!-- image tool --}}
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.6.0/dist/bundle.min.js"></script>
-    {{!-- list tool--}}
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@1.6.1/dist/bundle.min.js"></script>
-    {{!-- embed tool --}}
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@2.4.0/dist/bundle.min.js"></script>
-    {{/if}}
-
     {{!-- jquery --}}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 
     {{!-- axios --}}
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" async defer></script>
+
+
+    {{!-- ************************my js************************ --}}
+    {{!-- api_transactions --}}
+    {{#if api_js}}
+    <script src='/js/{{api_js}}' async defer>
+    </script>
+    {{/if}}
+
+    {{!-- commentjs --}}
+    {{#if comment_js}}
+    <script src='/js/{{comment_js}}' async defer>
+    </script>
+    {{/if}}
+
 
     {{!-- js --}}
     {{#if js}}
@@ -64,12 +56,27 @@
     <script src='/js/{{header_js}}' async defer>
     </script>
     {{/if}}
+    {{!-- end of my js --}}
 
-    {{!-- commentjs --}}
-    {{#if comment_js}}
-    <script src='/js/{{comment_js}}' async defer>
-    </script>
+    {{!-- fontawesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    {{#if editor}}
+    {{!-- editor js --}}
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.19.1/dist/editor.min.js"></script>
+    {{!-- editor js HEADER --}}
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2.6.0/dist/bundle.min.js"></script>
+    {{!-- editorjs image from link --}}
+
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.6.0/dist/bundle.min.js"></script>
+    {{!-- list tool--}}
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@1.6.1/dist/bundle.min.js"></script>
+    {{!-- embed tool --}}
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@2.4.0/dist/bundle.min.js"></script>
     {{/if}}
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

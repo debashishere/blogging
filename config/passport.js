@@ -15,7 +15,6 @@ module.exports = function (passport) {
                     done(null, user);
                 } else {
                     //user not found
-                    // insert a new user
                     const newUser = new User({
                         googleId: profile.id,
                         displayName: profile.displayName,
@@ -23,12 +22,9 @@ module.exports = function (passport) {
                         lastName: profile.name.familyName,
                         image: profile.photos[0].value
                     });
-                    // console.log('Profile', profile)
-                    // console.log('User', newUser)
                     newUser
                         .save()
                         .then(user => {
-                            // console.log('then user', user)
                             done(null, user)
                         })
                         .catch(err => {
