@@ -41,7 +41,7 @@ $(document).ready(function () {
         try {
             await editor.isReady
                 .then(() => {
-                    console.log('Editor.js is ready to work!')
+                    // console.log('Editor.js is ready to work!')
                     /** Do anything you need after editor initialization */
 
                     //upload cover image once selected
@@ -63,7 +63,7 @@ $(document).ready(function () {
                                 if (res.data.status === 1) {
                                     // show cover image
                                     $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
-                                    $('#cover_image').attr('src', res.data.path);
+                                    $('#cover_image').attr('src', res.data.path).css({ "object-fit": "cover" });
 
                                 } else {
                                     //render error
@@ -91,8 +91,6 @@ $(document).ready(function () {
                                         title: title,
                                         status: status
                                     }
-
-                                    console.log('data', data)
                                     // send data to backend
                                     await axios.post('http://localhost:3000/api/article/new', data)
                                         .then(res => {

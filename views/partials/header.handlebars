@@ -28,7 +28,11 @@
                 <a href="/article/new" class="nav-right-link">Write a post</a>
                 <div class="dropdown">
                     <div class="dropdown-imgBx">
+                        {{#if loggedUser.image}}
                         <img src="{{loggedUser.image}}">
+                        {{else}}
+                        <img src="/images/profile_thumb.png">
+                        {{/if}}
                     </div>
                     <ul class="dropdown-menu">
                         <li><a href="/profile" class="bolder">{{loggedUser.displayName}}</a></li>

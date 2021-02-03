@@ -1,10 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:display=swap');
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Hind Siliguri', sans-serif;
+    font-family: "Segoe UI", Roboto;
 }
 
 /* editor js custom padding */
@@ -45,6 +43,8 @@
     margin-top: 15px;
     background-color: white;
     border: 1px solid #d7d9d9;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .hero-container .main-container .main-content .post-wrapper {
@@ -69,7 +69,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .hero-container .main-container .main-content .post-content {
@@ -406,7 +406,9 @@
 
     .hero-container .main-container .aside-left-content .reac-container {
         margin-top: 10px;
-        color: rgb(19, 19, 19);
     }
 
+    .hero-container .main-container .aside-left-content .reac-container .reac_count {
+        color: rgb(230, 20, 20);
+    }
 }

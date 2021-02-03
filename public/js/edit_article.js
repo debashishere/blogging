@@ -43,7 +43,7 @@ $(document).ready(function () {
         //set cover image
         $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
         console.log("cover img", cover_image_path)
-        $('#cover_image').attr('src', cover_image_path);
+        $('#cover_image').attr('src', cover_image_path).css({ "object-fit": "cover" });;
 
         //set title
         $('#post_title').val(title);

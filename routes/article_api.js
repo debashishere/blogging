@@ -11,6 +11,7 @@ const { getArticleById, manageArticleLike } = require('../controller/services');
 router.post('/new', ensureAuth, (req, res) => {
     //get a newarticle object
     const newArticle = processCreateArticleCache(req.user, req.body);
+
     processCreateArticleDb(newArticle)
         .then(status => {
             res.send(status); //TODO: log message

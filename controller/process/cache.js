@@ -58,10 +58,10 @@ module.exports = {
         // pull cover image with userid from cache
         const coverImageData = coverImages.filter(verifyUser);
         console.log('coverImageData', coverImageData);
-
+        //pull the latest cover image
         let newArticle = {
             title: article.title,
-            cover_image: coverImageData[0].filename,
+            cover_image: coverImageData[coverImageData.length - 1].filename,
             body: article.editorData,
             status: article.status.toLowerCase(),
             user: user._id,

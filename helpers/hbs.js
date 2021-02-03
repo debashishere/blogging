@@ -19,7 +19,7 @@ module.exports = {
         return formatedDate;
     },
     getRelativeDate: function (date) {
-        const fromNow = moment(date).startOf('day').fromNow();
+        const fromNow = moment(date).fromNow();
         return fromNow;
     },
     isCreator: function (creatorId, userId, options) {

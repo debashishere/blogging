@@ -1,11 +1,25 @@
 
 const Article = require('../model/Article');
 const Comment = require('../model/Comment');
-
+const User = require('../model/User');
 //databse services
 
 module.exports = {
 
+    //partial text search 
+    search: async (searchTerm) => {
+        try {
+            const doc = await Article.find({ title: { $regex: searchTerm, $options: "i" }, status: "public" }, { title: 1, reactionCount: 1, commentCount: 1, createdAt: 1 })
+                .populate('user', '_id displayName image')
+                .lean()
+                .exec();
+            return doc;
+        }
+        catch (err) {
+            console.log(err)
+            return false;
+        }
+    },
     //get all public articles
     getPublicArticles: async () => {
         try {
@@ -17,6 +31,21 @@ module.exports = {
         }
         catch (err) {
             // Hanlde error
+        }
+    },
+
+    // get public articles within time frame
+    filterPublicArticles: async (startDate, endDate) => {
+        try {
+            const articles = await Article.find({ status: 'public', createdAt: { $gte: startDate, $lt: endDate } },
+                { title: 1, cover_image: 1, reactionCount: 1, commentCount: 1, createdAt: 1 })
+                .populate('user', '_id displayName image')
+                .sort({ createdAt: 'desc' })
+                .lean()
+            return articles;
+        }
+        catch (err) {
+            return false;
         }
     },
 
@@ -243,14 +272,21 @@ module.exports = {
 
 
     //@desc create new comment in db
-    createNewCommentDb: async function (comments) {
+    createNewCommentDb: async function (newComment) {
         try {
+            const userId = newComment.creator
             //insert into db
-            const comment = await Comment.create(comments);
+            const comment = await Comment.create(newComment);
             if (comment._id) {
+                //increment commnet count in Article collection
+                await Article.findOneAndUpdate({ _id: comment.article }, { $inc: { 'commentCount': '1' } }).exec()
+
+                //increment comment count in user collection
+                await User.findOneAndUpdate({ _id: userId }, { $inc: { 'commentCount': '1' } }).exec()
+
                 return comment;
             } else {
-                return comment;
+                return false;
             }
         }
         catch (err) {
@@ -279,9 +315,13 @@ module.exports = {
     //@desc DELETE comment BY ID
     deleteComment: async (id) => {
         try {
-            const result = await Comment.findByIdAndDelete(id).exec();
-            // console.log('is deleted', result)
-            return result;
+            const deletedComment = await Comment.findByIdAndDelete(id).exec();
+            //decrement commnet count in Article collection
+            await Article.findOneAndUpdate({ _id: deletedComment.article }, { $inc: { 'commentCount': '-1' } }).exec()
+
+            //decrement comment count in user collection
+            await User.findOneAndUpdate({ _id: userId }, { $inc: { 'commentCount': '-1' } }).exec()
+            return deletedComment;
         }
         catch (err) {
             return false;

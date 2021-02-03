@@ -1,10 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:display=swap');
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Hind Siliguri', sans-serif;
+    font-family: "Segoe UI", Roboto;
 }
 
 .hero-container {
@@ -66,6 +64,7 @@
     align-items: center;
     padding-top: 55px;
     padding-bottom: 15px;
+    border: 1px solid #d7d9d9;
 }
 
 .hero-container .hero-content .colored-section-container .profile-container .profile-bio {
@@ -110,6 +109,7 @@
     border-radius: 5px;
     background: rgb(255, 255, 255);
     padding: 10px;
+    border: 1px solid #d7d9d9;
 }
 
 .hero-container .hero-content .bottom-section-container .bottom-section-content .sidebar-container .sidebar-card .card-group {
@@ -143,6 +143,7 @@
     border-radius: 5px;
     padding: 15px;
     background: #ffffff;
+    border: 1px solid #d7d9d9;
 }
 
 .hero-container .hero-content .bottom-section-container .bottom-section-content .main-container .post .post-user {

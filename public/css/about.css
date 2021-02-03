@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto;
+}
+
+.hero_container {
+    width: 100%;
+    background-color: #EEF0F1;
+    padding-top: 88px;
+}
+
+.hero_container .about_container {
+    width: 700px;
+    margin: 0 auto;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 25px;
+    background: white;
+}
+
+.hero_container .about_container h3 {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 720px) {
+    .hero_container .about_container {
+        width: 100%;
+    }
+}

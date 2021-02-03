@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto;
+}
+
+.no_result {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    color: gray;
+    font-weight: lighter;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #d7d9d9;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hero_container {
+    width: 100%;
+}
+
+.hero_container .hero_wrapper {
+    width: 100%;
+    margin-top: 55px;
+    min-height: 60.5vh;
+    background-color: #EEF0F1;
+}
+
+.hero_container .hero_wrapper .search_title {
+    width: 100%;
+    text-align: center;
+}
+
+.hero_container .hero_wrapper .search_title h3 {
+    font-size: 1.8rem;
+    letter-spacing: 0.015rem;
+    padding: 8px 0;
+}
+
+.hero_container .hero_wrapper .search_card_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card {
+    width: 600px;
+    display: flex;
+    justify-content: left;
+    padding: 15px;
+    margin-bottom: 18px;
+    border-radius: 5px;
+    border: 1px solid #d7d9d9;
+    background-color: white;
+}
+
+
+
+.hero_container .hero_wrapper .search_card_container .search_card .writter_container {
+    display: flex;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .writter_imgBx {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    margin-right: 5px;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .writter_imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .writter_desc a {
+    font-size: 0.89rem;
+    letter-spacing: 0.015rem;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .writter_desc p {
+    font-size: 0.8rem;
+    letter-spacing: 0.014rem;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .post_title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .post_title a:hover {
+    color: rgb(42, 50, 167);
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .reac_container {
+    display: flex;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .reac_container a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2px;
+    color: rgb(56, 56, 56);
+    font-size: 0.90rem;
+    letter-spacing: 0.013rem;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .reac_container a:hover {
+    background-color: rgb(240, 236, 236);
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .reac_container a span i {
+    padding-right: 6px;
+    color: #747475;
+    font-size: 0.85rem;
+}
+
+.hero_container .hero_wrapper .search_card_container .search_card .card_content .reac_container a .count {
+    padding-right: 4px;
+    font-size: 0.79rem;
+}
+
+@media (max-width: 626px) {
+    .hero_container .hero_wrapper .search_card_container .search_card {
+        width: 100%;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+}

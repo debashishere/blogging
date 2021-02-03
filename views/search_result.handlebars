@@ -1,0 +1,45 @@
+<div class="hero_container">
+    {{>header}}
+    <div class="hero_wrapper">
+        <div class="search_title">
+            <h3>Search results</h3>
+        </div>
+
+        <div class="search_card_container">
+            {{!-- single search results card start --}}
+            {{#if searchData}}
+            {{#each searchData}}
+            <div class="search_card">
+                <div class="writter_imgBx">
+                    <a href=""><img src="{{this.user.image}}" alt="writter-img"></a>
+                </div>
+                <div class="card_content">
+                    <div class="writter_desc">
+                        <a href="">{{this.user.displayName}}</a>
+                        <p>{{getFormatedDate this.createdAt}}</p>
+                    </div>
+                    <div class="post_title">
+                        <a href="/article/{{this._id}}">{{this.title}}</a>
+                    </div>
+                    <div class="reac_container">
+                        <a href="/article/{{this._id}}" class=""><span><i class="fas fa-heart"></i></span><span
+                                class="count">{{this.reactionCount}}</span>Reactions</a>
+                        <a href="/article/{{this._id}}" class=""><span><i class="far fa-comment-alt"></i></span><span
+                                class="count">{{this.commentCount}}</span>Comments</a>
+                    </div>
+                </div>
+
+            </div>
+            {{/each}}
+            {{else}}
+            {{!-- no search result found --}}
+            <div class="no_result">
+                <h4>No results match that query</h4>
+            </div>
+            {{/if}}
+            {{!-- card end --}}
+        </div>
+
+    </div>
+    {{>footer}}
+</div>

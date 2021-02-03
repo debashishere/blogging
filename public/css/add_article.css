@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:display=swap');
-
 /* editor js custom padding */
 .codex-editor__redactor {
     padding-bottom: 60px !important;
@@ -9,7 +7,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Hind Siliguri', sans-serif;
+    font-family: "Segoe UI", Roboto;
 }
 
 .hero-container {

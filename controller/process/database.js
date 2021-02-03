@@ -1,14 +1,31 @@
 const { createNewArticle, getArticleById, updateArticle, deleteArticle, deleteArticleComment } = require('../services');
 const fs = require('fs');
 
-module.exports = {
+//@desc delete image with name
+const deleteServerImage = function (fileName) {
+    let filePath = `./public/uploads/cover-images/${fileName}`
+    //delete old image from server (not working)
+    console.log('delete', filePath)
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.log('error while deleting cover image from server', err);
+        }
+    })
+}
 
+module.exports = {
     //@desc create new article into db
     processCreateArticleDb: async function (newArticle) {
         try {
             //craete article in db
             const isArticle = await createNewArticle(newArticle);
             if (isArticle) {
+                // delete cover images except the new artilces cover image
+                coverImages.forEach(data => {
+                    if (newArticle.cover_image != data.filename) {
+                        deleteServerImage(data.filename)
+                    }
+                })
                 //send status 1 if everything is fine
                 return { status: 1 }
             } else {
@@ -74,20 +91,21 @@ module.exports = {
 
                     if (isUpdated) {
                         //updated
-                        // TODO: Log updated message
 
                         //check if image is updated
                         if (updatedArticle.cover_image) {
-                            //old image file path
-                            let filePath = `./public/uploads/cover-images/${article.cover_image}`
-                            //delete old image from server (not working)
-                            console.log('delete', filePath)
-                            fs.unlink(filePath, (err) => {
-                                if (err) {
-                                    console.log('error while deleting cover image from server', err);
+                            //delete old cover image
+                            deleteServerImage(article.cover_image);
+
+                            //delete all images uploaded while updating except new articles one
+                            updatedCoverImages.forEach(data => {
+                                if (data.filename != updatedArticle.cover_image) {
+                                    deleteServerImage(data.filename);
                                 }
                             })
                         }
+
+
 
                         return { status: 1 }
                     } else {
@@ -114,10 +132,13 @@ module.exports = {
     //@desc delete single article from db
     processDeleteArticleDb: async function (articleId) {
         try {
-            const isDeleted = await deleteArticle(articleId);
-            if (isDeleted) {
+            const deletedArticle = await deleteArticle(articleId);
+            if (deletedArticle) {
                 //delete all comments 
                 await deleteArticleComment(articleId);
+
+                //delete cover image
+                deleteServerImage(deletedArticle.cover_image)
                 return true;
             } else {
                 return false;

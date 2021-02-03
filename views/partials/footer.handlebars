@@ -2,10 +2,12 @@
     <div class="footer-content">
         <div class="footer-links">
             <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">About us</a></li>
-                <li><a href="">Contact</a></li>
-                <li><a class="secure" href="">Write a post</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About us</a></li>
+                <li><a href="/contact">Contact</a></li>
+                {{#if loggedUser}}
+                <li><a class="secure" href="/article/new">Write a post</a></li>
+                {{/if}}
             </ul>
         </div>
         <div class="social-icons">

@@ -1,1 +1,25 @@
-Contact
+<div class="hero_container">
+    {{>header}}
+    <div class="contact_container">
+        <div class="contact_content">
+            <h2>Contact</h2>
+            <form action="" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="form_content">
+                    <div class="label_group">
+                        <label for="email">Email</label>
+                        <label for="message">Message</title></label>
+                    </div>
+                    <div class="input_group">
+                        <input type="email" name="emial" placeholder="enter your email" required>
+                        <textarea name="message" placeholder="your message here..." required></textarea>
+                    </div>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+
+
+        </div>
+    </div>
+
+    {{>footer}}
+</div>

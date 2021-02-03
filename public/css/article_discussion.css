@@ -2,7 +2,6 @@
     width: 85%;
     margin: 0 auto;
     padding: 25px 0;
-    /* background: yellow; */
     height: 20pxrgb(22, 22, 19)
 }
 
@@ -24,17 +23,6 @@
     letter-spacing: 0.015rem;
     font-weight: 1200;
 }
-
-/* .dis_container .dis_head .post_btn {
-    text-decoration: none;
-    color: black;
-    background-color: aqua;
-    border-radius: 5px;
-    padding: 4px 10px;
-    display: block;
-    letter-spacing: 0.025rem;
-    font-size: 1.1rem;
-} */
 
 .dis_container .dis_input {
     width: 100%;

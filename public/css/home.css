@@ -1,16 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:display=swap');
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Hind Siliguri', sans-serif;
+    font-family: "Segoe UI", Roboto;
 }
 
 .body-container {
     width: 100%;
     background-color: #EEF0F1;
     padding-top: 58px;
+    padding-bottom: 30px;
 }
 
 .body-content {
@@ -20,6 +19,7 @@
 
 .body-wrapper {
     width: 100%;
+    min-height: 89.5vh;
     margin: 0 3.1rem;
     padding-top: .8rem;
     padding-left: 35px;
@@ -48,16 +48,10 @@
     font-weight: 600;
 }
 
-/* insert a psudo element for selected */
-.post-container .post-top .post-links .selected {
-    font-weight: 700;
-    color: rgb(10, 92, 23);
-}
-
 .post-container .post-top .post-links a {
     text-decoration: none;
-    padding: 8px;
-    border-radius: 8px;
+    padding: 6px 8px;
+    border-radius: 5px;
     font-size: 0.9rem;
     letter-spacing: 0.02rem;
 }
@@ -65,6 +59,12 @@
 .post-container .post-top .post-links a:hover {
     background-color: rgb(217, 233, 224);
     color: rgb(6, 65, 11);
+}
+
+.active {
+    font-weight: 700;
+    color: rgb(10, 92, 23);
+    border: 1px solid rgb(238, 57, 57);
 }
 
 .body-container .body-content .post-container .post-content {
@@ -81,8 +81,10 @@
 .sign-up-container {
     width: 100%;
     background: rgb(255, 255, 255);
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 20px 15px;
+    border: 1px solid #d7d9d9;
+
 }
 
 .sign-up-container .sign-up-content {
@@ -158,9 +160,10 @@
 .card {
     width: 100%;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-top: 15px;
     overflow: hidden;
+    border: 1px solid #d7d9d9;
 }
 
 .card .row {
@@ -171,6 +174,7 @@
 .card .row .imgBx {
     position: relative;
     width: 100%;
+    height: auto;
     height: 250px;
 }
 
@@ -180,7 +184,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .card .row .desc {
@@ -267,37 +271,31 @@
     display: flex;
     width: 100%;
     margin-top: 10px;
-
-    /* background-color: yellow; */
-
 }
 
-.card .row .card-content a .f-link {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 5px;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 0.83rem;
-    cursor: pointer;
-}
-
-.card .row .card-content a .f-link:hover {
-    background-color: rgb(240, 236, 236);
-    ;
-}
-
-.card .row .card-content .f-link .reaction-logo {
-    margin-right: 12px;
-}
-
-.card .row .card-content a {
+.card .row .card-content .card-footer a {
     text-decoration: none;
-    color: #5f5f5f;
+    margin-right: 2px;
+    color: rgb(61, 61, 61);
+    font-size: 0.80rem;
+    letter-spacing: 0.013rem;
+    padding: 6px 10px;
+    border-radius: 5px;
 }
 
-.card .row .card-content a .f-link .reaction-count {
-    margin-right: 8px;
+.card .row .card-content .card-footer a:hover {
+    background-color: rgb(240, 236, 236);
+}
+
+.card .row .card-content .card-footer a span i {
+    padding-right: 6px;
+    color: #747475;
+    font-size: 0.85rem;
+}
+
+.card .row .card-content .card-footer a .count {
+    padding-right: 4px;
+    font-size: 0.79rem;
 }
 
 /* right container */

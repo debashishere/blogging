@@ -1,81 +1,83 @@
-{{!-- check if user is logged in --}}
-{{!-- {{#if loggedUser}} --}}
 <section class="hero-container">
-    {{!-- <div class="hero-wrapper"> --}}
-        {{>header}}
-        <div class="hero-content">
-            <div class="colored-section-container">
-                <div class="colored-section">
-                    <div class="profile-container">
-                        <div class="profile-bio">
-                            <h2>{{loggedUser.displayName}}</h2>
-                            <p>Joined on {{getFormatedDate loggedUser.createdAt}}</p>
-                        </div>
-                    </div>
-                    <div class="profile-imgBx">
-                        <img src="{{loggedUser.image}}">
+    {{>header}}
+    <div class="hero-content">
+        <div class="colored-section-container">
+            <div class="colored-section">
+                <div class="profile-container">
+                    <div class="profile-bio">
+                        <h2>{{loggedUser.displayName}}</h2>
+                        <p>Joined on {{getFormatedDate loggedUser.createdAt}}</p>
                     </div>
                 </div>
-
+                <div class="profile-imgBx">
+                    {{#if loggedUser.image}}
+                    <img src="{{loggedUser.image}}">
+                    {{else}}
+                    <img src="/images/profile_thumb.png">
+                    {{/if}}
+                </div>
             </div>
-            <div class="bottom-section-container">
-                <div class="bottom-section-content">
-                    <div class="sidebar-container">
-                        <div class="sidebar-card">
-                            <div class="card-group">
-                                <p><span><i class="far fa-newspaper"></i></span>{{totalPosts}} posts published</p>
+
+        </div>
+        <div class="bottom-section-container">
+            <div class="bottom-section-content">
+                <div class="sidebar-container">
+                    <div class="sidebar-card">
+                        <div class="card-group">
+                            <p><span><i class="far fa-newspaper"></i></span>{{postCount}} posts published</p>
+                        </div>
+                        <div class="card-group">
+                            <p><span><i
+                                        class="far fa-comment-alt"></i></span><span>{{loggedUser.commentCount}}</span>comments
+                                written</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-container">
+                    {{!-- check for articles --}}
+                    {{#if articleList}}
+                    {{!-- create card for each article --}}
+
+                    {{#each articleList}}
+
+                    {{!-- single post --}}
+                    <div class="post">
+                        {{!-- posts of the user --}}
+                        <div class="post-user">
+                            <div class="post-user-imgBx">
+                                {{#if ../loggedUser.image}}
+                                <img src="{{../loggedUser.image}}">
+                                {{else}}
+                                <img src="/images/profile_thumb.png">
+                                {{/if}}
                             </div>
-                            <div class="card-group">
-                                <p><span><i class="far fa-comment-alt"></i></span> 0 comments written</p>
+                            <div class="post-user-desc">
+                                <h2>{{../loggedUser.displayName}}</h2>
+                                <p>{{getFormatedDate this.createdAt}}</p>
+                            </div>
+                        </div>
+                        <div class="post-desc">
+                            <a href="/article/{{this._id}}" class="post-title">{{this.title}}</a>
+                            <div class="post-reaction">
+                                <a href="/article/{{this._id}}"><span class="reac-logo"><i
+                                            class="far fa-heart"></i></span> <span
+                                        class="reac-count">{{this.reactionCount}}</span> reactions</a>
                             </div>
                         </div>
                     </div>
-                    <div class="main-container">
-                        {{!-- check for articles --}}
-                        {{#if articleList}}
-                        {{!-- create card for each article --}}
+                    {{!-- End of single post --}}
 
-                        {{#each articleList}}
-
-                        {{!-- single post --}}
-                        <div class="post">
-                            {{!-- posts of the user --}}
-                            <div class="post-user">
-                                <div class="post-user-imgBx">
-                                    <img src="{{../loggedUser.image}}">
-                                </div>
-                                <div class="post-user-desc">
-                                    <h2>{{../loggedUser.displayName}}</h2>
-                                    <p>{{getFormatedDate this.createdAt}}</p>
-                                </div>
-                            </div>
-                            <div class="post-desc">
-                                <a href="/article/{{this._id}}" class="post-title">{{this.title}}</a>
-                                <div class="post-reaction">
-                                    <a href=""><span class="reac-logo"><i class="far fa-heart"></i></span> <span
-                                            class="reac-count">{{this.reactions}}</span> reactions</a>
-                                </div>
-                            </div>
-                        </div>
-                        {{!-- End of single post --}}
-
-                        {{/each}}
-                        {{else}}
-                        <div class="message-container">
-                            <p class="message">You haven't written any post yet.</p>
-                        </div>
-                        {{/if }}
+                    {{/each}}
+                    {{else}}
+                    <div class="message-container">
+                        <p class="message">You haven't written any post yet.</p>
                     </div>
+                    {{/if }}
                 </div>
             </div>
         </div>
-        {{>footer}}
-        {{!--
+    </div>
+    {{>footer}}
+    {{!--
     </div> --}}
 </section>
-
-{{!-- if logged user is not exists --}}
-{{!-- {{else}} --}}
-{{!-- TODO: render Error message --}}
-
-{{!-- {{/if}} --}}

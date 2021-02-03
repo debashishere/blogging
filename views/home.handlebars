@@ -28,9 +28,9 @@
                 <div class="post-top">
                     <h2>Posts</h2>
                     <div class="post-links">
-                        <a href="" class="selected">Feed</a>
-                        <a href="">Week</a>
-                        <a href="">Month</a>
+                        <a href="" class="feed active">Feed</a>
+                        <a href="" class="weekly">Week</a>
+                        <a href="" class="monthly">Month</a>
                     </div>
                 </div>
                 <div class="post-content">
@@ -50,7 +50,11 @@
                             <div class="desc">
                                 <div class="user">
                                     <div class="user-img">
+                                        {{#if this.user.image}}
                                         <img src="{{this.user.image}}">
+                                        {{else}}
+                                        <img src="/images/profile_thumb.png">
+                                        {{/if}}
                                     </div>
                                     <div class="user-desc">
                                         <a href="#" class="name">{{this.user.displayName}}</a>
@@ -61,41 +65,23 @@
                                 <div class="card-content">
                                     <h3><a href="/article/{{this._id}}">{{this.title}}</a></h3>
                                     <div class="card-footer">
-                                        <a href="/reaction">
-                                            <div class="f-link">
-
-                                                <div class="reaction-logo">
-                                                    <p><i class="far fa-heart"></i></p>
-                                                </div>
-                                                <div class="reaction-count">
-                                                    <p>{{this.reactions}}</p>
-                                                </div>
-                                                <div class="reaction-text">
-                                                    <p>reactions</p>
-                                                </div>
-
-                                            </div>
+                                        {{#if this.reactionCount}}
+                                        <a href="/article/{{this._id}}">
+                                            <span><i class="fas fa-heart"></i></span>
+                                            <span class="count">{{this.reactionCount}}</span>reactions
                                         </a>
-                                        <a href="/comments">
-                                            <div class="f-link">
+                                        {{/if}}
+                                        {{#if this.commentCount}}
+                                        <a href="/article/{{this._id}}/#discussion">
+                                            <span><i class="far fa-comment-alt"></i></span><span
+                                                class="count">{{this.commentCount}}</span>
+                                            comments </a>
+                                        {{else}}
 
-                                                <div class="reaction-logo">
-                                                    <p><i class="far fa-comment-alt"></i></p>
-                                                </div>
-                                                <div class="reaction-text">
-                                                    {{!-- check for comments --}}
-                                                    {{#if this.comments}}
-                                                    <p>{{this.comments.length}}</p>
-                                                    <p>comments</p>
-                                                    {{!-- no comments --}}
-                                                    {{else}}
-                                                    {{!-- <div class="reaction-text"> --}}
-                                                        <p>Add Comment</p>
-                                                        {{/if}}
-                                                    </div>
-
-                                                </div>
-                                        </a>
+                                        <a href="/article/{{this._id}}/#discussion">
+                                            <span><i class="far fa-comment-alt"></i></span><span class="count"></span>
+                                            Add Comment </a>
+                                        {{/if}}
                                     </div>
                                 </div>
 
@@ -119,7 +105,7 @@
                                     <img src="./images/coding.png">
                                 </div>
                                 <div class="resouces-content">
-                                    <p>More Contents</p>
+                                    {{!-- <p>More Contents</p> --}}
                                 </div>
                             </div>
                         </div>

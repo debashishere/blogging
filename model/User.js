@@ -23,7 +23,11 @@ const UserSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    commentCount: {
+        type: Number,
+        default: 0,
+    },
 })
 
 const User = mongoose.model('users', UserSchema);

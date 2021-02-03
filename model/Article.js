@@ -30,28 +30,11 @@ const ArticleSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    commentCount: {
+        type: Number,
+        default: 0,
+    },
     reactionIds: [],
-    comments: [
-        {
-            creator: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'users',
-                deafult: null,
-            },
-            comment: {
-                type: String,
-                default: null,
-            },
-            reactions: {
-                type: Number,
-                default: 0
-            },
-            createdAt: {
-                type: Date,
-                default: null,
-            },
-        }
-    ]
 })
 
 
