@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const baseUrl = `https://debashisblog.herokuapp.com/`
+    const baseUrl = `https://debashisblog.herokuapp.com`
 
     const getWeeeklyPost = async function (event) {
         try {

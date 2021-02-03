@@ -1,5 +1,5 @@
 
-const baseUrl = 'https://debashisblog.herokuapp.com/'
+const baseUrl = 'https://debashisblog.herokuapp.com'
 
 const getPostData = async function (postId) {
     const url = baseUrl + `/api/article/data/${postId}`

@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     //api base url
-    const baseUrl = `https://debashisblog.herokuapp.com/`
+    const baseUrl = `https://debashisblog.herokuapp.com`
 
     //get id from url
     const getPostId = function () {

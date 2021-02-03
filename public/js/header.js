@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const baseUrl = `https://debashisblog.herokuapp.com/`
+    const baseUrl = `https://debashisblog.herokuapp.com`
 
     $(".search").on('keyup', function (e) {
         if (e.key === 'Enter' || e.keyCode === 13) {
