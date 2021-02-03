@@ -1,22 +1,7 @@
 $(document).ready(function () {
 
-    let isAuthenticated = false;
-    let userId;
-    (async function () {
-        try {
-            await checkAuthenticated()
-                .then(user_id => {
-                    if (user_id) {
-                        console.log('ckecked', user_id)
-                        isAuthenticated = true;
-                        userId = user_id;
-                    }
-                })
-        }
-        catch (err) {
-            // auth rerror
-        }
-    })();
+    //api base url
+    const baseUrl = `https://agile-lake-43990.herokuapp.com`
 
     // get post id from url 
     const getPostId = function () {
@@ -68,18 +53,21 @@ $(document).ready(function () {
 
     //get data with post id
     (async function () {
-        try {
-            const postId = getPostId();
-            const data = await getPostData(postId);
-            if (data.status === 1) {
-                //status is ok 
-                initializeEditor(data.editorData);
-            } else {
-                //status is not ok render error
-            }
-        } catch (err) {
-            //render error
-        }
+        const postId = getPostId();
+        const url = baseUrl + `/api/article/data/${postId}`
+        await axios.get(url)
+            .then(res => {
+                if (res.data.status === 1) {
+                    //status is ok 
+                    initializeEditor(res.data.editorData);
+                } else {
+                    //status is not ok render error
+                }
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
     })();
 
     // initialize editorjs with tools and read only mode

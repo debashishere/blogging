@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+<<<<<<< HEAD
     let isAuthenticated = false;
     let user_id = null;
     (async function () {
@@ -17,6 +18,10 @@ $(document).ready(function () {
             // auth rerror
         }
     })();
+=======
+    //api base url
+    const baseUrl = `https://agile-lake-43990.herokuapp.com`
+>>>>>>> master
 
     //get id from url
     const getPostId = function () {
@@ -42,7 +47,16 @@ $(document).ready(function () {
 
     //*******************************COMMENT***************************/
 
+<<<<<<< HEAD
 
+=======
+    //return true if authenticated
+    const checkAuthenticated = async function () {
+        const url = baseUrl + `/auth/authenticated`
+        const status = await axios.get(url)
+        return status.data;
+    }
+>>>>>>> master
 
     //create a single comment in db
     const createComment = async function (event) {
@@ -50,6 +64,7 @@ $(document).ready(function () {
         if (isAuthenticated) {
             try {
                 const data = getCommentData();
+<<<<<<< HEAD
                 //check for empty comment
                 if (!data) {
                     return;
@@ -67,6 +82,20 @@ $(document).ready(function () {
             catch (err) {
                 //
                 console.log(err)
+=======
+                const url = baseUrl + `/api/comments/${getPostId()}`
+                await axios.post(url, data)
+                    .then(res => {
+                        if (res.data) {
+                            console.log('res data', res.data)
+                            addComment(res.data.comment, res.data.creator)
+                        } else {
+                            // alert error while commenting
+                        }
+                    })
+            } else {
+                activePopup()
+>>>>>>> master
             }
         }
         else {
@@ -387,6 +416,7 @@ $(document).ready(function () {
         return html;
     }
 
+<<<<<<< HEAD
     //get commentId and replyId
     const getIds = function (event) {
         let commentId;
@@ -399,6 +429,37 @@ $(document).ready(function () {
         } else {
             commentId = target.parent().data().comment_id
             replyId = target.parent().data().reply_id
+=======
+    //add reply element to DOM
+    const addReply = function (reply, creator, refElement) {
+        const newReplyElement = getMewReplyElement(reply, creator);
+        //remove reply input
+        $('.reac_reply_input').remove()
+        //add new reply 
+        $(newReplyElement).insertAfter(refElement)
+    }
+
+    //create a new reply in db
+    const createReply = async function (input, comment_id, refElement) {
+        try {
+            const inputText = $(input).val()
+            const postId = getPostId()
+            const data = {
+                replyText: inputText
+            }
+
+            const url = baseUrl + `/article/reply/${postId}/${comment_id}`
+            await axios.post(url, data)
+                .then(res => {
+                    addReply(res.data.reply, res.data.creator, refElement)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        catch (err) {
+            console.log(err);
+>>>>>>> master
         }
         return { commentId, replyId }
     }
