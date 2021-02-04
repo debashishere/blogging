@@ -230,7 +230,7 @@
 .card .row .desc .user .user-desc a {
     text-decoration: none;
     color: #5f5f5f;
-    font-size: 0.67rem;
+    font-size: 0.75rem;
     line-height: 1rem;
     margin: 0;
     padding: 0;
@@ -238,7 +238,7 @@
 
 .card .row .desc .user .user-desc .name {
     font-weight: 550;
-    font-size: 0.78rem;
+    font-size: 0.85rem;
     letter-spacing: 0.018rem;
     /* padding-bottom: 3px; */
     color: rgb(102, 101, 101);
@@ -340,7 +340,7 @@
 
 @media (min-width: 1360px) {
     .body-wrapper {
-        max-width: 1095px;
+        max-width: 1326px;
     }
 }
 
