@@ -27,13 +27,6 @@ $(document).ready(function () {
 
     //*******************************COMMENT***************************/
 
-    //return true if authenticated
-    const checkAuthenticated = async function () {
-        const url = baseUrl + `/auth/authenticated`
-        const status = await axios.get(url)
-        return status.data;
-    }
-
     //create a single comment in db
     const createComment = async function (event) {
         event.preventDefault();
