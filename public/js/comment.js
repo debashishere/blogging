@@ -321,7 +321,6 @@ $(document).ready(function () {
             await postReply(postId, commentId, data)
                 .then(data => {
                     if (data) {
-                        console.log('data', data)
                         addReply(data.reply, data.creator, refElement, commentId)
                     } else {
                         //error
@@ -348,7 +347,6 @@ $(document).ready(function () {
 
     //get new Reply element
     const getNewReplyElement = function (reply, creator, commentId) {
-        console.log('reply', reply)
         const creatorName = creator.displayName;
         const creatorImage = creator.image;
         const replyText = reply.text;
@@ -381,7 +379,7 @@ $(document).ready(function () {
             <a href="" class="reply_like" data-comment_id="${commentId}"
              data-reply_id="${replyId}">
                     <span><i class="fas fa-heart"></i></span>
-                    <span class="count"></span>
+                    <span class="count">33</span>
                     Like
             </a>
         </div>
@@ -424,7 +422,6 @@ $(document).ready(function () {
                     .then(res => {
                         if (res) {
                             const count = res.reactionCount;
-                            console.log('reac count', count)
                             const reacElement = getReacElement(event);
                             manageCount(count, reacElement);
                             reacElement.toggleClass('active');

@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    const baseUrl = `http://localhost:3000`
-
     //get id from url
     const getPostId = function () {
         const pageUrl = $(location).attr("href");
@@ -55,7 +53,7 @@ $(document).ready(function () {
                         formData.append("cover_image", this.files[0])
 
                         //send to backend
-                        const url = baseUrl + `/upload/new/cover/${getPostId()}`
+                        const url = `http://localhost:3000/upload/new/cover/${getPostId()}`
                         await axios.post(url, formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
@@ -94,15 +92,14 @@ $(document).ready(function () {
                                         status: status
                                     }
                                     // send data to backend
-                                    const url = baseUrl + `/api/article/new`
-                                    await axios.post(url, data)
+                                    await axios.post('http://localhost:3000/api/article/new', data)
                                         .then(res => {
                                             console.log(res.data.status);
                                             //chcek status ( 1 -> post created)
                                             if (res.data.status === 1) {
 
                                                 //redirect to dashbord
-                                                window.location.href = baseUrl + "/dashboard"
+                                                window.location.href = "http://localhost:3000/dashboard"
                                             } else {
                                                 console.log("Err 1")
                                             }

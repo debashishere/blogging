@@ -26,7 +26,6 @@ module.exports = {
                         deleteServerImage(data.filename)
                     }
                 })
-                coverImages = []
                 //send status 1 if everything is fine
                 return { status: 1 }
             } else {

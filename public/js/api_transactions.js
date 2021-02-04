@@ -102,9 +102,7 @@ const postReplyReact = async function (commentId, replyId, data) {
         const status = await axios.post(url, data)
             .then(res => {
                 if (res.data) {
-                    console.log('res data', res.data)
                     return res.data;
-
                 } else {
                     return false;
                 }

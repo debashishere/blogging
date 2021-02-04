@@ -128,8 +128,8 @@
     margin: 5px 0;
     padding: 5px 8px;
     border-radius: 5px;
-    font-size: 1rem;
-    color: rgb(61, 60, 60);
+    font-size: 0.9rem;
+    color: black;
     font-weight: 500;
 }
 
@@ -140,13 +140,6 @@
 .dropdown .dropdown-menu li a:hover {
     background: rgb(233, 230, 230);
     color: blue;
-}
-
-.dropdown .dropdown-menu li:first-child a {
-    font-size: 1.1rem;
-    font-weight: 800;
-    letter-spacing: 0.016rem;
-    color: rgb(12, 11, 11);
 }
 
 .navigation {

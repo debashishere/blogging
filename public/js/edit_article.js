@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    const baseUrl = `http://localhost:3000`
-
     //get id from url
     const getPostId = function () {
         const pageUrl = $(location).attr("href");
@@ -13,7 +11,7 @@ $(document).ready(function () {
     //get data with post id
     (async () => {
         try {
-            const url = baseUrl + `/api/article/edit/data/${getPostId()}`
+            const url = `http://localhost:3000/api/article/edit/data/${getPostId()}`
 
             await axios.get(url)
                 .then(res => {
@@ -103,7 +101,7 @@ $(document).ready(function () {
                         formData.append("edit", true)
 
                         //send to backend
-                        const url = baseUrl + `/upload/update/cover/${getPostId()}`
+                        const url = `http://localhost:3000/upload/update/cover/${getPostId()}`
                         await axios.post(url, formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
@@ -141,16 +139,16 @@ $(document).ready(function () {
                                         status: status
                                     }
 
-                                    const url = baseUrl + `/api/article/update/${getPostId()}`
+                                    console.log('data', data)
                                     // send data to backend
-                                    await axios.put(url, data)
+                                    await axios.put(`http://localhost:3000/api/article/update/${getPostId()}`, data)
                                         .then(res => {
                                             console.log(res.data.status);
                                             //chcek status ( 1 -> post created)
                                             if (res.data.status === 1) {
 
                                                 //redirect to dashbord
-                                                window.location.href = baseUrl + "/dashboard"
+                                                window.location.href = "http://localhost:3000/dashboard"
                                             } else {
                                                 console.log("Err 1")
                                             }
