@@ -25,7 +25,7 @@ $(document).ready(function () {
             const isUpdated = await axios.put(url, data);
             if (isUpdated.data) {
                 //redirect to the article
-                window.location.href = baseUrl + `/article/${postId}`
+                window.location.href = baseUrl + `/article/${postId}/#discussion`
 
             } else {
                 //reload

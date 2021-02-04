@@ -7,6 +7,7 @@ const { createNewReplyDb, manageReplyLikeDb } = require('../controller/services'
 //@route POST api/reply/like/:commentId/:replyId
 router.post('/like/:commentId/:replyId', async (req, res) => {
     try {
+        console.log('like reply')
         const commentId = req.params.commentId;
         const replyId = req.params.replyId;
         const userId = req.body.userId;

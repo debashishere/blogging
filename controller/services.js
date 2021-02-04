@@ -414,13 +414,16 @@ module.exports = {
             if (foundComment._id.equals(commentId)) {
                 if (foundComment.replies.length != 0) {
                     foundComment.replies.forEach(reply => {
-                        if (reply.reactionIds.length != 0) {
-                            reply.reactionIds.forEach(async (id) => {
-                                if (id == userId) {
-                                    found = true;
-                                }
-                            })
+                        if (reply._id == replyId) {
+                            if (reply.reactionIds.length != 0) {
+                                reply.reactionIds.forEach(async (id) => {
+                                    if (id == userId) {
+                                        found = true;
+                                    }
+                                })
+                            }
                         }
+
                     })
                 }
             }

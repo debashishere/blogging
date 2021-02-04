@@ -3,6 +3,32 @@ $(document).ready(function () {
     //api base url
     const baseUrl = `https://debashisblog.herokuapp.com`
 
+    //Globals
+    let user_id = null;
+    let isAuthenticated = false;
+
+    //check if user is authenticated
+    (async function () {
+        try {
+            await checkAuthenticated()
+                .then(userId => {
+                    if (userId) {
+                        user_id = userId;
+                        isAuthenticated = true;
+                        console.log("user is authenticated", userId)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        catch (err) {
+
+        }
+        console.log('executed')
+    })();
+
+
     // get post id from url 
     const getPostId = function () {
         const pageUrl = $(location).attr("href");
@@ -28,9 +54,10 @@ $(document).ready(function () {
     const togglePostReact = async function (event) {
         event.preventDefault();
         if (isAuthenticated) {
+            console.log("in if", isAuthenticated);
             try {
                 const postId = getPostId();
-                await postPostReact(postId, userId)
+                await postPostReact(postId, user_id)
                     .then(res => {
                         if (res) {
                             const count = res.reactionCount;
@@ -43,6 +70,7 @@ $(document).ready(function () {
             catch (err) {
             }
         } else {
+            console.log("in else");
             activeLoginPopup();
         }
     }

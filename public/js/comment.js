@@ -3,6 +3,10 @@ $(document).ready(function () {
     //api base url
     const baseUrl = `https://debashisblog.herokuapp.com`
 
+    //Globals
+    let user_id = null;
+    let isAuthenticated = false;
+
     //get id from url
     const getPostId = function () {
         const pageUrl = $(location).attr("href");
@@ -10,6 +14,29 @@ $(document).ready(function () {
         const postId = pageUrlParts[pageUrlParts.length - 1]
         return postId;
     };
+
+    //check if user is authenticated
+    //check if user is authenticated
+    (async function () {
+        try {
+            await checkAuthenticated()
+                .then(userId => {
+                    if (userId) {
+                        user_id = userId;
+                        isAuthenticated = true;
+                        console.log("user is authenticated", userId)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        catch (err) {
+
+        }
+        console.log('executed')
+    })();
+
 
     //popup modal
     const activePopup = function () {
@@ -358,7 +385,7 @@ $(document).ready(function () {
             <a href="" class="reply_like" data-comment_id="${commentId}"
              data-reply_id="${replyId}">
                     <span><i class="fas fa-heart"></i></span>
-                    <span class="count">33</span>
+                    <span class="count"></span>
                     Like
             </a>
         </div>
@@ -367,43 +394,59 @@ $(document).ready(function () {
     }
 
     //add reply element to DOM
-    const addReply = function (reply, creator, refElement) {
-        const newReplyElement = getMewReplyElement(reply, creator);
-        //remove reply input
-        $('.reac_reply_input').remove()
-        //add new reply 
-        $(newReplyElement).insertAfter(refElement)
-    }
+    // const addReply = function (reply, creator, refElement) {
+    //     const newReplyElement = getMewReplyElement(reply, creator);
+    //     //remove reply input
+    //     $('.reac_reply_input').remove()
+    //     //add new reply 
+    //     $(newReplyElement).insertAfter(refElement)
+    // }
 
     //create a new reply in db
-    const createReply = async function (input, comment_id, refElement) {
-        try {
-            const inputText = $(input).val()
-            const postId = getPostId()
-            const data = {
-                replyText: inputText
-            }
+    // const createReply = async function (input, comment_id, refElement) {
+    //     try {
+    //         const inputText = $(input).val()
+    //         const postId = getPostId()
+    //         const data = {
+    //             replyText: inputText
+    //         }
 
-            const url = baseUrl + `/article/reply/${postId}/${comment_id}`
-            await axios.post(url, data)
-                .then(res => {
-                    addReply(res.data.reply, res.data.creator, refElement)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-        catch (err) {
-            console.log(err);
+    //         const url = baseUrl + `/article/reply/${postId}/${comment_id}`
+    //         await axios.post(url, data)
+    //             .then(res => {
+    //                 addReply(res.data.reply, res.data.creator, refElement)
+    //             })
+    //             .catch(err => {
+    //                 console.log(err)
+    //             })
+    //     }
+    //     catch (err) {
+    //         console.log(err);
+    //     }
+    //     return { commentId, replyId }
+    // }
+
+    //get commentId and replyId
+    const getIds = function (event) {
+        let commentId;
+        let replyId;
+        const target = $(event.target)
+        const tag = event.target.tagName;
+        if (tag === 'A') {
+            commentId = target.data().comment_id
+            replyId = target.data().reply_id
+        } else {
+            commentId = target.parent().data().comment_id
+            replyId = target.parent().data().reply_id
         }
         return { commentId, replyId }
     }
 
     //react to a reply
-
     const toggleReplyReact = async function (event) {
         event.preventDefault();
         if (isAuthenticated) {
+            console.log("authenticated", user_id)
             try {
                 const { commentId, replyId } = getIds(event);
                 let data;
@@ -414,11 +457,14 @@ $(document).ready(function () {
                 } else {
                     return;
                 }
+                console.log('posting data', data)
                 await postReplyReact(commentId, replyId, data)
                     .then(res => {
                         if (res) {
+                            console.log('rply count', res)
                             const count = res.reactionCount;
                             const reacElement = getReacElement(event);
+
                             manageCount(count, reacElement);
                             reacElement.toggleClass('active');
                         } else {
