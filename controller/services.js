@@ -414,12 +414,14 @@ module.exports = {
             if (foundComment._id.equals(commentId)) {
                 if (foundComment.replies.length != 0) {
                     foundComment.replies.forEach(reply => {
-                        if (reply.reactionIds.length != 0) {
-                            reply.reactionIds.forEach(async (id) => {
-                                if (id == userId) {
-                                    found = true;
-                                }
-                            })
+                        if (replyId == reply._id) {
+                            if (reply.reactionIds.length != 0) {
+                                reply.reactionIds.forEach(async (id) => {
+                                    if (userId == id) {
+                                        found = true;
+                                    }
+                                })
+                            }
                         }
                     })
                 }
@@ -427,10 +429,12 @@ module.exports = {
 
             if (!found) {
                 //increment reaction count
+                console.log('inc')
                 const comment = await Comment.findOneAndUpdate({ _id: commentId, 'replies._id': replyId }, { $inc: { 'replies.$.reactionCount': '1' }, $addToSet: { 'replies.$.reactionIds': userId } }, { new: true }).exec();
                 return comment.id ? comment.replies : false;
             } else {
                 //decrement reaction count
+                console.log('dec')
                 const comment = await Comment.findOneAndUpdate({ _id: commentId, 'replies._id': replyId }, { $inc: { 'replies.$.reactionCount': '-1' }, $pull: { 'replies.$.reactionIds': userId } }, { new: true }).exec();
                 return comment.id ? comment.replies : false;
             }

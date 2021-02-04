@@ -142,7 +142,7 @@
 .hero-container .hero-content .body-container .main-content .post-content .editor-container {
     width: 100%;
     height: auto;
-    padding: 0 20px;
+    padding: 0 25px;
 }
 
 .hero-container .hero-content .body-container .main-content .cover-input-container {
@@ -306,7 +306,6 @@
     .hero-container .hero-content .body-container .aside {
         width: 380px;
         right: 70px;
-        background-color: yellow;
 
     }
 }

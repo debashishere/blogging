@@ -67,12 +67,12 @@ router.delete('/:id', ensureAuth, async (req, res) => {
         if (result) {
             res.redirect(req.get('referer'));
         } else {
-            res.send(false);
+            res.redirect(req.get('referer'));
         }
     }
     catch (error) {
         console.log(error);
-        res.send(false);
+        res.redirect(req.get('referer'));
     }
 
 
