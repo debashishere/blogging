@@ -129,8 +129,15 @@
     padding: 5px 8px;
     border-radius: 5px;
     font-size: 0.9rem;
-    color: black;
+    color: rgb(51, 51, 51);
     font-weight: 500;
+}
+
+.dropdown .dropdown-menu li:first-child a {
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.016rem;
+    color: black;
 }
 
 .dropdown .dropdown-menu .bolder {
