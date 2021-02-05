@@ -4,9 +4,9 @@ $(document).ready(function () {
     const getWeeeklyPost = async function (event) {
         try {
             event.preventDefault();
-            $('.feed').removeClass('active');
-            $('.monthly').removeClass('active');
-            $(event.target).addClass('active');
+            $('.feed').removeClass('btn_active');
+            $('.monthly').removeClass('btn_active');
+            $(event.target).addClass('btn_active');
             const url = baseUrl + `/api/weekly`
             await axios.get(url)
                 .then(res => {
@@ -26,9 +26,9 @@ $(document).ready(function () {
     const getMonthlyPost = async function (event) {
         try {
             event.preventDefault();
-            $('.feed').removeClass('active');
-            $('.weekly').removeClass('active');
-            $(event.target).addClass('active');
+            $('.feed').removeClass('btn_active');
+            $('.weekly').removeClass('btn_active');
+            $(event.target).addClass('btn_active');
             const url = baseUrl + `/api/monthly`
             await axios.get(url)
                 .then(res => {
