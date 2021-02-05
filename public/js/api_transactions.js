@@ -13,7 +13,7 @@ const getPostData = async function (postId) {
             }
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             return false;
         })
     return data;
@@ -102,7 +102,6 @@ const postReplyReact = async function (commentId, replyId, data) {
         const status = await axios.post(url, data)
             .then(res => {
                 if (res.data) {
-                    console.log('api got', res.data)
                     return res.data;
                 } else {
                     return false;
@@ -118,12 +117,10 @@ const postReplyReact = async function (commentId, replyId, data) {
 //POST Article Reaction
 const postPostReact = async function (postId, userId) {
     try {
-        console.log('post', postId, userId)
         const url = baseUrl + `/api/article/like/${postId}/${userId}`
         const status = await axios.post(url)
             .then(res => {
                 if (res.data) {
-                    console.log('res data', res.data)
                     return res.data;
                 } else {
                     return false;

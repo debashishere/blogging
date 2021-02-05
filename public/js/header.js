@@ -14,7 +14,6 @@ $(document).ready(function () {
                         }
                     })
                         .then(res => {
-                            console.log('data', res.data)
                             if (res.data) {
                                 const id = res.data.id
                                 window.location = baseUrl + `/search/${id}`
@@ -22,7 +21,7 @@ $(document).ready(function () {
                         })
                 }
                 catch (err) {
-                    console.log(err);
+                    // console.log(err);
                 }
             })();
         }

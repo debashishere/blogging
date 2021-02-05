@@ -18,7 +18,6 @@ $(document).ready(function () {
 
             await axios.get(url)
                 .then(res => {
-                    console.log('edit data', res.data);
                     if (res.data.req_status === 1) {
                         //status is ok
                         //initialize editor with data 
@@ -27,25 +26,23 @@ $(document).ready(function () {
                         initializeEdit(res.data.cover_image_path, res.data.title, res.data.status)
                     } else {
                         //status is not ok render error
-                        console.log("error")
+                        // console.log("error")
                     }
 
                 })
                 .catch(err => {
-                    console.log(err)
+                    // console.log(err)
                 })
         }
         catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     })();
 
     // initialize field with post data
     const initializeEdit = function (cover_image_path, title, status) {
-        console.log('status', status);
         //set cover image
         $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
-        console.log("cover img", cover_image_path)
         $('#cover_image').attr('src', cover_image_path).css({ "object-fit": "contain" });;
 
         //set title
@@ -89,7 +86,6 @@ $(document).ready(function () {
         try {
             await editor.isReady
                 .then(() => {
-                    console.log('Editor.js is ready to work!')
                     /** Do anything you need after editor initialization */
 
                     //update cover image once selected
@@ -121,7 +117,7 @@ $(document).ready(function () {
                                 }
                             })
                             .catch(err => {
-                                console.log(err);
+                                // console.log(err);
                             })
                     });
 
@@ -145,7 +141,6 @@ $(document).ready(function () {
                                     const url = baseUrl + `/api/article/update/${getPostId()}`
                                     await axios.put(url, data)
                                         .then(res => {
-                                            console.log(res.data.status);
                                             //chcek status ( 1 -> post created)
                                             if (res.data.status === 1) {
 
@@ -153,25 +148,23 @@ $(document).ready(function () {
                                                 //redirect to dashbord
                                                 window.location.href = redirectUrl;
                                             } else {
-                                                console.log("Err 1")
+                                                // console.log("Err 1")
                                             }
                                         })
                                         .catch(err => {
                                             //post not created render Error
-                                            console.log("Error ", err)
+                                            // console.log("Error ", err)
                                         })
                                 }
                                 catch (err) {
 
                                     //post not created render Error
-                                    console.log("Error While creating the post", err)
+                                    // console.log("Error While creating the post", err)
                                 }
-
-                                console.log('Article data: ', outputData);
 
                             })
                             .catch((error) => {
-                                console.log('Saving failed: ', error)
+                                // console.log('Saving failed: ', error)
                             });
                     })
 
@@ -181,7 +174,7 @@ $(document).ready(function () {
 
         }
         catch (reason) {
-            console.log(`Editor.js initialization failed because of ${reason}`)
+            // console.log(`Editor.js initialization failed because of ${reason}`)
         }
 
     }

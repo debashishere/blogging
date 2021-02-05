@@ -73,7 +73,7 @@ $(document).ready(function () {
                                 }
                             })
                             .catch(err => {
-                                console.log(err);
+
                             })
 
                     });
@@ -99,7 +99,6 @@ $(document).ready(function () {
                                     const url = baseUrl + `/api/article/new`
                                     await axios.post(url, data)
                                         .then(res => {
-                                            console.log(res.data.status);
                                             //chcek status ( 1 -> post created)
                                             if (res.data.status === 1) {
 
@@ -107,25 +106,25 @@ $(document).ready(function () {
                                                 //redirect to dashbord
                                                 window.location.href = redirectUrl;
                                             } else {
-                                                console.log("Err 1")
+
                                             }
                                         })
                                         .catch(err => {
                                             //post not created render Error
-                                            console.log("Error ", err)
+                                            // console.log("Error ", err)
                                         })
                                 }
                                 catch (err) {
 
                                     //post not created render Error
-                                    console.log("Error While creating the post", err)
+                                    // console.log("Error While creating the post", err)
                                 }
 
-                                console.log('Article data: ', outputData);
+                                // console.log('Article data: ', outputData);
 
                             })
                             .catch((error) => {
-                                console.log('Saving failed: ', error)
+                                // console.log('Saving failed: ', error)
                             });
                     })
 
@@ -133,7 +132,7 @@ $(document).ready(function () {
                 })
 
         } catch (reason) {
-            console.log(`Editor.js initialization failed because of ${reason}`)
+            // console.log(`Editor.js initialization failed because of ${reason}`)
         }
     }
 

@@ -24,17 +24,15 @@ $(document).ready(function () {
                     if (userId) {
                         user_id = userId;
                         isAuthenticated = true;
-                        console.log("user is authenticated", userId)
                     }
                 })
                 .catch(err => {
-                    console.log(err)
+                    // console.log(err)
                 })
         }
         catch (err) {
 
         }
-        console.log('executed')
     })();
 
 
@@ -64,7 +62,6 @@ $(document).ready(function () {
                 await axios.post(url, data)
                     .then(res => {
                         if (res.data) {
-                            console.log('res data', res.data)
                             addComment(res.data.comment, res.data.creator)
                         } else {
                             // alert error while commenting
@@ -72,7 +69,7 @@ $(document).ready(function () {
                     })
             }
             catch (err) {
-                console.log(err)
+                // console.log(err)
             }
         }
         else {
@@ -207,7 +204,6 @@ $(document).ready(function () {
             try {
                 const commentId = getCommentId(event);
                 let data;
-                console.log('user', user_id)
                 if (user_id) {
                     data = {
                         userId: user_id,
@@ -337,7 +333,7 @@ $(document).ready(function () {
                 })
         }
         catch (err) {
-            console.log(err);
+            // console.log(err);
         }
 
     }
@@ -393,39 +389,6 @@ $(document).ready(function () {
         return html;
     }
 
-    //add reply element to DOM
-    // const addReply = function (reply, creator, refElement) {
-    //     const newReplyElement = getMewReplyElement(reply, creator);
-    //     //remove reply input
-    //     $('.reac_reply_input').remove()
-    //     //add new reply 
-    //     $(newReplyElement).insertAfter(refElement)
-    // }
-
-    //create a new reply in db
-    // const createReply = async function (input, comment_id, refElement) {
-    //     try {
-    //         const inputText = $(input).val()
-    //         const postId = getPostId()
-    //         const data = {
-    //             replyText: inputText
-    //         }
-
-    //         const url = baseUrl + `/article/reply/${postId}/${comment_id}`
-    //         await axios.post(url, data)
-    //             .then(res => {
-    //                 addReply(res.data.reply, res.data.creator, refElement)
-    //             })
-    //             .catch(err => {
-    //                 console.log(err)
-    //             })
-    //     }
-    //     catch (err) {
-    //         console.log(err);
-    //     }
-    //     return { commentId, replyId }
-    // }
-
     //get commentId and replyId
     const getIds = function (event) {
         let commentId;
@@ -446,7 +409,6 @@ $(document).ready(function () {
     const toggleReplyReact = async function (event) {
         event.preventDefault();
         if (isAuthenticated) {
-            console.log("authenticated", user_id)
             try {
                 const { commentId, replyId } = getIds(event);
                 let data;
@@ -457,11 +419,9 @@ $(document).ready(function () {
                 } else {
                     return;
                 }
-                console.log('posting data', data)
                 await postReplyReact(commentId, replyId, data)
                     .then(res => {
                         if (res) {
-                            console.log('rply count', res)
                             const count = res.reactionCount;
                             const reacElement = getReacElement(event);
 

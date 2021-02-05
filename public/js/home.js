@@ -15,7 +15,7 @@ $(document).ready(function () {
                     }
                 })
                 .catch(err => {
-                    console.log(err)
+                    // console.log(err)
                 })
         }
         catch {
@@ -87,7 +87,6 @@ $(document).ready(function () {
 
     //render each article and append to dom
     const renderArticles = function (articleList) {
-        // console.log(articleList)
         $('.post-content').empty();
         articleList.forEach((article, index) => {
             renderCard(article, index);

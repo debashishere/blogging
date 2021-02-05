@@ -15,17 +15,15 @@ $(document).ready(function () {
                     if (userId) {
                         user_id = userId;
                         isAuthenticated = true;
-                        console.log("user is authenticated", userId)
                     }
                 })
                 .catch(err => {
-                    console.log(err)
+                    // console.log(err)
                 })
         }
         catch (err) {
 
         }
-        console.log('executed')
     })();
 
 
@@ -54,7 +52,6 @@ $(document).ready(function () {
     const togglePostReact = async function (event) {
         event.preventDefault();
         if (isAuthenticated) {
-            console.log("in if", isAuthenticated);
             try {
                 const postId = getPostId();
                 await postPostReact(postId, user_id)
@@ -70,7 +67,6 @@ $(document).ready(function () {
             catch (err) {
             }
         } else {
-            console.log("in else");
             activeLoginPopup();
         }
     }
@@ -94,7 +90,7 @@ $(document).ready(function () {
 
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
     })();
 
@@ -131,7 +127,7 @@ $(document).ready(function () {
         try {
             await editor.isReady
                 .then(() => {
-                    console.log('Editor.js is ready to work!')
+                    // console.log('Editor.js is ready to work!')
                     /** Do anything you need after editor initialization */
 
 
@@ -140,7 +136,7 @@ $(document).ready(function () {
         }
 
         catch (reason) {
-            console.log(`Editor.js initialization failed because of ${reason}`)
+            // console.log(`Editor.js initialization failed because of ${reason}`)
         }
     }
 
