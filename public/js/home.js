@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const baseUrl = `https://debashisblog.herokuapp.com`
+    const baseUrl = `http://localhost:3000`
 
     const getWeeeklyPost = async function (event) {
         try {

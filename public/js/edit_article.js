@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     //api base url
-    const baseUrl = `https://debashisblog.herokuapp.com`
+    const baseUrl = `http://localhost:3000`
 
     //get id from url
     const getPostId = function () {
@@ -46,7 +46,7 @@ $(document).ready(function () {
         //set cover image
         $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
         console.log("cover img", cover_image_path)
-        $('#cover_image').attr('src', cover_image_path).css({ "object-fit": "cover" });;
+        $('#cover_image').attr('src', cover_image_path).css({ "object-fit": "contain" });;
 
         //set title
         $('#post_title').val(title);

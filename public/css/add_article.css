@@ -1,6 +1,6 @@
 /* editor js custom padding */
 .codex-editor__redactor {
-    padding-bottom: 60px !important;
+    padding-bottom: 40px !important;
 }
 
 * {
@@ -13,7 +13,7 @@
 .hero-container {
     width: 100%;
     background-color: #EEF0F1;
-    height: 100vh;
+    height: 110vh;
     padding-bottom: 8vh;
 }
 
@@ -25,7 +25,6 @@
 }
 
 .hero-container .hero-content {
-    /* width: 85%; */
     margin: 0 auto;
     position: relative;
 }
@@ -86,12 +85,13 @@
 }
 
 .hero-container .hero-content .body-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
-    height: 95vh;
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
+    height: 100%;
 }
 
 .hero-container .hero-content .body-container .main-content {
@@ -101,23 +101,22 @@
     border-radius: 5px;
     border: 1px solid rgb(225, 220, 245);
     padding: 0 20px;
-    padding-bottom: 10px;
     margin-right: 5px;
     position: fixed;
     top: 48px;
     left: 8%;
-    bottom: 70px;
+    bottom: 0px;
+    overflow-y: scroll;
     z-index: 20;
 }
 
 .hero-container .hero-content .body-container .main-content .main-content-scrll {
     z-index: 50;
     width: 98%;
-    height: 410px;
     margin: 0 auto;
-    padding-top: 15px;
+    padding-top: 25px;
     position: relative;
-    overflow-y: auto;
+
 
 }
 
@@ -141,12 +140,12 @@
 
 .hero-container .hero-content .body-container .main-content .post-content .editor-container {
     width: 100%;
-    height: auto;
-    padding: 0 25px;
+    padding: 5px 25px 330px 25px;
 }
 
 .hero-container .hero-content .body-container .main-content .cover-input-container {
     margin: 0 auto;
+    padding-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -185,7 +184,7 @@
 
 .hero-container .hero-content .body-container .main-content .post-content {
     width: 100%;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .hero-container .hero-content .body-container .main-content .post-content textarea {
@@ -198,7 +197,7 @@
 
 .hero-container .hero-content .body-container .aside {
     width: 31%;
-    z-index: 10;
+    z-index: 100;
     position: absolute;
     right: 20px;
     top: 18%;
@@ -206,17 +205,8 @@
 
 .hero-container .hero-content .body-container .aside .info-card {
     width: 100%;
-    height: 350px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-}
-
-.hero-container .hero-content .body-container .aside .title-info-card {
-    width: 100%;
-    /* background-color: rgb(169, 238, 200); */
-    border-radius: 5px;
-    padding: 8px;
 }
 
 .hero-container .hero-content .body-container .aside .info-card h4 {
@@ -306,7 +296,6 @@
     .hero-container .hero-content .body-container .aside {
         width: 380px;
         right: 70px;
-        background-color: yellow;
 
     }
 }
@@ -352,7 +341,6 @@
 @media (max-width: 1024px) {
     .hero-container .header {
         padding-left: 10px;
-        /* padding-right: ; */
     }
 
     .hero-container .hero-content .body-container .main-content {
@@ -389,7 +377,7 @@
     }
 
     .hero-container .hero-content .body-container .main-content .cover-input-container input {
-        margin-top: 5px;
+        margin-top: 10px;
     }
 
     .hero-container .hero-content .body-container .aside {
@@ -400,6 +388,11 @@
         width: 100%;
         left: 0;
         margin-top: 15px;
+    }
+
+    .hero-container .hero-content .btn-container {
+        left: 0;
+        padding-left: 10px;
     }
 }
 

@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     //api base url
-    const baseUrl = `https://debashisblog.herokuapp.com`
+    const baseUrl = `http://localhost:3000`
 
     //Globals
     let user_id = null;

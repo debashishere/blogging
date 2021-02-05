@@ -63,7 +63,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .hero_container .main_container .main_content .edit_card .card .input_container {
