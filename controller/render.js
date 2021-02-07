@@ -118,6 +118,7 @@ module.exports = {
         res.render('articles/add_article', {
             style: 'add_article.css',
             js: "edit_article.js",
+            api_js: "api_transactions.js",
             editor: true,
             edit: true,
         })

@@ -4,9 +4,13 @@ const { getAticlesByUser } = require('../controller/services');
 //render controller functions
 const { renderDashboard } = require('../controller/render');
 
+
+//*******************PROTECTED ROUTE*************** */
+
 //@desc render personalised dashboard
 //@route /dashboard
 router.get('/', ensureAuth, async (req, res) => {
+
     try {
         const loggedUser = res.locals.loggedUser || null
         const articles = await getAticlesByUser(loggedUser._id)
@@ -24,9 +28,11 @@ router.get('/', ensureAuth, async (req, res) => {
                 renderDashboard(res, articleList, postCount, reactionCount);
             })
     }
+
     catch (err) {
         //render error
     }
+
 })
 
 

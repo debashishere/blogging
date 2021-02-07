@@ -1,16 +1,16 @@
 const router = require('express').Router();
 const { ensureAuth } = require('../middleware/auth');
-
+const fs = require('fs');
 
 //controller fumctions
 const { renderCreateArticle, renderArticle, renderEditArticle } = require('../controller/render');
 
 //db processes
-const { processDeleteArticleDb } = require('../controller/process/database');
 
-const { getCommentDb, getArticleById } = require('../controller/services');
+const { getCommentDb, getArticleById, deleteArticle, deleteArticleComment } = require('../controller/services');
+
+
 //*******************SECURE ROUTES**************** */
-
 //@desc show create article page
 //@route GET /article/new
 router.get('/new', ensureAuth, (req, res) => {
@@ -19,21 +19,27 @@ router.get('/new', ensureAuth, (req, res) => {
 
 //@desc delete article with id
 //route DELETE /article/:id
-router.delete('/:id', ensureAuth, (req, res) => {
-    processDeleteArticleDb(req.params.id)
-        .then(status => {
-            if (status) {
-                res.redirect('/dashboard');
+router.delete('/:id', ensureAuth, async (req, res) => {
+
+    try {
+        const articleId = req.params.id;
+        const deletedArticle = await deleteArticle(articleId);
+        if (deletedArticle) {
+            //delete all comments 
+            await deleteArticleComment(articleId);
+            //delete cover image
+            if (deletedArticle.cover_image) {
+                deleteServerImage(deletedArticle.cover_image)
             }
-            else {
-                console.log("Error while deletion");
-                res.redirect('/dashboard');
-            }
-        })
-        .catch(err => {
-            console.log(err);
             res.redirect('/dashboard');
-        })
+        }
+    }
+
+    catch (err) {
+        console.log(err)
+        res.redirect('/dashboard');
+    }
+
 })
 
 //@desc show EDIT article page
@@ -49,7 +55,6 @@ router.get('/edit/:id', ensureAuth, (req, res) => {
 // route GET / article /: id
 router.get('/:id', async (req, res) => {
     try {
-        //TODO: validate req.params.id
         const id = req.params.id;
         const loggedUser = res.locals.loggedUser || null;
         const comments = await getCommentDb(id, loggedUser);
@@ -83,5 +88,16 @@ const checkReacted = function (article, userId) {
     })
 }
 
+//@desc delete image with name
+const deleteServerImage = function (fileName) {
+    let filePath = `./public/uploads/cover-images/${fileName}`
+    //delete old image from server (not working)
+    console.log('delete', filePath)
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.log('error while deleting cover image from server', err);
+        }
+    })
+}
 
 module.exports = router;

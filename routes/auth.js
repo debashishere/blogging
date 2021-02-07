@@ -34,7 +34,7 @@ router.get('/authenticated', (req, res) => {
         const userId = req.user._id
         res.send(userId)
     } else {
-        res.send(false);
+        res.status(401).send(false);
     }
 })
 

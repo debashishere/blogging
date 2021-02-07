@@ -1,6 +1,11 @@
 
-const dotenv = require('dotenv')
-dotenv.config({ path: './config/config.env' });
+//detect environment
+const env = process.env.NODE_ENV || 'development';
+if (env == 'development') {
+    const dotenv = require('dotenv')
+    //Load Configuration
+    dotenv.config({ path: './config/config.env' });
+}
 
 const nodeMailer = require('nodemailer');
 const { google } = require('googleapis');

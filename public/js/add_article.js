@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     //api base url
-    const baseUrl = `https://debashisblog.herokuapp.com`
+    const baseUrl = `http://localhost:3000`
 
     //get id from url
     const getPostId = function () {
@@ -43,94 +43,57 @@ $(document).ready(function () {
 
         try {
             await editor.isReady
-                .then(() => {
-                    // console.log('Editor.js is ready to work!')
-                    /** Do anything you need after editor initialization */
+            //upload cover image once selected
+            $("#cover-image-Input").change(async function () {
 
-                    //upload cover image once selected
-                    $("#cover-image-Input").change(async function () {
-                        //ToDO: validate file
-                        // craete Formdata object
-                        const formData = new FormData();
-                        //append file 
-                        formData.append("cover_image", this.files[0])
+                const formData = new FormData();
+                formData.append("cover_image", this.files[0])
+                //send to backend
+                const url = baseUrl + `/api/upload/new/cover/${getPostId()}`
+                const res = await axios.post(url, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                if (res.data) {
+                    // show cover image
+                    $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
+                    $('#cover_image').attr('src', res.data.path).css({ "object-fit": "contain" });
 
-                        //send to backend
-                        const url = baseUrl + `/upload/new/cover/${getPostId()}`
-                        await axios.post(url, formData, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        })
-                            .then(res => {
-                                if (res.data.status === 1) {
-                                    // show cover image
-                                    $('#cover-imageBx').css({ "height": "300px", "width": "100%" })
-                                    $('#cover_image').attr('src', res.data.path).css({ "object-fit": "contain" });
+                } else {
+                    //render error
+                }
 
-                                } else {
-                                    //render error
-                                }
-                            })
-                            .catch(err => {
+            });
 
-                            })
+            // click event handler for CREATE button
+            $(".create-article").click(function () {
+                // get satatus od the post
+                const status = $('#status  option:selected').text();
+                //get title of the post
+                const title = $('#post_title').val();
 
-                    });
-
-                    // click event handler for CREATE button
-                    $(".create-article").click(function () {
-                        // get satatus od the post
-                        const status = $('#status  option:selected').text();
-                        //get title of the post
-                        const title = $('#post_title').val();
-
-                        editor.save()
-                            .then(async (outputData) => {
-                                try {
-                                    //satus of the post 
-                                    const data = {
-                                        editorData: outputData,
-                                        title: title,
-                                        status: status
-                                    }
-                                    // send data to backend
-
-                                    const url = baseUrl + `/api/article/new`
-                                    await axios.post(url, data)
-                                        .then(res => {
-                                            //chcek status ( 1 -> post created)
-                                            if (res.data.status === 1) {
-
-                                                const redirectUrl = baseUrl + `/dashboard`
-                                                //redirect to dashbord
-                                                window.location.href = redirectUrl;
-                                            } else {
-
-                                            }
-                                        })
-                                        .catch(err => {
-                                            //post not created render Error
-                                            // console.log("Error ", err)
-                                        })
-                                }
-                                catch (err) {
-
-                                    //post not created render Error
-                                    // console.log("Error While creating the post", err)
-                                }
-
-                                // console.log('Article data: ', outputData);
-
-                            })
-                            .catch((error) => {
-                                // console.log('Saving failed: ', error)
-                            });
+                editor.save()
+                    .then(async (outputData) => {
+                        //satus of the post 
+                        const data = {
+                            editorData: outputData,
+                            title: title,
+                            status: status
+                        }
+                        // send data to backend
+                        const url = baseUrl + `/api/article/new`
+                        const res = await axios.post(url, data)
+                        if (res.status == 201) {
+                            const redirectUrl = baseUrl + `/dashboard`
+                            window.location.href = redirectUrl;
+                        }
                     })
 
-
-                })
-
+                    .catch((error) => {
+                        console.log('Saving failed: ', error)
+                    });
+            })
         } catch (reason) {
             // console.log(`Editor.js initialization failed because of ${reason}`)
         }
@@ -140,15 +103,11 @@ $(document).ready(function () {
 
     //text area auto resize
     $('#post_title').on('input', function () {
+
         this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
 
-        this.style.height =
-            (this.scrollHeight) + 'px';
     });
-
-    // close button event handler
-
-
 })
 
 

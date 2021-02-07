@@ -1,28 +1,28 @@
 $(document).ready(function () {
-    const baseUrl = `https://debashisblog.herokuapp.com`
+    const baseUrl = `http://localhost:3000`
 
     $(".search").on('keyup', function (e) {
-        if (e.key === 'Enter' || e.keyCode === 13) {
 
+        if (e.key === 'Enter' || e.keyCode === 13) {
             (async function () {
+                const searchTerm = $(".search").val();
+
                 try {
-                    const searchTerm = $(".search").val();
                     const url = baseUrl + '/search'
-                    await axios.get(url, {
+                    const res = await axios.get(url, {
                         params: {
                             term: searchTerm
                         }
                     })
-                        .then(res => {
-                            if (res.data) {
-                                const id = res.data.id
-                                window.location = baseUrl + `/search/${id}`
-                            }
-                        })
+                    const id = res.data.id
+                    window.location = baseUrl + `/search/${id}`
                 }
+
                 catch (err) {
-                    // console.log(err);
+                    console.log(err);
+                    window.location = baseUrl + `/search/${searchTerm}`
                 }
+
             })();
         }
     })

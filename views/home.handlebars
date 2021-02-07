@@ -41,12 +41,14 @@
                     <div class="card">
                         <div class="row">
                             {{!-- if index is zero (first item) show cover image --}}
+                            {{#if this.cover_image}}
                             {{#unless @index}}
                             <div class="imgBx">
                                 <img class="card-img" src="/uploads/cover-images/{{this.cover_image}}"
                                     alt="Card image cap">
                             </div>
                             {{/unless}}
+                            {{/if}}
                             <div class="desc">
                                 <div class="user">
                                     <div class="user-img">

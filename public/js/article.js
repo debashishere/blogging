@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     //api base url
-    const baseUrl = `https://debashisblog.herokuapp.com`
+    const baseUrl = `http://localhost:3000`
 
     //Globals
     let user_id = null;
@@ -9,21 +9,15 @@ $(document).ready(function () {
 
     //check if user is authenticated
     (async function () {
-        try {
-            await checkAuthenticated()
-                .then(userId => {
-                    if (userId) {
-                        user_id = userId;
-                        isAuthenticated = true;
-                    }
-                })
-                .catch(err => {
-                    // console.log(err)
-                })
-        }
-        catch (err) {
 
+        const res = await checkAuthenticated();
+        if (res.data) {
+            user_id = res.data;
+            isAuthenticated = true;
+        } else {
+            return;
         }
+
     })();
 
 
@@ -44,29 +38,29 @@ $(document).ready(function () {
     //manage post's like count
     const manageReactCount = function (count) {
         const element = $('.reac_count')
-        //set new count
         element.text(count);
         return;
     }
 
+    // like unlike a post
     const togglePostReact = async function (event) {
         event.preventDefault();
+
         if (isAuthenticated) {
-            try {
-                const postId = getPostId();
-                await postPostReact(postId, user_id)
-                    .then(res => {
-                        if (res) {
-                            const count = res.reactionCount;
-                            manageReactCount(count);
-                            // //turn logo red
-                            $('.logo').toggleClass('active');
-                        }
-                    })
+            const postId = getPostId();
+            const resData = await postPostReact(postId, user_id);
+
+            if (resData) {
+                const count = resData.reactionCount;
+                manageReactCount(count);
+                // //turn logo red
+                $('.logo').toggleClass('active');
+            } else {
+                // render error
             }
-            catch (err) {
-            }
-        } else {
+        }
+
+        else {
             activeLoginPopup();
         }
     }
@@ -78,20 +72,14 @@ $(document).ready(function () {
     //get data with post id
     (async function () {
         const postId = getPostId();
-        const url = baseUrl + `/api/article/data/${postId}`
-        await axios.get(url)
-            .then(res => {
-                if (res.data.status === 1) {
-                    //status is ok 
-                    initializeEditor(res.data.editorData);
-                } else {
-                    //status is not ok render error
-                }
+        const data = await getPostById(postId);
+        if (data) {
+            initializeEditor(data.editorData);
+        }
+        else {
+            //render error
+        }
 
-            })
-            .catch(err => {
-                // console.log(err)
-            })
     })();
 
     // initialize editorjs with tools and read only mode
@@ -129,9 +117,6 @@ $(document).ready(function () {
                 .then(() => {
                     // console.log('Editor.js is ready to work!')
                     /** Do anything you need after editor initialization */
-
-
-
                 })
         }
 

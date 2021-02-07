@@ -1,25 +1,46 @@
 const router = require('express').Router();
-
-const { ensureAuth } = require('../middleware/auth');
-
+const { ensureApiAuth } = require('../middleware/auth');
 const { createNewCommentDb, deleteComment, updateCommentDb, manageCommentLikeDb } = require('../controller/services');
 
+
+//*******************PUBLIC Route*************** */
+//@desc like or dislike a single comment
+//@route POST api/comments/like/:commentId
+router.post('/like/:commentId', async (req, res) => {
+
+    try {
+        const commentId = req.params.commentId
+        const userId = req.body.userId
+        const reactionCount = await manageCommentLikeDb(userId, commentId);
+        console.log(reactionCount)
+        res.status(200).send({ reactionCount: reactionCount })
+    }
+
+    catch (err) {
+        console.log(err);
+        res.status(404).send(false)
+    }
+
+})
+
+
+//********************PROTECTED ROUTE*************** */
 //@desc post a single comment
-//@route POST api/comments/:id
-router.post('/:id', ensureAuth, async (req, res) => {
+//@route POST api/comments/:articleId
+router.post('/:articleId', ensureApiAuth, async (req, res) => {
+
     try {
         const user = res.locals.loggedUser
-        const id = req.params.id
-
+        const articleId = req.params.articleId
         const comments = {
-            article: id,
+            article: articleId,
             creator: user._id,
             text: req.body.comment,
             createdAt: Date.now(),
         }
         const newComment = await createNewCommentDb(comments);
         if (newComment) {
-            res.send({
+            res.status(200).send({
                 comment: newComment,
                 creator: {
                     displayName: user.displayName,
@@ -27,40 +48,42 @@ router.post('/:id', ensureAuth, async (req, res) => {
                 }
             })
         } else {
-            res.send(false);
+            res.status(503).send('Service Unavailable');
         }
     }
+
     catch (err) {
         console.log(err);
-        res.send(false);
+        res.status(503).send('Service Unavailable');
     }
+
 })
 
 //@desc edit a single comment
-//@route PUT api/comments/:articleId/:commentId
-router.put('/:articleId/:commentId', ensureAuth, async (req, res) => {
+//@route PUT api/comments/:commentId
+router.put('/:commentId', ensureApiAuth, async (req, res) => {
+
     try {
-        const articleId = req.params.articleId;
         const commnetId = req.params.commentId;
         const data = req.body;
-
         const updatedComment = await updateCommentDb(commnetId, data);
         if (updatedComment) {
-            res.send(true)
+            res.status(200).send("Comment is updated succesfully.")
         } else {
-            res.send(false);
+            res.status(404).send('Not found');
         }
     }
+
     catch (err) {
-        console.log(err)
-        //render error
-        res.send(false);
+        res.status(404).send('Not found');
     }
+
 })
 
 //@desc delete a single comment
 //@route Delete api/comments/:id
-router.delete('/:id', ensureAuth, async (req, res) => {
+router.delete('/:id', ensureApiAuth, async (req, res) => {
+
     try {
         const id = req.params.id
         const result = await deleteComment(id)
@@ -70,28 +93,13 @@ router.delete('/:id', ensureAuth, async (req, res) => {
             res.redirect(req.get('referer'));
         }
     }
+
     catch (error) {
         console.log(error);
         res.redirect(req.get('referer'));
     }
 
-
 })
 
-
-//@desc like or dislike a single comment
-//@route POST api/comments/like/:commentId
-router.post('/like/:commentId', async (req, res) => {
-    try {
-        const commentId = req.params.commentId
-        const userId = req.body.userId
-        const reactionCount = await manageCommentLikeDb(userId, commentId);
-        res.send({ reactionCount: reactionCount })
-    }
-    catch (err) {
-        console.log(err);
-        res.send(false)
-    }
-})
 
 module.exports = router;

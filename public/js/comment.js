@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     //api base url
-    const baseUrl = `https://debashisblog.herokuapp.com`
+    const baseUrl = `http://localhost:3000`
 
     //Globals
     let user_id = null;
@@ -16,23 +16,15 @@ $(document).ready(function () {
     };
 
     //check if user is authenticated
-    //check if user is authenticated
     (async function () {
-        try {
-            await checkAuthenticated()
-                .then(userId => {
-                    if (userId) {
-                        user_id = userId;
-                        isAuthenticated = true;
-                    }
-                })
-                .catch(err => {
-                    // console.log(err)
-                })
+        const res = await checkAuthenticated();
+        if (res.data) {
+            user_id = res.data;
+            isAuthenticated = true;
+        } else {
+            return;
         }
-        catch (err) {
 
-        }
     })();
 
 
@@ -55,26 +47,21 @@ $(document).ready(function () {
     //create a single comment in db
     const createComment = async function (event) {
         event.preventDefault();
+
         if (isAuthenticated) {
-            try {
-                const data = getCommentData();
-                const url = baseUrl + `/api/comments/${getPostId()}`
-                await axios.post(url, data)
-                    .then(res => {
-                        if (res.data) {
-                            addComment(res.data.comment, res.data.creator)
-                        } else {
-                            // alert error while commenting
-                        }
-                    })
+            const data = getCommentData();
+            if (data) {
+                const postId = getPostId();
+                const resData = await createCommentByArticle(postId, data)
+                if (resData) {
+                    addComment(resData.comment, resData.creator)
+                }
+                else { return }
             }
-            catch (err) {
-                // console.log(err)
-            }
-        }
-        else {
+        } else {
             activePopup()
         }
+
     }
 
     //get comment data from dom
@@ -198,36 +185,28 @@ $(document).ready(function () {
 
     // add or remove reaction to a comment
     const toggleCommentReact = async function (event) {
-        event.preventDefault();
-        // chek if already liked ( active class present)
-        if (isAuthenticated) {
-            try {
-                const commentId = getCommentId(event);
-                let data;
-                if (user_id) {
-                    data = {
-                        userId: user_id,
-                    }
-                } else {
-                    return;
-                }
-                await postCommentReact(commentId, data)
-                    .then(res => {
-                        //like dislike in both case return true
-                        if (res) {
-                            const count = res.reactionCount;
-                            const reacElement = getReacElement(event);
-                            manageCount(count, reacElement);
-                            reacElement.toggleClass('active');
-                        } else {
-                            // show error while reacting
-                        }
 
-                    })
+        event.preventDefault();
+        if (isAuthenticated) {
+            const commentId = getCommentId(event);
+            let data;
+            if (user_id) {
+                data = {
+                    userId: user_id,
+                }
+            } else {
+                return;
             }
-            catch (err) {
-                activePopup()
+            const resData = await postCommentReact(commentId, data)
+            if (resData) {
+                const count = resData.reactionCount;
+                const reacElement = getReacElement(event);
+                manageCount(count, reacElement);
+                reacElement.toggleClass('active');
+            } else {
+                // error while reacting
             }
+
         }
         else {
             activePopup()
@@ -268,10 +247,10 @@ $(document).ready(function () {
     // add new reply input textarea element
     const addReplyInput = function (event) {
         event.preventDefault();
+
         if (isAuthenticated) {
             const reac_link = $(event.target).parent().closest('div');
             const children = $('.dis_card_wrapper').find('.reac_reply_input').length
-
             //check if reply input not added
             if (!children) {
                 const inputTextArea = getReplyInputElement();
@@ -288,6 +267,8 @@ $(document).ready(function () {
                         createReply(inputText, comment_id, reac_link)
                     } else {
                         // alert "please insert reply"
+                        //remove reply input
+                        $('.reac_reply_input').remove();
                     }
                     return;
                 })
@@ -301,50 +282,47 @@ $(document).ready(function () {
 
     //get replay data
     const getReplyData = function (event) {
-        //get comment id 
+
         const reac_btn_container = $(event.target).parent()
         const reac_reply_input = reac_btn_container.parent().closest('div');
         const reac_wrapper = reac_reply_input.parent().closest('div');
         const comment_id = reac_wrapper.data().comment_id
-        //get input element
         const input = reac_reply_input.children()[0]
         const inputText = $(input).val()
-
         return [inputText, comment_id]
+
     }
 
     //create a new reply in db
     const createReply = async function (inputText, commentId, refElement) {
+
         try {
             const postId = getPostId()
             const data = {
                 replyText: inputText
             }
-            await postReply(postId, commentId, data)
-                .then(data => {
-                    if (data) {
-                        addReply(data.reply, data.creator, refElement, commentId)
-                    } else {
-                        //error
-                    }
-                })
-                .catch(err => {
-                    //error
-                })
+            const resData = await postReply(postId, commentId, data)
+            if (resData) {
+                addReply(resData.reply, resData.creator, refElement, commentId)
+            } else {
+                //render error
+            }
         }
-        catch (err) {
-            // console.log(err);
+
+        finally {
+            //remove reply input
+            $('.reac_reply_input').remove();
         }
 
     }
 
     //add reply element to DOM
     const addReply = function (reply, creator, refElement, commentId) {
+
         const newReplyElement = getNewReplyElement(reply, creator, commentId);
-        //remove reply input
-        $('.reac_reply_input').remove()
         //add new reply 
         $(newReplyElement).insertAfter(refElement)
+
     }
 
     //get new Reply element
@@ -408,37 +386,32 @@ $(document).ready(function () {
     //react to a reply
     const toggleReplyReact = async function (event) {
         event.preventDefault();
+
         if (isAuthenticated) {
-            try {
-                const { commentId, replyId } = getIds(event);
-                let data;
-                if (user_id) {
-                    data = {
-                        userId: user_id,
-                    }
-                } else {
-                    return;
+            const { commentId, replyId } = getIds(event);
+            let data;
+            if (user_id) {
+                data = {
+                    userId: user_id,
                 }
-                await postReplyReact(commentId, replyId, data)
-                    .then(res => {
-                        if (res) {
-                            const count = res.reactionCount;
-                            const reacElement = getReacElement(event);
-
-                            manageCount(count, reacElement);
-                            reacElement.toggleClass('active');
-                        } else {
-                            // show error while reacting
-                        }
-                    })
-
-            } catch (err) {
-
+            } else {
+                return;
+            }
+            const resData = await postReplyReact(commentId, replyId, data);
+            if (resData) {
+                const count = resData.reactionCount;
+                const reacElement = getReacElement(event);
+                manageCount(count, reacElement);
+                reacElement.toggleClass('active');
+            } else {
+                // render error 404
             }
         }
+
         else {
             activePopup()
         }
+
     }
 
 

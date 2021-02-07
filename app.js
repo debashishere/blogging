@@ -12,22 +12,8 @@ const MongoStore = require('connect-mongo')(session);
 const connectDB = require('./config/db');
 // routes
 const api = require('./routes/api');
-const upload = require('./routes/upload');
-const profile = require('./routes/profile');
-const dashboard = require('./routes/dashboard');
 const home = require('./routes/home');
-const article = require('./routes/article');
-const auth = require('./routes/auth');
-const comments = require('./routes/comment');
-//dev
-const dotenv = require('dotenv')
 const logger = require('morgan')
-
-
-
-//Load Configuration
-dotenv.config({ path: './config/config.env' });
-
 //passport config
 require('./config/passport')(passport)
 
@@ -36,11 +22,16 @@ connectDB();
 
 const app = express();
 
+//detect environment
+const env = process.env.NODE_ENV || 'development';
+if (env == 'development') {
+    const dotenv = require('dotenv')
+    //Load Configuration
+    dotenv.config({ path: './config/config.env' });
+}
+
 //MIDDLEWARE
 app.use(logger('dev'));
-
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -111,12 +102,6 @@ global.articleImages = []
 //Routes
 app.use('/', home);
 app.use('/api', api);
-app.use('/comments', comments)
-app.use('/upload', upload);
-app.use('/article', article);
-app.use('/profile', profile);
-app.use('/auth', auth);
-app.use('/dashboard', dashboard);
 
 
 const port = process.env.PORT || 8080

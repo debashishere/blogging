@@ -6,8 +6,8 @@ const User = require('../model/User');
 
 module.exports = {
 
-    //partial text search 
     search: async (searchTerm) => {
+
         try {
             const doc = await Article.find({ title: { $regex: searchTerm, $options: "i" }, status: "public" }, { title: 1, reactionCount: 1, commentCount: 1, createdAt: 1 })
                 .populate('user', '_id displayName image')
@@ -15,13 +15,17 @@ module.exports = {
                 .exec();
             return doc;
         }
+
         catch (err) {
             console.log(err)
             return false;
         }
+
     },
+
     //get all public articles
     getPublicArticles: async () => {
+
         try {
             const articles = await Article.find({ status: 'public' })
                 .populate('user')
@@ -29,13 +33,17 @@ module.exports = {
                 .lean()
             return articles;
         }
+
         catch (err) {
             // Hanlde error
+            return false;
         }
+
     },
 
     // get public articles within time frame
     filterPublicArticles: async (startDate, endDate) => {
+
         try {
             const articles = await Article.find({ status: 'public', createdAt: { $gte: startDate, $lt: endDate } },
                 { title: 1, cover_image: 1, reactionCount: 1, commentCount: 1, createdAt: 1 })
@@ -44,13 +52,16 @@ module.exports = {
                 .lean()
             return articles;
         }
+
         catch (err) {
             return false;
         }
+
     },
 
     //get public articles by userid
     getPublicAticlesByUser: async (userId) => {
+
         try {
             //fetch all post with userId
             const articles = await Article.find({ user: userId, status: 'public' }).lean();
@@ -61,13 +72,16 @@ module.exports = {
                 //error
             }
         }
+
         catch (err) {
 
         }
+
     },
 
     //get articles by userid
     getAticlesByUser: async (userId) => {
+
         try {
             //fetch all post with userId
             const articles = await Article.find({ user: userId }).lean();
@@ -78,13 +92,16 @@ module.exports = {
                 //error
             }
         }
+
         catch (err) {
 
         }
+
     },
 
     //get one article by id
     getArticleById: async (id) => {
+
         try {
             const article = await Article.findById(id).lean().populate('user').exec();
             if (article) {
@@ -93,14 +110,17 @@ module.exports = {
                 return false;
             }
         }
+
         catch (err) {
             //handle db error
             return false;
         }
+
     },
 
     //create a new article in db
     createNewArticle: async (newArticle) => {
+
         try {
             //insert into db
             const article = await Article.create(newArticle);
@@ -110,6 +130,7 @@ module.exports = {
                 return false;
             }
         }
+
         catch (err) {
             console.log(err)
             //handle db error
@@ -120,10 +141,12 @@ module.exports = {
 
     //delete a article by id
     deleteArticle: async (id) => {
+
         try {
             const result = await Article.findByIdAndDelete(id).exec();
             return result;
         }
+
         catch (err) {
             return false;
         }
@@ -132,19 +155,23 @@ module.exports = {
 
     //update a article by id
     updateArticle: async (id, data) => {
+
         try {
             const article = await Article.findOneAndUpdate({ _id: id }, data, { new: true, runValidators: true });
             return true;
         }
+
         catch (err) {
             console.log(err);
             return false;
             // TODO: render error
         }
+
     },
 
     // like and dislike a article
     manageArticleLike: async (userId, articleId) => {
+
         try {
             let found = false;
             const result = await Article.find({ _id: articleId }).exec();
@@ -157,27 +184,27 @@ module.exports = {
                     }
                 })
             }
-
             if (!found) {
-                //increment reaction count
                 const article = await Article.findOneAndUpdate({ _id: articleId }, { $inc: { 'reactionCount': '1' }, $addToSet: { reactionIds: userId } }, { new: true }).exec();
                 return article.id ? article.reactionCount : false;
             } else {
-
-                //decrement reaction count
                 const article = await Article.findOneAndUpdate({ _id: articleId }, { $inc: { 'reactionCount': '-1' }, $pull: { reactionIds: userId } }, { new: true }).exec();
                 return article.id ? article.reactionCount : false;
             }
-
         }
+
         catch (err) {
             return false;
         }
-    },
-    //*****************************************Comment***************************************/
 
+    },
+
+
+
+    //*****************************************Comment***************************************/
     //@desc get a single comment by id
     getCommnetByIdDb: async function (id) {
+
         try {
             const comment = await Comment.findById(id).lean().exec();
             if (comment) {
@@ -186,14 +213,17 @@ module.exports = {
                 return false;
             }
         }
+
         catch (err) {
             console.log(err);
             return false;
         }
+
     },
 
     //@desc get all comments by article id
     getCommentDb: async function (id, user) {
+
         try {
             const comments = await Comment.find({ article: id })
                 .lean()
@@ -232,7 +262,6 @@ module.exports = {
                             }
                         })
                     }
-
                     element.replies.forEach(item => {
                         const reply = {
                             id: item._id,
@@ -244,9 +273,7 @@ module.exports = {
                             },
                             reactionCount: item.reactionCount,
                             isReacted: false
-
                         }
-
                         //check user is reacted the reply
                         if (user) {
                             item.reactionIds.forEach(id => {
@@ -264,40 +291,41 @@ module.exports = {
                 return false;
             }
         }
+
         catch (err) {
             console.log(err);
             return false;
         }
+
     },
 
 
     //@desc create new comment in db
     createNewCommentDb: async function (newComment) {
+
         try {
             const userId = newComment.creator
-            //insert into db
             const comment = await Comment.create(newComment);
             if (comment._id) {
-                //increment commnet count in Article collection
                 await Article.findOneAndUpdate({ _id: comment.article }, { $inc: { 'commentCount': '1' } }).exec()
-
-                //increment comment count in user collection
                 await User.findOneAndUpdate({ _id: userId }, { $inc: { 'commentCount': '1' } }).exec()
 
                 return comment;
             } else {
                 return false;
             }
+
         }
         catch (err) {
             console.log(err)
-            //handle db error
             return false;
         }
+
     },
 
     //@desc update single comment by id 
     updateCommentDb: async function (commentId, data) {
+
         try {
             const updatedComment = await Comment.findOneAndUpdate({ _id: commentId }, data, { new: true, runValidators: true });
             if (updatedComment) {
@@ -306,14 +334,17 @@ module.exports = {
                 return false;
             }
         }
+
         catch (err) {
             console.log(err);
             return false;
         }
+
     },
 
     //@desc DELETE comment BY ID
     deleteComment: async (id) => {
+
         try {
             const deletedComment = await Comment.findByIdAndDelete(id).exec();
             //decrement commnet count in Article collection
@@ -323,13 +354,16 @@ module.exports = {
             await User.findOneAndUpdate({ _id: userId }, { $inc: { 'commentCount': '-1' } }).exec()
             return deletedComment;
         }
+
         catch (err) {
             return false;
         }
+
     },
 
     //@desc DELETE all comment by article id
     deleteArticleComment: async (articleId) => {
+
         try {
             await Comment.deleteMany({ article: articleId })
                 .then(status => {
@@ -337,14 +371,17 @@ module.exports = {
                     return true;
                 })
         }
+
         catch (err) {
             console.log(err)
             return falsee;
         }
+
     },
 
     //@desc increment or decrement comment like by 1
     manageCommentLikeDb: async function (userId, commentId) {
+
         try {
             let found = false;
             const result = await Comment.find({ _id: commentId }).exec();
@@ -357,39 +394,36 @@ module.exports = {
                     }
                 })
             }
-
             if (!found) {
-                //increment reaction count
                 const comment = await Comment.findOneAndUpdate({ _id: commentId }, { $inc: { 'reactionCount': '1' }, $addToSet: { reactionIds: userId } }, { new: true }).exec();
                 return comment.id ? comment.reactionCount : false;
             } else {
-
-                //decrement reaction count
                 const comment = await Comment.findOneAndUpdate({ _id: commentId }, { $inc: { 'reactionCount': '-1' }, $pull: { reactionIds: userId } }, { new: true }).exec();
                 return comment.id ? comment.reactionCount : false;
             }
-
         }
+
         catch (err) {
             console.log(err);
             return false;
         }
+
     },
 
-    //******************************REPLY*********************/
 
+
+    //****************************************REPLY******************************************/
     //@desc create single reply in db
     createNewReplyDb: async (reply, commentId, creator) => {
+
         try {
             const result = await Comment.findOneAndUpdate({ _id: commentId }, { $push: { replies: reply } }, { new: true, runValidators: true })
                 .populate({
                     path: 'replies.creator'
                 })
-
             let len = result.replies.length - 1
             let createdReply = {}
-
-            //get created comment
+            //get created reply
             for (i = len; i >= 0; i--) {
                 if (result.replies[i].creator.equals(creator._id)) {
                     createdReply = result.replies[i]
@@ -398,18 +432,21 @@ module.exports = {
             }
             return createdReply;
         }
+
         catch (err) {
             console.log(err)
+            return (false);
         }
+
     },
 
     //@desc increment reactions by 1
     manageReplyLikeDb: async (userId, commentId, replyId) => {
+
         try {
             let found = false;
             const result = await Comment.find({ _id: commentId }).exec();
             const foundComment = result[0];
-
             //check if user liked the reply
             if (foundComment._id.equals(commentId)) {
                 if (foundComment.replies.length != 0) {
@@ -427,13 +464,10 @@ module.exports = {
                     })
                 }
             }
-
             if (!found) {
-                //increment reaction count
                 const comment = await Comment.findOneAndUpdate({ _id: commentId, 'replies._id': replyId }, { $inc: { 'replies.$.reactionCount': '1' }, $addToSet: { 'replies.$.reactionIds': userId } }, { new: true }).exec();
                 return comment.id ? comment.replies : false;
             } else {
-                //decrement reaction count
                 const comment = await Comment.findOneAndUpdate({ _id: commentId, 'replies._id': replyId }, { $inc: { 'replies.$.reactionCount': '-1' }, $pull: { 'replies.$.reactionIds': userId } }, { new: true }).exec();
                 return comment.id ? comment.replies : false;
             }

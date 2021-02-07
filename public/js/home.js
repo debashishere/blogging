@@ -1,53 +1,55 @@
 $(document).ready(function () {
-    const baseUrl = `https://debashisblog.herokuapp.com`
+    const baseUrl = `http://localhost:3000`
+
+    const fetchData = async function (url) {
+
+        try {
+            const res = await axios.get(url)
+            console.log(res)
+            if (res.data) {
+                return res.data
+            }
+        }
+
+        catch (err) {
+            console.log(err)
+            return false;
+        }
+
+    }
 
     const getWeeeklyPost = async function (event) {
-        try {
-            event.preventDefault();
-            $('.feed').removeClass('btn_active');
-            $('.monthly').removeClass('btn_active');
-            $(event.target).addClass('btn_active');
-            const url = baseUrl + `/api/weekly`
-            await axios.get(url)
-                .then(res => {
-                    if (res.data) {
-                        renderArticles(res.data);
-                    }
-                })
-                .catch(err => {
-                    // console.log(err)
-                })
-        }
-        catch {
 
+        event.preventDefault();
+        $('.feed').removeClass('btn_active');
+        $('.monthly').removeClass('btn_active');
+        $(event.target).addClass('btn_active');
+
+        const url = baseUrl + `/api/article/weekly`
+        const data = await fetchData(url);
+        if (data) {
+            renderArticles(data);
         }
+
     };
 
     const getMonthlyPost = async function (event) {
-        try {
-            event.preventDefault();
-            $('.feed').removeClass('btn_active');
-            $('.weekly').removeClass('btn_active');
-            $(event.target).addClass('btn_active');
-            const url = baseUrl + `/api/monthly`
-            await axios.get(url)
-                .then(res => {
-                    if (res.data) {
-                        renderArticles(res.data);
-                    }
-                })
-                .catch(err => {
-                    //render error
-                })
-        }
-        catch {
-            //render error
+
+        event.preventDefault();
+        $('.feed').removeClass('btn_active');
+        $('.weekly').removeClass('btn_active');
+        $(event.target).addClass('btn_active');
+
+        const url = baseUrl + `/api/article/monthly`
+        const data = await fetchData(url);
+        if (data) {
+            renderArticles(data);
         }
     };
 
     const renderCard = function (article, index) {
         const row = $(`<div class="row"></div>`);
-        if (index === 0) {
+        if (index === 0 && article.cover_image) {
             const imageDiv = $(`<div class="imgBx">
                                     <img class="card-img" src="/uploads/cover-images/${article.cover_image}"
                                     alt="Card image">

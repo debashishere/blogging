@@ -37,6 +37,7 @@
 .header-section .nav-left .logo {
     font-size: 2.5rem;
     color: #070C34;
+    padding-bottom: 3px;
 }
 
 .header-section .nav-left .search {

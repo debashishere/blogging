@@ -2,10 +2,11 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../model/User');
 
 module.exports = function (passport) {
+
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "https://debashisblog.herokuapp.com/auth/google/callback"
+        callbackURL: "http://localhost:3000/auth/google/callback"
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -30,26 +31,24 @@ module.exports = function (passport) {
                         .catch(err => {
                             console.log(err);
                         })
-
-
                 }
             }
+
             catch (err) {
                 console.log(err);
                 res.redirect('/');
                 process.exit(1);
             }
         }
+
     ));
 
     passport.serializeUser(function (user, done) {
         done(null, user._id);
     })
-
     passport.deserializeUser(function (id, done) {
         User.findById(id, (err, user) => {
             done(err, user);
         })
-
     })
 }

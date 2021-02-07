@@ -35,11 +35,11 @@
 
                 {{!-- Post --}}
                 <div class="post-wrapper">
-                    {{!-- cover image --}}
+                    {{#if article.cover_image}}
                     <div class="cover-imgBx">
                         <img src="/uploads/cover-images/{{article.cover_image}}">
                     </div>
-
+                    {{/if }}
                     {{!-- post content --}}
                     <div class="post-content">
                         <div class="post-title">

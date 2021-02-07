@@ -1,34 +1,47 @@
 const router = require('express').Router();
-const { ensureAuth } = require('../middleware/auth');
-
-//cache processes
-const { processEditorImageCache, processUploadCoverCache,
-    processUpdateCoverCache } = require('../controller/process/cache');
+const { ensureApiAuth } = require('../middleware/auth');
 
 
 //multor config functions
-const { upload, coverUpload } = require('../config/multer');
-
-//@desc Upload image with editor js
-//@route POST /upload/new/image
-router.post('/new/image', ensureAuth, upload.single('cover-image'), (req, res) => {
-    const resData = processEditorImageCache(req.file.filename);
-    res.send(resData)
-})
+const { coverUpload } = require('../config/multer');
 
 //@desc Upload post's cover-image 
-//@route POST /upload/new/cover/:id
-router.post('/new/cover/:id', ensureAuth, coverUpload.single('cover_image'), (req, res) => {
-    // upload image and push to cache storage,
-    const resData = processUploadCoverCache(req.user, req.file);
-    res.send(resData);
+//@route POST api/upload/new/cover/:id
+router.post('/new/cover/:id', ensureApiAuth, coverUpload.single('cover_image'), (req, res) => {
+
+    const user = req.user
+    const file = req.file
+    const imageData = {
+        user: user.id,
+        filename: file.filename,
+        path: '/uploads/cover-images/' + file.filename
+    }
+    coverImages.push(imageData)
+    const resData = {
+        path: imageData.path
+    }
+    res.status(201).send(resData);
+
 })
 
 //@desc Update post's cover-image 
-//@route POST /upload/update/cover/:id
-router.post('/update/cover/:id', ensureAuth, coverUpload.single('cover_image'), (req, res) => {
-    const resData = processUpdateCoverCache(req.user, req.file)
-    res.send(resData);
+//@route POST api/upload/update/cover/:id
+router.post('/update/cover/:id', ensureApiAuth, coverUpload.single('cover_image'), (req, res) => {
+
+    const user = req.user
+    const file = req.file
+    const imageData = {
+        user: user.id,
+        filename: file.filename,
+        path: '/uploads/cover-images/' + file.filename
+    }
+    //push to global
+    updatedCoverImages.push(imageData)
+    const resData = {
+        path: imageData.path
+    }
+    res.status(201).send(resData);
+
 })
 
 module.exports = router;
