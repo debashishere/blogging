@@ -5,6 +5,19 @@
 <p>A Blogging Website, where you can <b>signup/login</b> using <b>google account</b> and <b>start writting</b> 
   anything about coding, <b>read</b> what other people posting and <b>perticipate</b> in discuusiion 
   through <b>comment</b> and <b>reply</b> dialogs. you can also <b>support other</b> view by <b>liking</b> their comments, replies and posts.</p>
+  
+  
+### Concepts
+#### This website is build on four basic concepts
+
+- Blogs:  The root concept of the website. A blog has posts .
+
+- Posts:  A blog post is the publishable item that the blog author has created. This information is meant to be timely, reflecting what the authors want to publish to the world now. It is understood that as time passes, blog posts content ages and becomes less relevent.
+
+- Comments:  A comment is the place where people including blog post author can react to the post, perticiapte in comment and replie dialogs.
+
+- Users:  A user is someone who interacts with the website, be they acting as an Author, an Administrator, or just a Reader. For public blogs, readers may be anonymous, but to write post and react to post a reader must be identified by the wensite .
+
 
 <h2>Technologies</h2>
 <table>
@@ -104,15 +117,3 @@
 ### 11. Replace baseUrl with your host address (eg:- http://localhost:3000/ ) for Api call in client side scripts present inside root -> public -> js
 ### 12. Run 'npm run dev' to run the app in development mode
 ### 13. open host addess to view the website.
-
-### Concepts
-
-#### This website is build on four basic concepts
-
-- Blogs:  The root concept of the website. A blog has posts .
-
-- Posts:  A blog post is the publishable item that the blog author has created. This information is meant to be timely, reflecting what the authors want to publish to the world now. It is understood that as time passes, blog posts content ages and becomes less relevent.
-
-- Comments:  A comment is the place where people including blog post author can react to the post, perticiapte in comment and replie dialogs.
-
-- Users:  A user is someone who interacts with the website, be they acting as an Author, an Administrator, or just a Reader. For public blogs, readers may be anonymous, but to write post and react to post a reader must be identified by the wensite .
